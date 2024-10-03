@@ -1,8 +1,15 @@
 document.getElementById("fetch-data").addEventListener("click", function() {
-    fetch('https://iu-quiz-backend.onrender.com/api/data')
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById("data-output").innerText = data.message;
+    fetch('https://iu-quiz-backend.onrender.com/api/data', {
+        
+        body: JSON.stringify({
+        email: login,
+        password: password,
+
+    })})
+    .then(function(a){
+        return a.json();
     })
-    .catch(error => console.error('Fehler:', error));
-});
+    .then(function (json) {
+        console.log(json)
+    })
+})
