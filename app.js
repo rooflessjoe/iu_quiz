@@ -1,11 +1,6 @@
 document.getElementById("fetch-data").addEventListener("click", function() {
-    fetch('https://iu-quiz-backend.onrender.com/api/data', {
-        
-        body: JSON.stringify({
-        name: name,
-        email: email,
-
-    })})
+    fetch('https://iu-quiz-backend.onrender.com/api/data')
+    
     .then(function(a){
         return a.json();
     })
