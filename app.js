@@ -2,8 +2,8 @@ document.getElementById("fetch-data").addEventListener("click", function() {
     fetch('https://iu-quiz-backend.onrender.com/api/data', {
         
         body: JSON.stringify({
-        email: login,
-        password: password,
+        name: name,
+        email: email,
 
     })})
     .then(function(a){
