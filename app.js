@@ -14,3 +14,8 @@ document.getElementById("fetch-data").addEventListener("click", function() {
         document.getElementById("data-output").innerText =  json[0].name + " " + json[0].email;
     })
 })
+document.getElementById("change-data").addEventListener("click", function() {
+    document.getElementById("fetch-data").style.display='none';
+    document.getElementById("add-button").style.display='flex';
+    document.getElementById("cancel-button").style.display='flex';
+})
