@@ -10,7 +10,7 @@ new Vue({
             this.message = 'Daten werden geladen...';
             
             // API-Aufruf zur PostgreSQL-Datenbank über dein Backend
-            fetch('https://my-backend.onrender.com/api/data')
+            fetch('https://iu-quiz-backend.onrender.com/api/data')
                 .then(response => response.json())
                 .then(data => {
                     this.users = data;  // Benutzerdaten in Vue.js speichern
