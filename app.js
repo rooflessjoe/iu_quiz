@@ -16,6 +16,6 @@ document.getElementById("fetch-data").addEventListener("click", function() {
 })
 document.getElementById("change-data").addEventListener("click", function() {
     document.getElementById("fetch-data").style.display='none';
-    document.getElementById("add-button").style.display='block';
-    document.getElementById("cancel-button").style.display='block';
+    document.getElementById("add-button").style.display='initial';
+    document.getElementById("cancel-button").style.display='initial';
 })
