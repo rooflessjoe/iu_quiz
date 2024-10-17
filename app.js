@@ -1,22 +1,20 @@
-// Abruf der Daten über den Button
-document.getElementById("fetch-data").addEventListener("click", function() {
-    
-    //Abruf der Daten über die API, liefert ein Promise mit Response
-    fetch('https://iu-quiz-backend.onrender.com/api/data')
-    
-    //Umwandlung des Response in JSON
-    .then(function(a){
-        return a.json();
-    })
-
-    //Extrahieren der gewünschten Informationen als Text
-    .then(function (json) {
-        document.getElementById("data-output").innerText =  json[0].name + " " + json[0].email;
-    })
-})
-document.getElementById("change-data").addEventListener("click", function() {
-    document.getElementById("fetch-data").style.display='none';
-    document.getElementById("change-data").style.display='none';
-    document.getElementById("add-button").style.display='initial';
-    document.getElementById("cancel-button").style.display='initial';
-})
+new Vue({
+    el: '#app',  // Verbindung zum App-Element in der HTML-Datei
+    data: {
+        message: 'Benutzerdaten werden geladen...',  // Initiale Nachricht
+        users: []  // Platzhalter für die Benutzerdaten
+    },
+    created() {
+        // API-Aufruf, um Benutzerdaten zu laden
+        fetch('https://my-backend.onrender.com/api/data')
+            .then(response => response.json())
+            .then(data => {
+                this.users = data;  // Benutzerdaten in Vue speichern
+                this.message = 'Benutzerdaten erfolgreich geladen!';
+            })
+            .catch(error => {
+                console.error('Fehler beim Laden der Daten:', error);
+                this.message = 'Fehler beim Laden der Daten.';
+            });
+    }
+});
