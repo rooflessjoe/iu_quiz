@@ -13,11 +13,11 @@
     <div id="app">
         <h1>Benutzerdaten</h1>
         <button @click="fetchData">Daten abrufen</button>
-        <p>{{ message }}<br>{{ user.name }} - {{ user.email }}</p>
+        <p>{{ message }}</p>
         <ul>
-            <li v-for="user in users" :key="user.id">
-                {{ user.name }} - {{ user.email }}
-            </li>
+            <div v-for="user in users" :key="user.id">
+                <p>{{ user.name }} - {{ user.email }}</p>
+            </div>
         </ul>
     </div>
 </body>
