@@ -14,9 +14,11 @@
         <h1>Benutzerdaten</h1>
         <button @click="fetchData">Daten abrufen</button>
         <p>{{ message }}</p>
-        <p>
-            {{ user.name }} - {{ user.email }}
-        </p>
+        <ul>
+            <li v-for="user in users" :key="user.id">
+                {{ user.name }} - {{ user.email }}
+            </li>
+        </ul>
     </div>
 </body>
 </html>
