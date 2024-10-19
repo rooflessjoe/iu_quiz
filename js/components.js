@@ -1,15 +1,22 @@
 export const Home = {
-    template: `<div class="container mt-4"><h1>Home</h1><p>Willkommen auf der Startseite!</p></div>`
+    template: `
+    <div class="container-fluid">
+        <h1>Home</h1>
+        <p>Willkommen auf der Startseite!</p>
+    </div>
+    `
 };
 
 export const About = {
     template: `
+    <div class="container-fluid">
     <h2>Benutzerdaten</h2>
-        <button @click="fetchData">Daten abrufen</button>
-        <p>{{ message }}</p>
-            <div v-for="user in userData" :key="user.id">
-                <p>{{ user.name }} - {{ user.email }}</p>
-            </div>
+    <button type="button" class="btn" @click="fetchData">Daten abrufen</button>
+    <p>{{ message }}</p>
+        <div class="container-fluid" v-for="user in userData" :key="user.id">
+            <p>{{ user.name }} - {{ user.email }}</p>
+        </div>
+    </div>
             `,
     
             data() {
@@ -41,7 +48,11 @@ export const About = {
 };
 
 export const Contact = {
-    template: `<div class="container mt-4"><h1>Kontakt</h1><p>So kannst du uns erreichen.</p></div>`
+    template: `
+    <div class="container-fluid">
+        <h1>Kontakt</h1><p>So kannst du uns erreichen.</p>
+    </div>
+    `
 };
 
 // Exportiere die Komponenten, damit sie in anderen Dateien verwendet werden können
