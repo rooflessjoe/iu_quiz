@@ -12,12 +12,12 @@ export const About = {
             </div>
             `,
     
-            data: {
+            /*data: {
                 message: 'Klicke den Button, um Daten abzurufen',
                 users: []  // Array zum Speichern der Benutzerdaten
             },
 
-            /*methods: {
+            methods: {
                 // Methode zum Abrufen der Daten von der API
                 fetchData() {
                     this.message = 'Daten werden geladen...';
