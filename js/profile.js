@@ -1,9 +1,7 @@
 Vue.component('data-component', {
-    data() {
-        return {
-            message: 'Klicke den Button, um Daten abzurufen',
-            users:[]
-        }
+    data: {
+        message: 'Klicke den Button, um Daten abzurufen',
+        users: []  // Array zum Speichern der Benutzerdaten
     },
     methods: {
         // Methode zum Abrufen der Daten von der API
