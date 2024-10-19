@@ -19,8 +19,9 @@
         </div>
     </noscript>
 
-    <div id="app">
+    <div id="app" class="container">
         <nav class="navbar navbar-expand-sm navbar-light bg-light">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="#">IU Quiz</a>
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -29,6 +30,7 @@
                         </li>
                     </ul>
                 </div>
+            </div>
         </nav>
         
         <component :is="currentComponent"></component>

@@ -10,12 +10,12 @@ export const Home = {
 export const About = {
     template: `
     <div class="container-fluid">
-    <h2>Benutzerdaten</h2>
-    <button type="button" class="btn" @click="fetchData">Daten abrufen</button>
-    <p>{{ message }}</p>
-        <div class="container-fluid" v-for="user in userData" :key="user.id">
-            <p>{{ user.name }} - {{ user.email }}</p>
-        </div>
+        <h2>Benutzerdaten</h2>
+        <button type="button" class="btn btn-primary" @click="fetchData">Daten abrufen</button>
+        <p>{{ message }}</p>
+            <div class="container-fluid" v-for="user in userData" :key="user.id">
+                <p>{{ user.name }} - {{ user.email }}</p>
+            </div>
     </div>
             `,
     
