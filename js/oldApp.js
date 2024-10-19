@@ -1,4 +1,5 @@
-Vue.component('data-component', {
+new Vue({
+    el: '#app',
     data: {
         message: 'Klicke den Button, um Daten abzurufen',
         users: []  // Array zum Speichern der Benutzerdaten
@@ -20,15 +21,5 @@ Vue.component('data-component', {
                     this.message = 'Fehler beim Laden der Daten.';
                 });
         }
-    },
-    template: `
-    <section>
-        <h2>Benutzerdaten</h2>
-        <button @click="fetchData">Daten abrufen</button>
-        <p>{{ message }}</p>
-            <div v-for="user in users" :key="user.id">
-                <p>{{ user.name }} - {{ user.email }}</p>
-            </div>
-    </section>
-    `
+    }
 });
