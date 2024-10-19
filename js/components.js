@@ -7,7 +7,7 @@ export const About = {
     <h2>Benutzerdaten</h2>
         <button @click="fetchData">Daten abrufen</button>
         <p>{{ message }}</p>
-            <div v-for="user in users" :key="user.id">
+            <div v-for="user in userData" :key="user.id">
                 <p>{{ user.name }} - {{ user.email }}</p>
             </div>
             `,
