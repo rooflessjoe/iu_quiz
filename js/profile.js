@@ -24,7 +24,7 @@ Vue.component('data-component', {
     template: `
     <section>
         <h2>Benutzerdaten</h2>
-        <button @click="fetchData">Daten abrufen</button>
+        <button>Daten abrufen</button>
     </section>
     `
 });
