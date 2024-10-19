@@ -45,10 +45,10 @@ Vue.createApp(App).mount('#app');
     return component.default;
 };*/
 
-const loadComponents = async () => {
+/*const loadComponents = async () => {
     //App.components.Home = await import('./components/Home.vue');
     App.components.About = await import('./components/Data.vue');
     //App.components.Contact = await import('./components/Contact.vue');
 };
 
-loadComponents();
+loadComponents();*/
