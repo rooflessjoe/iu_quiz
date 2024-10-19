@@ -17,7 +17,7 @@ export const About = {
                 users: []  // Array zum Speichern der Benutzerdaten
             },
 
-            methods: {
+            /*methods: {
                 // Methode zum Abrufen der Daten von der API
                 fetchData() {
                     this.message = 'Daten werden geladen...';
@@ -34,7 +34,7 @@ export const About = {
                             this.message = 'Fehler beim Laden der Daten.';
                         });
                 }
-            }
+            }*/
 };
 
 export const Contact = {
