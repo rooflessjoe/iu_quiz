@@ -40,3 +40,6 @@ const About = {
 const Contact = {
     template: `<div class="container mt-4"><h1>Kontakt</h1><p>So kannst du uns erreichen.</p></div>`
 };
+
+// Exportiere die Komponenten, damit sie in anderen Dateien verwendet werden können
+export { Home, About, Contact };
