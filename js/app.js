@@ -1,5 +1,7 @@
 import { Home, About, Contact } from './components.js';
 
+document.querySelector('nav').style.display = 'block';
+
 // Haupt-App
 const App = {
     data() {
