@@ -17,7 +17,7 @@ export const About = {
                 <p>{{ user.name }} - {{ user.email }}</p>
             </div>
     </div>
-            `,
+    `,
     
             data() {
                 return {

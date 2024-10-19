@@ -26,7 +26,7 @@
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item" v-for="item in menuItems" :key="item.name">
-                            <a class="nav-link" href="#" @click.prevent="setCurrentComponent(item.component)">{{ item.name }}</a>
+                            <a class="nav-link" href=# @click.prevent="setCurrentComponent(item.component)">{{ item.name }}</a>
                         </li>
                     </ul>
                 </div>
@@ -41,8 +41,10 @@
     <script defer type="module" src="js/components.js"></script>
     <script defer type="module" src="js/app.js"></script>
 
-    <footer>
-        <p class="text-center text-body-secondary">&copy; 2024 My Vue.js Website. All rights reserved.</p>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-center text-body-secondary">&copy; 2024 My Vue.js Website. All rights reserved.</p>
+        </div>
     </footer>
 </body>
 </html>
