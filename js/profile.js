@@ -25,10 +25,6 @@ Vue.component('data-component', {
     <section>
         <h2>Benutzerdaten</h2>
         <button @click="fetchData">Daten abrufen</button>
-        <p>{{ message }}</p>
-            <div v-for="user in users" :key="user.id">
-                <p>{{ user.name }} - {{ user.email }}</p>
-            </div>
     </section>
     `
 });
