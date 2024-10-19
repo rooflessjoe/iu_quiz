@@ -1,8 +1,8 @@
-const Home = {
+export const Home = {
     template: `<div class="container mt-4"><h1>Home</h1><p>Willkommen auf der Startseite!</p></div>`
 };
 
-const About = {
+export const About = {
     template: `
     <h2>Benutzerdaten</h2>
         <button @click="fetchData">Daten abrufen</button>
@@ -37,9 +37,9 @@ const About = {
             }
 };
 
-const Contact = {
+export const Contact = {
     template: `<div class="container mt-4"><h1>Kontakt</h1><p>So kannst du uns erreichen.</p></div>`
 };
 
 // Exportiere die Komponenten, damit sie in anderen Dateien verwendet werden können
-export { Home, About, Contact };
+//export { Home, About, Contact };
