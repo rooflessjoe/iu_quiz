@@ -1,22 +1,13 @@
+// Komponenten importieren
+//const Home = () => import('./components/Home.vue');
+const About = () => import('./components/Data.vue');
+//const Contact = () => import('./components/Contact.vue');
+
 const Home = {
     template: `<div class="container mt-4"><h1>Home</h1><p>Willkommen auf der Startseite!</p></div>`
 };
 
-// Dynamisch importieren der Komponenten
-const importComponent = async (componentName) => {
-    const component = await import(`./components/${componentName}.vue`);
-    return component.default;
-};
-
-const loadComponents = async () => {
-    //App.components.Home = await importComponent('Home');
-    App.components.About = await importComponent('Data');
-    //App.components.Contact = await importComponent('Contact');
-};
-
-loadComponents();
-
-//const About = {Data};
+//const About = {};
 
 const Contact = {
     template: `<div class="container mt-4"><h1>Kontakt</h1><p>So kannst du uns erreichen.</p></div>`
@@ -47,3 +38,17 @@ const App = {
 };
 
 Vue.createApp(App).mount('#app');
+
+// Dynamisch importieren der Komponenten
+/*const importComponent = async (componentName) => {
+    const component = await import(`./components/${componentName}.vue`);
+    return component.default;
+};*/
+
+const loadComponents = async () => {
+    //App.components.Home = await import('./components/Home.vue');
+    App.components.About = await import('./components/About.vue');
+    //App.components.Contact = await import('./components/Contact.vue');
+};
+
+loadComponents();
