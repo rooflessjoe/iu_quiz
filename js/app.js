@@ -1,8 +1,5 @@
 import { Home, About, Contact } from './components.js';
 
-document.getElementById("nav").style.display = "block";
-document.getElementById("footer").style.display = "block";
-
 // Haupt-App
 const App = {
     data() {
