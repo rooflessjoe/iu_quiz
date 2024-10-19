@@ -1,5 +1,5 @@
 Vue.component('data-component', {
-    data: {
+    /*data: {
         message: 'Klicke den Button, um Daten abzurufen',
         users: []  // Array zum Speichern der Benutzerdaten
     },
@@ -20,7 +20,7 @@ Vue.component('data-component', {
                     this.message = 'Fehler beim Laden der Daten.';
                 });
         }
-    },
+    },*/
     template: `
     <section>
         <h2>Benutzerdaten</h2>
