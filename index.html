@@ -21,8 +21,7 @@
     <nav>
         <ul class="nav">
             <li><a href="#" @click.prevent="currentView = 'home-component'">Home</a></li>
-            <li><a href="#" @click.prevent="currentView = 'about-component'">About</a></li>
-            <li><a href="#" @click.prevent="currentView = 'contact'">Contact</a></li>
+            <li><a href="#" @click.prevent="currentView = 'data-component'">About</a></li>
         </ul></nav>
     <main>
         <component :is="currentView"></component>
