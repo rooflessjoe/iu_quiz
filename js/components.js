@@ -12,9 +12,12 @@ export const About = {
             </div>
             `,
     
-            data: {
-                message: 'Klicke den Button, um Daten abzurufen',
-                users: []  // Array zum Speichern der Benutzerdaten
+            data() {
+                return {
+                    message: 'Klicke den Button, um Daten abzurufen',
+                    userData: null,
+                    error: null
+                };
             },
 
             /*methods: {
