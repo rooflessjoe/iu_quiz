@@ -20,7 +20,7 @@ export const About = {
                 };
             },
 
-            /*methods: {
+            methods: {
                 // Methode zum Abrufen der Daten von der API
                 fetchData() {
                     this.message = 'Daten werden geladen...';
@@ -29,7 +29,7 @@ export const About = {
                     fetch('https://iu-quiz-backend.onrender.com/api/data')
                         .then(response => response.json())
                         .then(data => {
-                            this.users = data;  // Benutzerdaten in Vue.js speichern
+                            this.userData = data;  // Benutzerdaten in Vue.js speichern
                             this.message = 'Daten erfolgreich geladen!';
                         })
                         .catch(error => {
@@ -37,7 +37,7 @@ export const About = {
                             this.message = 'Fehler beim Laden der Daten.';
                         });
                 }
-            }*/
+            }
 };
 
 export const Contact = {
