@@ -7,7 +7,7 @@ export const Home = {
     `
 };
 
-export const About = {
+/*export const About = {
     template: `
     <div class="container-fluid">
         <h2>Benutzerdaten</h2>
@@ -45,7 +45,7 @@ export const About = {
                         });
                 }
             }
-};
+};*/
 
 export const Contact = {
     template: `

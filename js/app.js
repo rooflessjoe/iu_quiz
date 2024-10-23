@@ -1,5 +1,5 @@
 import { Home, Contact } from './components.js';
-import { About } from '/components/about.js'
+import { About } from './components/about.js'
 
 // Haupt-App
 const App = {
