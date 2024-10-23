@@ -1,7 +1,9 @@
-//import { Home, About, Contact } from './components/*.js';
+import { Contact } from './components/contact.js';
+import { About } from './components/about.js';
+import { Home } from './components/home.js';
 
 // Haupt-App
-const App = {
+const App = Vue.createApp ({
     data() {
         return {
             menuItems: [
@@ -9,30 +11,31 @@ const App = {
                 { name: 'Über', component: 'About' },
                 { name: 'Kontakt', component: 'Contact' }
             ],
-            currentComponent: 'Home'  // Standardmäßig Home anzeigen
+            currentComponent: Home  // Standardmäßig Home anzeigen
         };
     },
-    components: {},
+    components: {
+        Home,
+        About,
+        Contact
+    },
     methods: {
         setCurrentComponent(component) {
             this.currentComponent = component;
+            sessionStorage.setItem('currentComponent', component); // Speichere die aktuelle Komponente in sessionStorage
+        },
+
+        loadCurrentComponent() {
+            const savedComponent = sessionStorage.getItem('currentComponent'); // Lade die gespeicherte Komponente
+            if (savedComponent) {
+              this.currentComponent = savedComponent; // Setze die aktuelle Komponente auf die gespeicherte
+            }
         }
-    }
-};
-
-// Dynamische Imports der Komponenten
-const components = import.meta.glob('./components/*.js');
-
-// Vor dem Mounten der App die Komponenten registrieren
-app.mixin({
-  async beforeCreate() {
-    // Dynamische Registrierung der Komponenten
-    for (const path in components) {
-      const module = await components[path](); // Komponente importieren
-      const componentName = path.split('/').pop().replace('.js', ''); // Name extrahieren
-      this.$options.components[componentName] = module.default; // In der Komponenten-Option registrieren
-    }
-  }
+    },
+    created() {
+        // Lade die aktuell gespeicherte Komponente beim Erstellen der App
+        this.loadCurrentComponent();
+      }
 });
 
-Vue.createApp(App).mount('#app');
+App.mount('#app');
