@@ -29,7 +29,7 @@
                 <div id= "navbarNav" class="collapse navbar-collapse">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item" v-for="item in menuItems" :key="item.name">
-                            <a class="nav-link" href=# @click.prevent="setCurrentComponent(item.component)">{{ item.name }}</a>
+                            <a class="nav-link active" href=# @click.prevent="setCurrentComponent(item.component)">{{ item.name }}</a>
                         </li>
                     </ul>
                 </div>
