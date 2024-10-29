@@ -1,4 +1,3 @@
-const code = `
 import { Contact } from './components/contact.js';
 import { About } from './components/about.js';
 import { Home } from './components/home.js';
@@ -44,12 +43,4 @@ const App = Vue.createApp ({
       }
 });
 
-App.mount('#app');`;
-
-function obfuscateAndExecute(code) {
-    const obfuscatedCode = JavaScriptObfuscator.obfuscate(code, {
-      compact: true,
-      controlFlowFlattening: true
-    }).getObfuscatedCode();
-    eval(obfuscatedCode);
-  }
+App.mount('#app');
