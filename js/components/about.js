@@ -23,14 +23,14 @@ export const About = {
                 fetchData() {
                     this.message = 'Daten werden geladen...';
 
-                    sessionStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyIiwiaWF0IjoxNjE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c');;
+                    sessionStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyIiwiaWF0IjoxNjE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c');
                     const token = sessionStorage.getItem('token');
 
                     // API-Aufruf zur PostgreSQL-Datenbank über dein Backend
                     fetch('https://iu-quiz-backend.onrender.com/api/data', {
                         method: 'GET',
                         headers: {
-                            'authorization': `Bearer ${token}`, // Token im Authorization-Header senden
+                            'Authorization': `Bearer ${token}`, // Token im Authorization-Header senden
                             'Content-Type': 'application/json'
                         }
                     })
