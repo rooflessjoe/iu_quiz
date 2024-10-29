@@ -23,8 +23,9 @@ export const About = {
                 fetchData() {
                     this.message = 'Daten werden geladen...';
 
-                    const token = 123;
-                    
+                    sessionStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyIiwiaWF0IjoxNjE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c');;
+                    const token = sessionStorage.getItem('token');
+
                     // API-Aufruf zur PostgreSQL-Datenbank über dein Backend
                     fetch('https://iu-quiz-backend.onrender.com/api/data', {
                         method: 'GET',
