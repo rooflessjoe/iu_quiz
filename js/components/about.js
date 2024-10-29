@@ -30,7 +30,7 @@ export const About = {
                     fetch('https://iu-quiz-backend.onrender.com/api/data', {
                         method: 'GET',
                         headers: {
-                            'Authorization': `Bearer ${token}`, // Token im Authorization-Header senden
+                            'authorization': `Bearer ${token}`, // Token im Authorization-Header senden
                             'Content-Type': 'application/json'
                         }
                     })
