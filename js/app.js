@@ -20,6 +20,10 @@ const App = Vue.createApp ({
         Contact
     },
     methods: {
+        /*loadToken(){
+            const token = sessionStorage.getItem('token');
+        },*/
+
         setCurrentComponent(component) {
             this.currentComponent = component;
             sessionStorage.setItem('currentComponent', component); // Speichere die aktuelle Komponente in sessionStorage
@@ -35,6 +39,7 @@ const App = Vue.createApp ({
     created() {
         // Lade die aktuell gespeicherte Komponente beim Erstellen der App
         this.loadCurrentComponent();
+        //this.loadToken();
       }
 });
 

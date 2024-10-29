@@ -22,9 +22,17 @@ export const About = {
                 // Methode zum Abrufen der Daten von der API
                 fetchData() {
                     this.message = 'Daten werden geladen...';
+
+                    const token = 123;
                     
                     // API-Aufruf zur PostgreSQL-Datenbank über dein Backend
-                    fetch('https://iu-quiz-backend.onrender.com/api/data')
+                    fetch('https://iu-quiz-backend.onrender.com/api/data', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`, // Token im Authorization-Header senden
+                            'Content-Type': 'application/json'
+                        }
+                    })
                         .then(response => response.json())
                         .then(data => {
                             this.userData = data;  // Benutzerdaten in Vue.js speichern
