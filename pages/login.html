@@ -16,7 +16,8 @@
     
     <script src="https://cdn.jsdelivr.net/npm/javascript-obfuscator@4.1.1/dist/index.browser.min.js"></script>
 
-    <script>
+    <script defer>
+        document.addEventListener("DOMContentLoaded", function() {
         const code =`
         async function handleLogin(event) {
             event.preventDefault(); // Verhindert das Standardverhalten des Formulars
@@ -39,6 +40,25 @@
                 alert('Invalid credentials');
             }
         };`;
+        // Überprüfen, ob der Obfuscator geladen ist
+        if (typeof JavaScriptObfuscator !== 'undefined') {
+                // Obfuskation zur Laufzeit
+                const obfuscatedCode = JavaScriptObfuscator.obfuscate(originalCode, {
+                    compact: true,
+                    controlFlowFlattening: true
+                }).getObfuscatedCode();
+                
+            } else {
+                console.error("JavaScriptObfuscator ist nicht geladen.");
+            }
+        });
+    </script>
+    <script>
+        // Obfuskation des Codes zur Laufzeit
+        const obfuscatedCode = JavaScriptObfuscator.obfuscate(code, {
+          compact: true,
+          controlFlowFlattening: true
+        }).getObfuscatedCode();
     </script>
 </head>
 <body>
@@ -46,7 +66,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <h2 class="text-center mt-5">Login</h2>
-                <form id="loginForm" onsubmit="handleLogin(event)">
+                <form id="loginForm" onsubmit="eval(obfuscatedCode)">
                     <div class="form-group mt-4">
                         <input type="text" class="form-control" id="username" placeholder="Benutzername" required>
                     </div>
@@ -58,15 +78,5 @@
             </div>
         </div>
     </div>
-    <script>
-    // Obfuskation des Codes zur Laufzeit
-        const obfuscatedCode = JavaScriptObfuscator.obfuscate(code, {
-          compact: true,
-          controlFlowFlattening: true
-        }).getObfuscatedCode();
-    
-        // Ausführen des obfuskierten Codes
-        eval(obfuscatedCode);
-    </script>
 </body>
 </html>
