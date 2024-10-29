@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <script>
-        function handleLogin(event) {
+        async function handleLogin(event) {
             event.preventDefault(); // Verhindert das Standardverhalten des Formulars
-            document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            const response = await fetch('/login', {
+            const response = await fetch('/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -23,13 +21,12 @@
             if (response.ok) {
                 const data = await response.json();
                 sessionStorage.setItem('token', data.token); // Token im sessionStorage speichern
-                window.location.href = 'index.html';
+                window.location.href = '../index.html';
             } else {
                 //alert('Invalid credentials');
                 window.location.href = '../index.html';
             }
-        });
-        }
+        };
     </script>
 </head>
 <body>
