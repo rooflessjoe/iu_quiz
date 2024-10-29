@@ -17,7 +17,7 @@ export const About = {
                     error: null
                 };
             },
-
+            
             methods: {
                 // Methode zum Abrufen der Daten von der API
                 fetchData() {

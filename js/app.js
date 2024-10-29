@@ -44,6 +44,6 @@ const App = Vue.createApp ({
       }
 });
 
-App.mount('#app');`
+App.mount('#app');`;
 
 obfuscateAndExecute(code);
