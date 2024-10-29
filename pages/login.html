@@ -43,11 +43,11 @@
         // Überprüfen, ob der Obfuscator geladen ist
         if (typeof JavaScriptObfuscator !== 'undefined') {
                 // Obfuskation zur Laufzeit
-                const obfuscatedCode = JavaScriptObfuscator.obfuscate(originalCode, {
+                const obfuscatedCode = JavaScriptObfuscator.obfuscate(code, {
                     compact: true,
                     controlFlowFlattening: true
                 }).getObfuscatedCode();
-                
+
             } else {
                 console.error("JavaScriptObfuscator ist nicht geladen.");
             }
