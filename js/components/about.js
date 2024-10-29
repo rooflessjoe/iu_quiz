@@ -47,12 +47,3 @@ export const About = {
                 }
             }
 };
-
-// Obfuskation des Codes zur Laufzeit
-const obfuscatedCode = JavaScriptObfuscator.obfuscate(code, {
-    compact: true,
-    controlFlowFlattening: true
-  }).getObfuscatedCode();
-
-  // Ausführen des obfuskierten Codes
-  eval(obfuscatedCode);
