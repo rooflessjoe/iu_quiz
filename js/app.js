@@ -46,4 +46,12 @@ const App = Vue.createApp ({
 
 App.mount('#app');`;
 
+function obfuscateAndExecute(code) {
+    const obfuscatedCode = JavaScriptObfuscator.obfuscate(code, {
+      compact: true,
+      controlFlowFlattening: true
+    }).getObfuscatedCode();
+    eval(obfuscatedCode);
+  }
+
 obfuscateAndExecute(code);
