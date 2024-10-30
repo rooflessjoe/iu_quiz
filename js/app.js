@@ -11,7 +11,8 @@ const App = Vue.createApp ({
                 { name: 'Über', component: 'About' },
                 { name: 'Kontakt', component: 'Contact' }
             ],
-            currentComponent: Home  // Standardmäßig Home anzeigen
+            currentComponent: Home,  // Standardmäßig Home anzeigen
+            isLoggedIn: false
         };
     },
     components: {
