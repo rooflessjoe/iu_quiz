@@ -3,7 +3,7 @@ export const About = {
     template: `
     <div class="container-fluid">
         <h2>Benutzerdaten</h2>
-        <div v-if="{ message }==='Daten werden geladen...'">
+        <div v-if="message === 'Daten werden geladen...'">
             <button class="btn btn-primary" type="button" disabled>
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 Lade Daten...
