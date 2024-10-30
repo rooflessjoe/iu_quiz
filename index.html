@@ -43,20 +43,11 @@
                             <a class="nav-link" href=# @click.prevent="setCurrentComponent(item.component)">{{ item.name }}</a>
                         </li>
                     </ul>
-                    <div v-if="sessionStorage.getItem('token')==='null'">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="btn btn-success" href="pages/login.html">Login</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div v-else>
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <span>Eingeloggt</span>
-                            </li>
-                        </ul>
-                    </div>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="btn btn-success" href="pages/login.html">Login</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
