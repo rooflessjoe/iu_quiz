@@ -20,6 +20,10 @@
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
+            document.getElementById("loginButton").innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
+            document.getElementById("loginButton").setAttribute("type", "button");
+            document.getElementById("loginButton").setAttribute("disabled", "true");
+            document.getElementById("loginButton").classList.remove("btn-block", "mt-4");
             const response = await fetch('https://iu-quiz-backend.onrender.com/api/login', {
                 method: 'POST',
                 headers: {
@@ -52,7 +56,7 @@
                     <div class="form-group mt-4">
                         <input type="password" class="form-control" id="password" placeholder="Passwort" required>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block mt-4">Login</button>
+                    <button id="loginButton" type="submit" class="btn btn-primary btn-block mt-4">Login</button>
                 </form>
             </div>
         </div>
