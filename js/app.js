@@ -23,6 +23,9 @@ const App = Vue.createApp ({
         /*loadToken(){
             const token = sessionStorage.getItem('token');
         },*/
+        checkLoginStatus() {
+            this.isLoggedIn = !!sessionStorage.getItem('token');
+        },
 
         setCurrentComponent(component) {
             this.currentComponent = component;
