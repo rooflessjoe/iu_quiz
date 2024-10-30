@@ -1,8 +1,17 @@
+//Datenabfrage Test
 export const About = {
     template: `
     <div class="container-fluid">
         <h2>Benutzerdaten</h2>
-        <button type="button" class="btn btn-primary" @click="fetchData">Daten abrufen</button>
+        <div v-if="{{ message }}==='Daten werden geladen...'">
+            <button class="btn btn-primary" type="button" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Lade Daten...
+            </button>
+        </div>
+        <div v-else>
+            <button type="button" class="btn btn-primary" @click="fetchData">Daten abrufen</button>
+        </div>
         <p>{{ message }}</p>
             <div class="container-fluid" v-for="user in userData" :key="user.id">
                 <p>{{ user.name }} - {{ user.email }}</p>
