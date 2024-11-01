@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vue.js Quiz</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>Quiz</h1>
+    <div v-if="currentQuestion < questions.length">
+      <p>{{ questions[currentQuestion].question }}</p>
+      <ul>
+        <li v-for="(answer, index) in questions[currentQuestion].answers" :key="index">
+          <button @click="checkAnswer(index)">{{ answer }}</button>
+        </li>
+      </ul>
+    </div>
+    <div v-else>
+      <h2>Quiz beendet!</h2>
+      <p>Du hast {{ score }} von {{ questions.length }} richtig beantwortet.</p>
+      <button @click="resetQuiz">Quiz neu starten</button>
+    </div>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        currentQuestion: 0,
+        score: 0,
+        questions: [
+          { question: 'Was ist die Hauptstadt von Frankreich?', answers: ['Paris', 'London', 'Berlin', 'Madrid'], correct: 0 },
+          { question: 'Wie viele Kontinente gibt es?', answers: ['5', '6', '7', '8'], correct: 2 },
+          { question: 'Wer hat die Relativitätstheorie entwickelt?', answers: ['Isaac Newton', 'Albert Einstein', 'Galileo Galilei', 'Nikola Tesla'], correct: 1 },
+          { question: 'Welches Element hat das chemische Symbol O?', answers: ['Gold', 'Silber', 'Sauerstoff', 'Wasserstoff'], correct: 2 },
+          { question: 'Wie viele Planeten hat unser Sonnensystem?', answers: ['7', '8', '9', '10'], correct: 1 },
+          { question: 'Welches ist das größte Land der Welt?', answers: ['China', 'USA', 'Kanada', 'Russland'], correct: 3 },
+          { question: 'Wie viele Farben hat ein Regenbogen?', answers: ['5', '6', '7', '8'], correct: 2 },
+          { question: 'Wer schrieb "Hamlet"?', answers: ['Charles Dickens', 'William Shakespeare', 'Mark Twain', 'Jane Austen'], correct: 1 },
+          { question: 'Welches ist das kleinste Knochen im menschlichen Körper?', answers: ['Stirnbein', 'Steigbügel', 'Schlüsselbein', 'Elle'], correct: 1 },
+          { question: 'Wie viele Herzen hat ein Oktopus?', answers: ['1', '2', '3', '4'], correct: 2 }
+        ]
+      },
+      methods: {
+        checkAnswer(index) {
+          if (index === this.questions[this.currentQuestion].correct) {
+            this.score++;
+          }
+          this.currentQuestion++;
+        },
+        resetQuiz() {
+          this.currentQuestion = 0;
+          this.score = 0;
+        }
+      }
+    });
+  </script>
+</body>
+</html>
