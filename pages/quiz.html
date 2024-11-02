@@ -25,9 +25,12 @@
   </div>
 
   <script>
-    new Vue({
-      el: '#app',
-      data: {
+  
+  const { createApp } = Vue;
+
+createApp({
+  data() {
+    return {
         currentQuestion: 0,
         score: 0,
         questions: [
@@ -42,7 +45,8 @@
           { question: 'Welches ist das kleinste Knochen im menschlichen Körper?', answers: ['Stirnbein', 'Steigbügel', 'Schlüsselbein', 'Elle'], correct: 1 },
           { question: 'Wie viele Herzen hat ein Oktopus?', answers: ['1', '2', '3', '4'], correct: 2 }
         ]
-      },
+      };
+    },
       methods: {
         checkAnswer(index) {
           if (index === this.questions[this.currentQuestion].correct) {
@@ -55,7 +59,7 @@
           this.score = 0;
         }
       }
-    });
+    }).mount('#app');
   </script>
 </body>
 </html>
