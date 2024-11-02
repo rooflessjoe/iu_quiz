@@ -10,15 +10,15 @@
 <body>
   <div id="app" class="container mt-5">
     <h1 class="text-center">Quiz</h1>
-    <div v-if="currentQuestion < questions.length" class="mt-4">
+    <div class="mt-4" v-if="currentQuestion < questions.length">
       <p class="lead">{{ questions[currentQuestion].question }}</p>
       <ul class="list-group">
-        <li v-for="(answer, index) in questions[currentQuestion].answers" :key="index" class="list-group-item">
+        <li class="list-group-item" v-for="(answer, index) in questions[currentQuestion].answers" :key="index">
           <button class="btn btn-primary btn-block" @click="checkAnswer(index)">{{ answer }}</button>
         </li>
       </ul>
     </div>
-    <div v-else class="mt-4 text-center">
+    <div class="mt-4 text-center" v-else>
       <h2>Quiz beendet!</h2>
       <p class="lead">Du hast {{ score }} von {{ questions.length }} richtig beantwortet.</p>
       <button class="btn btn-success" @click="resetQuiz">Quiz neu starten</button>
