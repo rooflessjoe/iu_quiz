@@ -1,4 +1,4 @@
-/*async function handleLogin(event) {
+async function handleLogin(event) {
     event.preventDefault(); // Verhindert das Standardverhalten des Formulars
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
@@ -34,9 +34,9 @@
         loginButton.classList.add("btn-block");
         alert('Anmeldedaten nicht korrekt');
     }
-}*/
+}
 
-const Login =  Vue.createApp ({
+/*const Login =  Vue.createApp ({
             data() {
                 return {
                     username: '',
@@ -74,4 +74,4 @@ const Login =  Vue.createApp ({
             },
 });
 
-Login.mount('#loginForm');
+Login.mount('#loginForm');*/
