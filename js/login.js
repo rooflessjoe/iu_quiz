@@ -1,4 +1,4 @@
-async function handleLogin(event) {
+/*async function handleLogin(event) {
     event.preventDefault(); // Verhindert das Standardverhalten des Formulars
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
@@ -34,4 +34,44 @@ async function handleLogin(event) {
         loginButton.classList.add("btn-block");
         alert('Anmeldedaten nicht korrekt');
     }
-}
+}*/
+
+const Login =  Vue.createApp ({
+            data() {
+                return {
+                    username: '',
+                    password: '',
+                    isLoading: false,
+                };
+            },
+            
+            methods: {
+                // Methode zum Abrufen der Daten von der API
+                async handleLogin() {
+                    this.isLoading = true;
+                    try {
+                      const response = await fetch('https://iu-quiz-backend.onrender.com/api/login', {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ username: this.username, password: this.password }),
+                      });
+              
+                      if (response.ok) {
+                        const data = await response.json();
+                        sessionStorage.setItem('token', data.token);
+                        this.$router.push('/index.html');
+                      } else {
+                        alert('Anmeldedaten nicht korrekt');
+                      }
+                    } catch (error) {
+                      console.error('Fehler beim Login:', error);
+                    } finally {
+                      this.isLoading = false;
+                    }
+                },
+            },
+});
+
+Login.mount('#loginForm');
