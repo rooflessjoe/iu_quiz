@@ -47,10 +47,10 @@ const Login =  Vue.createApp ({
             
             methods: {
                 // Methode zum Abrufen der Daten von der API
-                async handleLogin() {
+                handleLogin() {
                     this.isLoading = true;
                     try {
-                      const response = await fetch('https://iu-quiz-backend.onrender.com/api/login', {
+                      const response = fetch('https://iu-quiz-backend.onrender.com/api/login', {
                         method: 'POST',
                         headers: {
                           'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ const Login =  Vue.createApp ({
                       });
               
                       if (response.ok) {
-                        const data = await response.json();
+                        const data = response.json();
                         sessionStorage.setItem('token', data.token);
                         this.$router.push('/index.html');
                       } else {
