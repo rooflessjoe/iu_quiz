@@ -61,7 +61,7 @@ const Login =  Vue.createApp ({
                       if (response.ok) {
                         const data = response.json();
                         sessionStorage.setItem('token', data.token);
-                        this.$router.push('/index.html');
+                        this.$router.push('../pages/login.html');
                       } else {
                         alert('Anmeldedaten nicht korrekt');
                       }
