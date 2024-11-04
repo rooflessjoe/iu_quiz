@@ -12,7 +12,9 @@ export const About = {
         <div v-else>
             <button type="button" class="btn btn-primary" @click="fetchData">Daten abrufen</button>
         </div>
-        <p :class="{ 'alert alert-warning': error !== null}">{{ message }}</p>
+        <div :class="{ 'alert alert-warning': error !== null}">
+            <p>{{ message }}</p>
+        </div>
             <div class="container-fluid" v-for="user in userData" :key="user.id">
                 <p>{{ user.name }} - {{ user.email }}</p>
             </div>
@@ -43,7 +45,7 @@ export const About = {
                             'Authorization': `Bearer ${token}`, // Token im Authorization-Header senden
                             'Content-Type': 'application/json'
                         }
-                    })
+                    })  .then(this.loading = false)
                         .then(response => response.json())
                         .then(data => {
                             this.userData = data;  // Benutzerdaten in Vue.js speichern
