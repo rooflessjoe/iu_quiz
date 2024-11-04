@@ -3,7 +3,7 @@ export const About = {
     template: `
     <div class="container-fluid">
         <h2>Benutzerdaten</h2>
-        <div v-if="message === 'Daten werden geladen...'">
+        <div v-if="loading">
             <button class="btn btn-primary" type="button" disabled>
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 Lade Daten...
@@ -23,14 +23,16 @@ export const About = {
                 return {
                     message: 'Klicke den Button, um Daten abzurufen',
                     userData: null,
-                    error: null
+                    error: null,
+                    loading: false
                 };
             },
             
             methods: {
                 // Methode zum Abrufen der Daten von der API
                 fetchData() {
-                    this.message = 'Daten werden geladen...';
+                    this.message = '';
+                    this.loading = true;
 
                     const token = sessionStorage.getItem('token');
 
