@@ -12,7 +12,7 @@ export const About = {
         <div v-else>
             <button type="button" class="btn btn-primary" @click="fetchData">Daten abrufen</button>
         </div>
-        <p>{{ message }}</p>
+        <p:class="{ alert: error }">{{ message }}</p>
             <div class="container-fluid" v-for="user in userData" :key="user.id">
                 <p>{{ user.name }} - {{ user.email }}</p>
             </div>
