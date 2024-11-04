@@ -25,9 +25,18 @@
 </head>
 <body>
     <noscript>
+        <style>
+            body * {
+                display: none;
+            }
+            .noscript-message {
+                display: block;
+            }
+        </style>
         <div class="noscript-message">
             JavaScript ist deaktiviert. Bitte aktivieren Sie JavaScript, um die volle Funktionalität dieser Seite zu nutzen.
         </div>
+    </noscript>
 
     <div id="app" class="fixed-top">
         <nav class="navbar navbar-expand-sm navbar-light bg-light w-100 container-fluid">
@@ -57,7 +66,6 @@
             <component :is="currentComponent"></component>
         </div>
     </div>
-</noscript>
 
     <footer class="footer mt-auto py-3 bg-light fixed-bottom">
         <div class="container text-center">
