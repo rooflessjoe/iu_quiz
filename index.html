@@ -22,6 +22,8 @@
 
     <!-- Javascript -->
     <script defer type="module" src="js/mainApp.js"></script>
+
+    <script src="/js/urlAlias.js"></script>
 </head>
 <body>
     <noscript>
@@ -63,21 +65,6 @@
             <component :is="currentComponent"></component>
         </div>
     </div>
-
-    <script>
-        // Prüfe, ob die URL auf /home oder /login umgeleitet werden soll
-        const aliasMap = {
-            '/home': '/index.html',
-            '/login': '/login.html'
-        };
-    
-        const target = aliasMap[window.location.pathname];
-        if (target) {
-            // Lade die Zielseite, aber ersetze die URL in der Adressleiste
-            history.pushState({}, '', window.location.pathname);
-            window.location.replace(target);
-        }
-    </script>
 
     <footer class="footer mt-auto py-3 bg-light fixed-bottom">
         <div class="container text-center">
