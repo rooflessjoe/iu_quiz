@@ -2,38 +2,24 @@ import { Contact } from './components/contact.js';
 import { About } from './components/about.js';
 import { Home } from './components/home.js';
 
-
-// Router konfigurieren
-const routes = [
-    { path: '/', component: Home, name: 'Home' },          // Standard-Route
-    { path: '/about', component: About, name: 'About' },  // Über
-    { path: '/contact', component: Contact, name: 'Contact' } // Kontakt
-];
-
-const router = VueRouter.createRouter({
-    history: VueRouter.createWebHistory(), // HTML5-History-Modus
-    routes,
-});
-
-
 // Haupt-App
 const App = Vue.createApp ({
     data() {
         return {
             menuItems: [
-                { name: 'Home', path: '/'},//component: 'Home' },
-                { name: 'Über', path: 'about'},//component: 'About' },
-                { name: 'Kontakt', path: 'contact'},//component: 'Contact' }
+                { name: 'Home', component: 'Home' },
+                { name: 'Über', component: 'About' },
+                { name: 'Kontakt', component: 'Contact' }
             ],
             currentComponent: Home,  // Standardmäßig Home anzeigen
             isLoggedIn: false
         };
     },
-    /*components: {
+    components: {
         Home,
         About,
         Contact
-    },*/
+    },
     methods: {
         /*loadToken(){
             const token = sessionStorage.getItem('token');

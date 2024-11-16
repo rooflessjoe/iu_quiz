@@ -20,8 +20,6 @@
     <!-- Vue.js via CDN Core JS -->
     <script defer src="https://cdn.jsdelivr.net/npm/vue@3.5.12/dist/vue.global.prod.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue-router@4.4.5"></script>
-
     <!-- Javascript -->
     <script defer type="module" src="js/mainApp.js"></script>
 </head>
@@ -47,7 +45,7 @@
                 <div id= "navbarNav" class="collapse navbar-collapse">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item" v-for="item in menuItems" :key="item.name">
-                            <router-link class="nav-link" href=# @click.prevent="setCurrentComponent(item.component)">{{ item.name }}</router-link>
+                            <a class="nav-link" href=# @click.prevent="setCurrentComponent(item.component)">{{ item.name }}</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -62,10 +60,24 @@
             </div>
         </nav>
         <div class="content py-3">
-            <!--component :is="currentComponent"></component-->
-            <router-view></router-view>
+            <component :is="currentComponent"></component>
         </div>
     </div>
+
+    <script>
+        // Prüfe, ob die URL auf /home oder /login umgeleitet werden soll
+        const aliasMap = {
+            '/home': '/index.html',
+            '/login': '/login.html'
+        };
+    
+        const target = aliasMap[window.location.pathname];
+        if (target) {
+            // Lade die Zielseite, aber ersetze die URL in der Adressleiste
+            history.pushState({}, '', window.location.pathname);
+            window.location.replace(target);
+        }
+    </script>
 
     <footer class="footer mt-auto py-3 bg-light fixed-bottom">
         <div class="container text-center">
