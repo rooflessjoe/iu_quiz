@@ -61,7 +61,9 @@ export const About = {
                             this.error = true;
                             this.message = 'Fehler beim Laden der Daten.';
                         })
-                        .finally(this.loading = false);
+                        .finally(() => {
+                            this.loading = false;
+                        });
             }
 }
 };
