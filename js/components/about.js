@@ -33,17 +33,19 @@ export const About = {
                 };
             },
             
-            /*methods: {
+            methods: {
                 // Methode zum Abrufen der Daten von der API
-                async fetchData() {
+                fetchData() {
                     this.message = '';
                     this.error = null;
                     this.loading = true;
 
+                    console.log(message, error, loading);
+
                     const token = sessionStorage.getItem('token');
 
                     // API-Aufruf zur PostgreSQL-Datenbank über dein Backend
-                    await fetch('https://iu-quiz-backend.onrender.com/api/data', {
+                    fetch('https://iu-quiz-backend.onrender.com/api/data', {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`, // Token im Authorization-Header senden
@@ -59,34 +61,11 @@ export const About = {
                             console.error('Fehler beim Laden der Daten:', error);
                             this.message = 'Fehler beim Laden der Daten.';
                         })
-                        .finally(this.loading = false);*/
-
-        async fetchData() {
-        this.loading = true; // Aktiviert den Spinner
-        this.error = null;
-        this.message = '';
-
-        try {
-            const response = await fetch('https://iu-quiz-backend.onrender.com/api/data', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`, // Token im Authorization-Header senden
-                    'Content-Type': 'application/json'
-                }
-            });
-            if (!response.ok) throw new Error('Fehler beim Abrufen der Daten');
-            const data = await response.json();
-            this.userData = data; // Aktualisiert die Benutzerdaten
-            this.message = 'Daten erfolgreich geladen!';
-        } catch (err) {
-            this.error = 'Fehler beim Abrufen der Daten';
-        } finally {
-            this.loading = false; // Deaktiviert den Spinner
-        }
-    },
-                }
-            //}
-//};*/
+                        .then(console.log(message, error, loading))
+                        .finally(this.loading = false);
+            }
+}
+};
 /*template: `
         <div>
             <div :class="{ 
