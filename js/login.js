@@ -1,4 +1,4 @@
-async function handleLogin(event) {
+/*async function handleLogin(event) {
     event.preventDefault(); // Verhindert das Standardverhalten des Formulars
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
@@ -34,44 +34,45 @@ async function handleLogin(event) {
         loginButton.classList.add("btn-block");
         alert('Anmeldedaten nicht korrekt');
     }
-}
+}*/
 
-/*const Login =  Vue.createApp ({
+const Login =  Vue.createApp ({
             data() {
                 return {
                     username: '',
                     password: '',
-                    isLoading: false,
+                    error: null,
+                    loading: false,
                 };
             },
             
             methods: {
                 // Methode zum Abrufen der Daten von der API
                 handleLogin() {
-                    this.isLoading = true;
-                    try {
-                      const response = fetch('https://iu-quiz-backend.onrender.com/api/login', {
+                    this.loading = true;
+                    
+                    fetch('https://iu-quiz-backend.onrender.com/api/login', {
                         method: 'POST',
                         headers: {
                           'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({ username: this.username, password: this.password }),
-                      });
-              
-                      if (response.ok) {
-                        const data = response.json();
-                        sessionStorage.setItem('token', data.token);
-                        this.$router.push('../index.html');
-                      } else {
-                        alert('Anmeldedaten nicht korrekt');
+                      })
+
+                        .then(response => response.json())
+                        .then(data => {
+                            sessionStorage.setItem('token', data.token);
+                            this.message = 'Daten erfolgreich geladen!';
+                            this.$router.push('../index.html');
+                        })
+                        .catch(error => {
+                            console.error('Anmeldedaten nicht korrekt', error);
+                            this.error = true;
+                            alert('Anmeldedaten nicht korrekt');
+                        })
+                        .finally(this.loading = false);
                       }
-                    } catch (error) {
-                      console.error('Fehler beim Login:', error);
-                    } finally {
-                      this.isLoading = false;
-                    }
-                },
-            },
+            }
 });
 
-Login.mount('#loginForm');*/
+Login.mount('#loginForm');

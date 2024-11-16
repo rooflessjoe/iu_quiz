@@ -40,9 +40,6 @@ export const About = {
                     this.error = null;
                     this.loading = true;
 
-                    console.log(this.message);
-                    console.log(this.error, this.loading);
-
                     const token = sessionStorage.getItem('token');
 
                     // API-Aufruf zur PostgreSQL-Datenbank über dein Backend
@@ -63,8 +60,6 @@ export const About = {
                             this.error = true;
                             this.message = 'Fehler beim Laden der Daten.';
                         })
-                        .then(console.log(this.message))
-                        .then(console.log(this.error, this.loading))
                         .finally(this.loading = false);
             }
 }
