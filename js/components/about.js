@@ -53,7 +53,6 @@ export const About = {
                             this.message = 'Daten erfolgreich geladen!';
                         })
                         .catch(error => {
-                            this.loading = false;
                             console.error('Fehler beim Laden der Daten:', error);
                             this.message = 'Fehler beim Laden der Daten.';
                         })
