@@ -61,7 +61,7 @@ export const About = {
                             console.error('Fehler beim Laden der Daten:', error);
                             this.message = 'Fehler beim Laden der Daten.';
                         })
-                        .then(console.log(message, error, loading))
+                        .then(console.log(this.message, this.error, this.loading))
                         .finally(this.loading = false);
             }
 }
