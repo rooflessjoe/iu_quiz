@@ -12,7 +12,7 @@ export const About = {
                 Lade Daten...
             </button>
         </div>
-        <div :class="{ 'alert alert-warning': error !== null, 'alert alert-success': error === null && message='Daten erfolgreich geladen!'}">
+        <div :class="{ 'alert alert-warning': error !== null, 'alert alert-success': error === null && message === 'Daten erfolgreich geladen!'}">
             <p>{{ message }}</p>
         </div>
             <div class="container-fluid" v-for="user in userData" :key="user.id">
@@ -32,7 +32,7 @@ export const About = {
             
             methods: {
                 // Methode zum Abrufen der Daten von der API
-                fetchData() {
+                async fetchData() {
                     this.message = '';
                     this.error = null;
                     this.loading = true;
@@ -40,7 +40,7 @@ export const About = {
                     const token = sessionStorage.getItem('token');
 
                     // API-Aufruf zur PostgreSQL-Datenbank über dein Backend
-                    fetch('https://iu-quiz-backend.onrender.com/api/data', {
+                    await fetch('https://iu-quiz-backend.onrender.com/api/data', {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`, // Token im Authorization-Header senden
