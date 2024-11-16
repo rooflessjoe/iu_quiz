@@ -18,7 +18,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/vue@3.5.12/dist/vue.global.prod.js"></script>
 
     <!-- Javascript -->
-    <script defer type="module" src="../js/login.js"></script>
+    <script defer type="module" src="../js/loginApp.js"></script>
 </head>
 <body>
     <div id="loginForm" class="container">
@@ -33,10 +33,10 @@
                         <input type="password" class="form-control" id="password" placeholder="Passwort" v-model="password" required>
                     </div>
                     <div v-if="!loading">
-                        <button type="button" class="btn btn-primary" @click="handleLogin">Login</button>
+                        <button type="button" class="btn btn-primary mt-4" @click="handleLogin">Login</button>
                     </div>
                     <div v-else>
-                        <button class="btn btn-primary" type="button" disabled>
+                        <button class="btn btn-primary mt-4" type="button" disabled>
                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                             Lade Daten...
                         </button>
