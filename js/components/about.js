@@ -12,7 +12,7 @@ export const About = {
                 Lade Daten...
             </button>
         </div>
-        <div :class="{ 'alert': error !== null}">
+        <div :class="{ 'alert alert-warning': error !== null, 'alert alert-success': error === null && message='Daten erfolgreich geladen!'}">
             <p>{{ message }}</p>
         </div>
             <div class="container-fluid" v-for="user in userData" :key="user.id">
