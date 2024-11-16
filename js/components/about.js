@@ -3,7 +3,7 @@ export const About = {
     template: `
     <div class="container-fluid">
         <h2>Benutzerdaten</h2>
-        <div v-if!="loading">
+        <div v-if != "loading">
             <button type="button" class="btn btn-primary" @click="fetchData">Daten abrufen</button>
         </div>
         <div v-else>
@@ -34,6 +34,7 @@ export const About = {
                 // Methode zum Abrufen der Daten von der API
                 fetchData() {
                     this.message = '';
+                    this.error = null;
                     this.loading = true;
 
                     const token = sessionStorage.getItem('token');
@@ -45,7 +46,7 @@ export const About = {
                             'Authorization': `Bearer ${token}`, // Token im Authorization-Header senden
                             'Content-Type': 'application/json'
                         }
-                    })  .then(this.loading = false)
+                    })
                         .then(response => response.json())
                         .then(data => {
                             this.userData = data;  // Benutzerdaten in Vue.js speichern
@@ -55,7 +56,8 @@ export const About = {
                             this.loading = false;
                             console.error('Fehler beim Laden der Daten:', error);
                             this.message = 'Fehler beim Laden der Daten.';
-                        });
+                        })
+                        .finally(this.loading = false);
                 }
             }
 };
