@@ -41,6 +41,33 @@
     </noscript>
 
     <div id="app">
+        <v-app>
+            <v-app-bar app>
+                <v-toolbar-title>IU Quiz</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-btn outlined color="success">Login</v-btn>
+                <v-btn outlined color="error">Eingeloggt</v-btn>
+            </v-app-bar>
+
+            <v-main>
+                <v-container>
+                    <v-row>
+                        <v-col v-for="item in menuItems" :key="item.name">
+                            <v-card>
+                                <v-card-title>{{ item.name }}</v-card-title>
+                            </v-card>
+                        </v-col>
+                    </v-row>
+                </v-container>
+            </v-main>
+
+            <v-footer app>
+                <v-col class="text-center">
+                    © 2024 My Vue.js Website. All rights reserved.
+                </v-col>
+            </v-footer>
+        </v-app>
+    </div>
     </div>
 </body>
 </html>
