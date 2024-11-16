@@ -48,7 +48,4 @@ const App = Vue.createApp ({
       }
 });
 
-// Router zu Vue-App hinzufügen
-App.use(router);
-
 App.mount('#app');
