@@ -3,16 +3,16 @@ export const About = {
     template: `
     <div class="container-fluid">
         <h2>Benutzerdaten</h2>
-        <div v-if="loading">
+        <div v-if!="loading">
+            <button type="button" class="btn btn-primary" @click="fetchData">Daten abrufen</button>
+        </div>
+        <div v-else>
             <button class="btn btn-primary" type="button" disabled>
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 Lade Daten...
             </button>
         </div>
-        <div v-else>
-            <button type="button" class="btn btn-primary" @click="fetchData">Daten abrufen</button>
-        </div>
-        <div :class="{ 'alert alert-warning': error !== null}">
+        <div :class="{ 'alert': error !== null}">
             <p>{{ message }}</p>
         </div>
             <div class="container-fluid" v-for="user in userData" :key="user.id">
