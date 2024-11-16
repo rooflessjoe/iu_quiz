@@ -49,6 +49,7 @@ const Login =  Vue.createApp ({
             methods: {
                 // Methode zum Abrufen der Daten von der API
                 handleLogin() {
+                    this.error = null;
                     this.loading = true;
                     
                     fetch('https://iu-quiz-backend.onrender.com/api/login', {
