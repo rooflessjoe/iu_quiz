@@ -1,8 +1,8 @@
 
         // Prüfe, ob die URL auf /home oder /login umgeleitet werden soll
         const aliasMap = {
-            '/home': '/index.html',
-            '/login': '/login.html'
+            '/iu-quiz/home': '/iu-quiz/index.html',
+            '/iu-quiz/login': '/iu-quiz/pages/login.html'
         };
     
         const target = aliasMap[window.location.pathname];
