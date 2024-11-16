@@ -3,7 +3,7 @@ export const About = {
     template: `
     <div class="container-fluid">
         <h2>Benutzerdaten</h2>
-        <div v-if != "loading">
+        <div v-if="!loading">
             <button type="button" class="btn btn-primary" @click="fetchData">Daten abrufen</button>
         </div>
         <div v-else>
