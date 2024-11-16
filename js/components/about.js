@@ -15,7 +15,8 @@ export const About = {
         <div :class="{ 
             'alert alert-warning': !!error,
             'alert alert-success': error === null && message === 'Daten erfolgreich geladen!'
-            }">
+            }"
+            role="alert">
             <p>{{ message }}</p>
         </div>
             <div class="container-fluid" v-for="user in userData" :key="user.id">

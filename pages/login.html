@@ -18,9 +18,20 @@
     <script defer src="https://cdn.jsdelivr.net/npm/vue@3.5.12/dist/vue.global.prod.js"></script>
 
     <!-- Javascript -->
-    <script defer type="module" src="../js/loginApp.js"></script>
+    <script defer type="module" src="../js/apps/loginApp.js"></script>
 </head>
 <body>
+    <noscript>
+        <style>
+            #loginForm {
+                display: none;
+            }
+        </style>
+        <div class="noscript-message alert alert-warning" role="alert">
+            JavaScript ist deaktiviert. Bitte aktivieren Sie JavaScript, um die volle Funktionalität dieser Seite zu nutzen.
+        </div>
+    </noscript>
+
     <div id="loginForm" class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -41,7 +52,7 @@
                             Lade Daten...
                         </button>
                     </div>
-                    <div v-if="error" class="alert alert-danger">
+                    <div v-if="error" class="alert alert-danger" role="alert">
                         Anmeldedaten sind nicht korrekt.
                     </div>
                 </form>
