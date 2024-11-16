@@ -2,17 +2,6 @@ import { Contact } from './components/contact.js';
 import { About } from './components/about.js';
 import { Home } from './components/home.js';
 
-const routes = [
-    { path: '/', component: Home },
-    { path: '/about', component: About },
-    { path: '/contact', component: Contact }
-  ];
-
-const router = createRouter({
-    history: createWebHashHistory(), // Verwende Hash History für GitHub Pages
-    routes
-  });
-
 // Haupt-App
 const App = Vue.createApp ({
     data() {
@@ -58,7 +47,5 @@ const App = Vue.createApp ({
         this.checkLoginStatus();
       }
 });
-
-App.use(router);
 
 App.mount('#app');
