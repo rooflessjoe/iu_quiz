@@ -1,6 +1,6 @@
 //Datenabfrage Test
 export const About = {
-    template: `
+    /*template: `
     <div class="container-fluid">
         <h2>Benutzerdaten</h2>
         <div v-if="!loading">
@@ -12,7 +12,7 @@ export const About = {
                 Lade Daten...
             </button>
         </div>
-        <div :class="{ 'alert alert-warning': error !== null, 'alert alert-success': error === null && message === 'Daten erfolgreich geladen!'}">
+        <div :class="{ 'alert alert-warning': !!error, 'alert alert-success': error === null && message === 'Daten erfolgreich geladen!'}">
             <p>{{ message }}</p>
         </div>
             <div class="container-fluid" v-for="user in userData" :key="user.id">
@@ -59,4 +59,33 @@ export const About = {
                         .finally(this.loading = false);
                 }
             }
+};*/
+template: `
+        <div>
+            <div :class="{ 
+                'alert alert-danger': error, 
+                'alert alert-success': !error && message 
+            }">
+                <p>{{ message }}</p>
+            </div>
+            <button @click="simulateError">Fehler simulieren</button>
+            <button @click="simulateSuccess">Erfolg simulieren</button>
+        </div>
+    `,
+    data() {
+        return {
+            error: null,
+            message: ''
+        };
+    },
+    methods: {
+        simulateError() {
+            this.error = 'Ein Fehler ist aufgetreten!';
+            this.message = '';
+        },
+        simulateSuccess() {
+            this.error = null;
+            this.message = 'Alles lief erfolgreich!';
+        }
+    }
 };
