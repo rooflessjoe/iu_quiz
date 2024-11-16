@@ -21,11 +21,6 @@ const App = Vue.createApp ({
         Contact
     },
     methods: {
-
-        toggleNav() {
-            this.drawer = !this.drawer;
-        },
-
         /*loadToken(){
             const token = sessionStorage.getItem('token');
         },*/
@@ -53,9 +48,4 @@ const App = Vue.createApp ({
       }
 });
 
-const { createVuetify } = Vuetify;
-
-const vuetify = createVuetify();
-
-App.use(vuetify);
 App.mount('#app');
