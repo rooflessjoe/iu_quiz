@@ -60,18 +60,23 @@ const Login =  Vue.createApp ({
                         body: JSON.stringify({ username: this.username, password: this.password }),
                       })
 
-                        .then(response => response.json())
+                        .then(response => {
+                          return response.json();
+                        })
                         .then(data => {
                             sessionStorage.setItem('token', data.token);
                             this.message = 'Daten erfolgreich geladen!';
-                            this.$router.push('../index.html');
+                            //this.$router.push('../index.html');
+                            window.location.href = '../index.html';
                         })
                         .catch(error => {
                             console.error('Anmeldedaten nicht korrekt', error);
                             this.error = true;
-                            alert('Anmeldedaten nicht korrekt');
+                            //alert('Anmeldedaten nicht korrekt');
                         })
-                        .finally(this.loading = false);
+                        .finally(() => {
+                          this.loading = false;
+                      });
                       }
             }
 });

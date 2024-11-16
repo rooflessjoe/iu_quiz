@@ -41,6 +41,9 @@
                             Lade Daten...
                         </button>
                     </div>
+                    <div v-if="error" class="alert alert-danger">
+                        Anmeldedaten sind nicht korrekt.
+                    </div>
                 </form>
             </div>
         </div>
