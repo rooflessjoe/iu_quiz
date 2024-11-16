@@ -41,35 +41,6 @@
     </noscript>
 
     <div id="app">
-        <v-app>
-            <v-app-bar app>
-                <v-toolbar-title>IU Quiz</v-toolbar-title>
-                <v-spacer></v-spacer>
-                <v-btn icon @click="toggleNav">
-                    <v-icon>mdi-menu</v-icon>
-                </v-btn>
-            </v-app-bar>
-
-            <v-navigation-drawer v-model="drawer" app>
-                <v-list>
-                    <v-list-item v-for="item in menuItems" :key="item.name" @click="setCurrentComponent(item.component)">
-                        <v-list-item-title>{{ item.name }}</v-list-item-title>
-                    </v-list-item>
-                </v-list>
-            </v-navigation-drawer>
-
-            <v-main>
-                <v-container>
-                    <component :is="currentComponent"></component>
-                </v-container>
-            </v-main>
-
-            <v-footer app>
-                <v-col class="text-center">
-                    © 2024 My Vue.js Website. All rights reserved.
-                </v-col>
-            </v-footer>
-        </v-app>
     </div>
 </body>
 </html>
