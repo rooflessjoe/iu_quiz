@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seite nicht gefunden</title>
+    <script>
+        // Mapping der Aliase zu echten Dateien
+        const aliasMap = {
+            'iu_quiz/home': '/iu_quiz/index.html',        // Alias für index.html
+            'iu_quiz/login': '/iu_quiz/pages/login.html' // Alias für login.html
+        };
+
+        const currentPath = window.location.pathname;
+        const targetFile = aliasMap[currentPath];
+
+        if (targetFile) {
+            // Leite zu der richtigen Datei weiter
+            window.location.replace(targetFile);
+        }
+    </script>
+</head>
+<body></body>
+</html>
