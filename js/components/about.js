@@ -40,7 +40,7 @@ export const About = {
                     this.error = null;
                     this.loading = true;
 
-                    console.log(message, error, loading);
+                    console.log(this.message, this.error, this.loading);
 
                     const token = sessionStorage.getItem('token');
 
