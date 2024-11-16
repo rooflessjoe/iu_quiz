@@ -40,7 +40,8 @@ export const About = {
                     this.error = null;
                     this.loading = true;
 
-                    console.log(this.message, this.error, this.loading);
+                    console.log(this.message);
+                    console.log(this.error, this.loading);
 
                     const token = sessionStorage.getItem('token');
 
@@ -59,39 +60,12 @@ export const About = {
                         })
                         .catch(error => {
                             console.error('Fehler beim Laden der Daten:', error);
+                            this.error = true;
                             this.message = 'Fehler beim Laden der Daten.';
                         })
-                        .then(console.log(this.message, this.error, this.loading))
+                        .then(console.log(this.message))
+                        .then(console.log(this.error, this.loading))
                         .finally(this.loading = false);
             }
 }
 };
-/*template: `
-        <div>
-            <div :class="{ 
-                'alert alert-danger': !!error, 
-                'alert alert-success': !error && message 
-            }">
-                <p>{{ message }}</p>
-            </div>
-            <button @click="simulateError">Fehler simulieren</button>
-            <button @click="simulateSuccess">Erfolg simulieren</button>
-        </div>
-    `,
-    data() {
-        return {
-            error: null,
-            message: ''
-        };
-    },
-    methods: {
-        simulateError() {
-            this.error = true;
-            this.message = 'Ein Fehler ist aufgetreten!';
-        },
-        simulateSuccess() {
-            this.error = null;
-            this.message = 'Alles lief erfolgreich!';
-        }
-    }
-};*/
