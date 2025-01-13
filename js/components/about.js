@@ -44,7 +44,7 @@ export const About = {
                     const token = sessionStorage.getItem('token');
 
                     // API-Aufruf zur PostgreSQL-Datenbank über dein Backend
-                    fetch('https://iu-quiz-backend.onrender.com/api/data', {
+                    fetch('http://localhost:3000/api/data', {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`, // Token im Authorization-Header senden
@@ -53,6 +53,7 @@ export const About = {
                     })
                         .then(response => response.json())
                         .then(data => {
+                            console.log(data);
                             this.userData = data;  // Benutzerdaten in Vue.js speichern
                             this.message = 'Daten erfolgreich geladen!';
                         })
