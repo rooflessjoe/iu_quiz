@@ -1,4 +1,4 @@
-const socket = io('ws://localhost:3500/quiz');
+const socket = io('https://iu-quiz-backend.onrender.com/quiz');
 
 const msgInput = document.querySelector('#message');
 const nameInput = document.querySelector('#name');
