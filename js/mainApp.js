@@ -1,6 +1,7 @@
 import { Contact } from './components/contact.js';
 import { About } from './components/about.js';
 import { Home } from './components/home.js';
+import { Quiz } from './components/quiz.js';
 
 // Haupt-App
 const App = Vue.createApp ({
@@ -9,7 +10,8 @@ const App = Vue.createApp ({
             menuItems: [
                 { name: 'Home', component: 'Home' },
                 { name: 'Über', component: 'About' },
-                { name: 'Kontakt', component: 'Contact' }
+                { name: 'Kontakt', component: 'Contact' },
+                { name: 'Multiplayer Quiz', component: 'Quiz' },
             ],
             currentComponent: Home,  // Standardmäßig Home anzeigen
             isLoggedIn: false
@@ -18,7 +20,8 @@ const App = Vue.createApp ({
     components: {
         Home,
         About,
-        Contact
+        Contact,
+        Quiz
     },
     methods: {
         /*loadToken(){
