@@ -1,7 +1,7 @@
 import { Contact } from './components/contact.js';
 import { About } from './components/about.js';
 import { Home } from './components/home.js';
-import { Quiz } from './apps/quiz.js';
+import { Quiz } from '/pages/quiz.html';
 
 // Haupt-App
 const App = Vue.createApp ({
