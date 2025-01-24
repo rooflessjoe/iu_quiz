@@ -1,7 +1,6 @@
 import { Contact } from './components/contact.js';
 import { About } from './components/about.js';
 import { Home } from './components/home.js';
-import { Quiz } from '/pages/quiz.html';
 
 // Haupt-App
 const App = Vue.createApp ({
@@ -10,8 +9,7 @@ const App = Vue.createApp ({
             menuItems: [
                 { name: 'Home', component: 'Home' },
                 { name: 'Über', component: 'About' },
-                { name: 'Kontakt', component: 'Contact' },
-                { name: 'Multiplayer Quiz', component: 'Quiz' },
+                { name: 'Kontakt', component: 'Contact' }
             ],
             currentComponent: Home,  // Standardmäßig Home anzeigen
             isLoggedIn: false
@@ -20,8 +18,7 @@ const App = Vue.createApp ({
     components: {
         Home,
         About,
-        Contact,
-        Quiz
+        Contact
     },
     methods: {
         /*loadToken(){
@@ -39,7 +36,7 @@ const App = Vue.createApp ({
         loadCurrentComponent() {
             const savedComponent = sessionStorage.getItem('currentComponent'); // Lade die gespeicherte Komponente
             if (savedComponent) {
-              this.currentComponent = savedComponent; // Setze die aktuelle Komponente auf die gespeicherte
+                this.currentComponent = savedComponent; // Setze die aktuelle Komponente auf die gespeicherte
             }
         }
     },
@@ -48,7 +45,7 @@ const App = Vue.createApp ({
         this.loadCurrentComponent();
         //this.loadToken();
         this.checkLoginStatus();
-      }
+    }
 });
 
 App.mount('#app');
