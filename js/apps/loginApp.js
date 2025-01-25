@@ -14,7 +14,7 @@ const Login =  Vue.createApp ({
                     this.error = null;
                     this.loading = true;
                     
-                    fetch('http://localhost:3000/api/login', {
+                    fetch('https://iu-quiz-backend.onrender.com/api/login', {
                         method: 'POST',
                         headers: {
                           'Content-Type': 'application/json',
