@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spieleübersichtsseite</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            body.classList.toggle('light-mode');
+            body.classList.toggle('dark-mode');
+        }
+
+        window.onload = () => {
+            document.body.classList.add('light-mode'); // Standardmäßig Light-Mode
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Spieleübersicht</h1>
+        <section class="highest-score">
+            <h2>Höchster Score</h2>
+            <p id="highestScore">Spieler 2: 7</p>
+        </section>
+        <label class="switch">
+            <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
+            <span class="slider round"></span>
+        </label>
+    </header>
+    <main>
+        <section class="players-row" id="playersRow">
+            <div class="player">
+                <h2>Spieler 1</h2>
+                <p class="score">5 Punkte</p>
+            </div>
+            <div class="player">
+                <h2>Spieler 2</h2>
+                <p class="score">7 Punkte</p>
+            </div>
+            <div class="player">
+                <h2>Spieler 3</h2>
+                <p class="score">6 Punkte</p>
+            </div>
+            <div class="player">
+                <h2>Spieler 4</h2>
+                <p class="score">4 Punkte</p>
+            </div>
+        </section>
+        <section class="questions">
+            <div class="question">
+                <h3>Frage 1</h3>
+                <ul>
+                    <li class="correct">✓</li>
+                    <li class="incorrect">✗</li>
+                    <li class="correct">✓</li>
+                    <li class="correct">✓</li>
+                </ul>
+            </div>
+            <div class="question">
+                <h3>Frage 2</h3>
+                <ul>
+                    <li class="correct">✓</li>
+                    <li class="correct">✓</li>
+                    <li class="correct">✓</li>
+                    <li class="incorrect">✗</li>
+                </ul>
+            </div>
+            <div class="question">
+                <h3>Frage 3</h3>
+                <ul>
+                    <li class="incorrect">✗</li>
+                    <li class="correct">✓</li>
+                    <li class="incorrect">✗</li>
+                    <li class="correct">✓</li>
+                </ul>
+            </div>
+            <div class="question">
+                <h3>Frage 4</h3>
+                <ul>
+                    <li class="correct">✓</li>
+                    <li class="correct">✓</li>
+                    <li class="correct">✓</li>
+                    <li class="correct">✓</li>
+                </ul>
+            </div>
+            <div class="question">
+                <h3>Frage 5</h3>
+                <ul>
+                    <li class="correct">✓</li>
+                    <li class="correct">✓</li>
+                    <li class="incorrect">✗</li>
+                    <li class="correct">✓</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    <script src="scripts.js"></script>
+</body>
+</html>

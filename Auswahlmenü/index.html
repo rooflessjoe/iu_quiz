@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Auswahlmenü</title>
+    <link rel="stylesheet" href="modern-styles.css">
+</head>
+<body>
+
+<div class="switch">
+  <input type="checkbox" id="darkModeSwitch" onchange="toggleDarkMode()">
+  <label for="darkModeSwitch"></label>
+</div>
+
+<div class="container">
+    <h1>Auswahlmenü</h1>
+
+    <form>
+      <label for="Spieleranzahl">Bitte wählen Sie die Anzahl der Spieler aus:</label>
+      <div class="options">
+        <div class="option">
+          <input type="radio" id="Einzelspieler" name="Spieleranzahl" value="Einzelspieler" checked onclick="toggleAnzahl(false)">
+          <label for="Einzelspieler">Einzelspieler</label>
+        </div>
+        <div class="option">
+          <input type="radio" id="Mehrspieler" name="Spieleranzahl" value="Mehrspieler" onclick="toggleAnzahl(true)">
+          <label for="Mehrspieler">Mehrspieler</label>
+        </div>
+      </div>
+      <div id="AnzahlSpieler" class="hidden">
+        <label for="Anzahl">Anzahl der Spieler:</label>
+        <input type="number" id="Anzahl" name="Anzahl" min="2" max="6">
+      </div>
+      <div id="SpielModi" class="hidden">
+        <label for="Modus">Spielmodus:</label>
+        <div class="options">
+          <div class="option">
+            <input type="radio" id="Kooperativ" name="SpielModus" value="Kooperativ">
+            <label for="Kooperativ">Kooperativ</label>
+          </div>
+          <div class="option">
+            <input type="radio" id="Kompetitiv" name="SpielModus" value="Kompetitiv">
+            <label for="Kompetitiv">Kompetitiv</label>
+          </div>
+        </div>
+      </div>
+      <input type="submit" value="Bestätigen">
+    </form>
+</div>
+
+<script>
+function toggleAnzahl(show) {
+  var x = document.getElementById("AnzahlSpieler");
+  var y = document.getElementById("SpielModi");
+  x.style.display = show ? "block" : "none";
+  y.style.display = show ? "block" : "none";
+}
+
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+}
+</script>
+
+</body>
+</html>

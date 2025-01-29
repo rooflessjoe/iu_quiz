@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ergebisübersicht</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="light-mode">
+    <header>
+        <div class="header-container">
+            <h1>Ergebisübersicht</h1>
+            <label class="switch">
+                <input type="checkbox" id="theme-switch">
+                <span class="slider"></span>
+                <span class="switch-label">Modus wechseln</span>
+            </label>
+        </div>
+    </header>
+    <main>
+        <section class="player-summary">
+            <h2 id="player-name">Hallo Spielername,</h2>
+            <div class="score-box">
+                <p class="score-label">Dein Score:</p>
+                <p class="score">5</p>
+            </div>
+        </section>
+        <section class="questions">
+            <div class="question">
+                <h3>Frage 1</h3>
+                <ul>
+                    <li class="correct">✓</li>
+                </ul>
+            </div>
+            <div class="question">
+                <h3>Frage 2</h3>
+                <ul>
+                    <li class="correct">✓</li>
+                </ul>
+            </div>
+            <div class="question">
+                <h3>Frage 3</h3>
+                <ul>
+                    <li class="incorrect">✗</li>
+                </ul>
+            </div>
+            <div class="question">
+                <h3>Frage 4</h3>
+                <ul>
+                    <li class="correct">✓</li>
+                </ul>
+            </div>
+            <div class="question">
+                <h3>Frage 5</h3>
+                <ul>
+                    <li class="correct">✓</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeSwitch = document.getElementById('theme-switch');
+
+            themeSwitch.addEventListener('change', () => {
+                if (themeSwitch.checked) {
+                    document.body.classList.remove('light-mode');
+                    document.body.classList.add('dark-mode');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    document.body.classList.add('light-mode');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

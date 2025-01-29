@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <!-- Meta-Angaben zur Zeichenkodierung und zur Anpassung der Seite an die Bildschirmgröße -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Titel des Dokuments -->
+    <title>Login</title>
+    
+    <!-- Verknüpfung mit einer externen CSS-Datei -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Schalter für den Dark Mode -->
+    <div class="toggle-mode">
+        <input type="checkbox" id="mode-switch" onclick="toggleMode()">
+        <label for="mode-switch" class="mode-label">Dark Mode</label>
+    </div>
+
+    <!-- Formular für den Login -->
+    <form class="container">
+        <h1 class="login-titel">Login</h1>
+
+        <!-- Eingabefeld für den Benutzernamen -->
+        <section class="input-box">
+            <input type="text" name="username" placeholder="Username">
+        </section>
+
+        <!-- Eingabefeld für das Passwort -->
+        <section class="input-box">
+            <input type="password" name="password" placeholder="Password">
+        </section>
+
+        <!-- Bereich für "Remember me" Checkbox und "Forgot Password?" Link -->
+        <section class="remember-forgot-box">
+            <div class="remember-me">
+                <input type="checkbox" name="remember-me" id="remember-me">
+                <label for="remember-me">
+                    <h5>Remember me</h5>
+                </label>
+            </div>
+
+            <a class="forgot-password" href="#">
+                <h5>Forgot Password?</h5>
+            </a>
+        </section>
+
+        <!-- Button zum Absenden des Formulars -->
+        <button class="login-button" type="submit">
+            Login
+        </button>
+
+        <!-- Bereich für den Link zur Registrierung -->
+        <h5 class="dont-have-an-account">
+            Don't have an Account?
+            <a href="#"><b>Register</b></a>
+        </h5>
+    </form>
+
+    <!-- JavaScript-Funktion zum Umschalten zwischen Dark Mode und Light Mode -->
+    <script>
+        function toggleMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
+</body>
+</html>

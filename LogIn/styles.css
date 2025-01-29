@@ -1,0 +1,209 @@
+/* Stil für das gesamte Dokument */
+body {
+    font-family: 'Roboto', sans-serif; /* Schriftart Roboto */
+    background-color: #f2f2f2; /* Hellgrauer Hintergrund */
+    display: flex; /* Flexbox für Layout */
+    justify-content: center; /* Zentriert den Inhalt horizontal */
+    align-items: center; /* Zentriert den Inhalt vertikal */
+    height: 100vh; /* Höhe des Viewports */
+    margin: 0; /* Entfernt den Standard-Abstand */
+    transition: background-color 0.3s; /* Sanfter Übergang der Hintergrundfarbe */
+}
+
+/* Stil für den Container */
+.container {
+    background-color: #fff; /* Weißer Hintergrund */
+    padding: 30px; /* Innenabstand */
+    border-radius: 15px; /* Abgerundete Ecken */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Schlagschatten */
+    width: 350px; /* Breite des Containers */
+    text-align: center; /* Zentrierter Text */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Sanfte Übergänge */
+}
+
+/* Stil für Überschriften */
+h1 {
+    color: #333; /* Dunkelgraue Schriftfarbe */
+    margin-bottom: 25px; /* Abstand unten */
+    font-size: 24px; /* Schriftgröße */
+}
+
+/* Stil für die Eingabe-Box */
+.input-box {
+    position: relative; /* Relative Positionierung */
+    margin-bottom: 25px; /* Abstand unten */
+}
+
+/* Stil für Eingabefelder */
+input[type="text"],
+input[type="password"] {
+    width: 80%; /* Breite */
+    padding: 15px; /* Innenabstand */
+    border: none; /* Kein Rahmen */
+    border-radius: 30px; /* Abgerundete Ecken */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Schlagschatten */
+    transition: box-shadow 0.3s; /* Sanfter Übergang für Schlagschatten */
+    margin: 0 auto; /* Zentrierung */
+    display: block; /* Block-Element */
+}
+
+/* Stil für Eingabefelder bei Fokus */
+input[type="text"]:focus,
+input[type="password"]:focus {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Intensiverer Schlagschatten */
+    outline: none; /* Entfernt die Standard-Umrandung */
+}
+
+/* Stil für den Bereich "Erinnern/Passwort vergessen" */
+.remember-forgot-box {
+    display: flex; /* Flexbox */
+    justify-content: space-between; /* Platzierung an beiden Enden */
+    align-items: center; /* Vertikale Zentrierung */
+    margin-bottom: 25px; /* Abstand unten */
+}
+
+/* Stil für die "Erinnern"-Option */
+.remember-me label {
+    display: flex; /* Flexbox */
+    align-items: center; /* Vertikale Zentrierung */
+    font-size: 14px; /* Schriftgröße */
+}
+
+/* Stil für Checkbox */
+input[type="checkbox"] {
+    margin-right: 10px; /* Abstand rechts */
+}
+
+/* Stil für "Passwort vergessen" Link */
+.forgot-password {
+    color: #007bff; /* Blaue Schriftfarbe */
+    text-decoration: none; /* Keine Unterstreichung */
+    font-size: 14px; /* Schriftgröße */
+}
+
+/* Stil für "Passwort vergessen" Link bei Hover */
+.forgot-password:hover {
+    text-decoration: underline; /* Unterstrichen bei Hover */
+}
+
+/* Stil für die Login-Schaltfläche */
+.login-button {
+    background-color: #007bff; /* Blaue Hintergrundfarbe */
+    color: #fff; /* Weiße Schriftfarbe */
+    padding: 15px; /* Innenabstand */
+    border: none; /* Kein Rahmen */
+    border-radius: 30px; /* Abgerundete Ecken */
+    width: 80%; /* Breite */
+    cursor: pointer; /* Zeiger-Cursor */
+    font-size: 18px; /* Schriftgröße */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Sanfte Übergänge */
+    margin: 0 auto; /* Zentrierung */
+    display: block; /* Block-Element */
+}
+
+/* Stil für die Login-Schaltfläche bei Hover */
+.login-button:hover {
+    background-color: #0056b3; /* Dunkelblaue Hintergrundfarbe */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Intensiverer Schlagschatten */
+}
+
+/* Stil für den "Kein Konto"-Bereich */
+.dont-have-an-account {
+    margin-top: 25px; /* Abstand oben */
+    font-size: 14px; /* Schriftgröße */
+}
+
+/* Stil für den Link im "Kein Konto"-Bereich */
+.dont-have-an-account a {
+    color: #007bff; /* Blaue Schriftfarbe */
+    text-decoration: none; /* Keine Unterstreichung */
+}
+
+/* Stil für den Link im "Kein Konto"-Bereich bei Hover */
+.dont-have-an-account a:hover {
+    text-decoration: underline; /* Unterstrichen bei Hover */
+}
+
+/* Stil für den Dark Mode */
+.dark-mode {
+    background-color: #333 !important; /* Dunkler Hintergrund */
+    color: #f2f2f2 !important; /* Hellgraue Schriftfarbe */
+}
+
+/* Stil für den Container im Dark Mode */
+.dark-mode .container {
+    background-color: #444 !important; /* Dunklerer Container */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Intensiverer Schlagschatten */
+}
+
+/* Stil für Eingabefelder im Dark Mode */
+.dark-mode .input-box input {
+    background-color: #555; /* Dunkelgrauer Hintergrund */
+    border-color: #888; /* Grauer Rahmen */
+    color: #fff; /* Weiße Schriftfarbe */
+}
+
+/* Stil für Eingabefelder bei Fokus im Dark Mode */
+.dark-mode .input-box input:focus {
+    border-color: #007bff; /* Blauer Rahmen */
+}
+
+/* Stil für "Passwort vergessen" und "Kein Konto"-Links im Dark Mode */
+.dark-mode .forgot-password,
+.dark-mode .dont-have-an-account a {
+    color: #66afe9; /* Hellblauer Text */
+}
+
+/* Stil für die Login-Schaltfläche im Dark Mode */
+.dark-mode .login-button {
+    background-color: #0056b3; /* Dunkelblauer Hintergrund */
+}
+
+/* Stil für die Login-Schaltfläche bei Hover im Dark Mode */
+.dark-mode .login-button:hover {
+    background-color: #003f7f; /* Noch dunklerer Hintergrund */
+}
+
+/* Stil für den Dark Mode Toggle-Schalter */
+.toggle-mode {
+    position: fixed; /* Fixiert an einer Position */
+    top: 10px; /* Abstand oben */
+    right: 10px; /* Abstand rechts */
+    background-color: #f1f1f1; /* Heller Hintergrund */
+    border: 1px solid #ccc; /* Grauer Rahmen */
+    border-radius: 30px; /* Abgerundete Ecken */
+    padding: 10px 20px; /* Innenabstand */
+    display: flex; /* Flexbox */
+    align-items: center; /* Vertikale Zentrierung */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Sanfte Übergänge */
+    cursor: pointer; /* Zeiger-Cursor */
+}
+
+/* Versteckte Checkbox für den Toggle-Schalter */
+.toggle-mode input[type="checkbox"] {
+    display: none; /* Versteckt die Checkbox */
+}
+
+/* Stil für das Label des Toggle-Schalters */
+.toggle-mode .mode-label {
+    cursor: pointer; /* Zeiger-Cursor */
+    font-size: 14px; /* Schriftgröße */
+    display: inline-block; /* Inline-Block-Element */
+    position: relative; /* Relative Positionierung */
+    vertical-align: middle; /* Vertikale Ausrichtung */
+}
+
+/* Stil für das Label des Toggle-Schalters (vorher) */
+.toggle-mode .mode-label::before {
+    content: ''; /* Füllt die Pseudo-Element */
+    display: inline-block; /* Inline-Block-Element */
+    width: 20px; /* Breite */
+    height: 20px; /* Höhe */
+    background-color: #fff; /* Weißer Hintergrund */
+    border: 1px solid #ccc; /* Grauer Rahmen */
+    border-radius: 50%; /* Runde Form */
+    position: absolute; /* Absolute Positionierung */
+    top: 50%; /* Zentriert vertikal */
+    transform: translateY(-50%); /* Vertikale Ausrichtung */
+    transition: background-color 0.3s, border 0.3s; /* Sanfte Übergänge */
+}

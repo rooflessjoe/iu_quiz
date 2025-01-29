@@ -1,0 +1,232 @@
+/* Grundlegendes Styling für die gesamte Seite */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body.light-mode {
+    background-color: #f0f0f0;
+    color: #000000;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+/* Toggle-Schalter Stil */
+.switch {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+header {
+    position: relative;
+    background-color: #1DB954;
+    color: #121212;
+    padding: 1.5rem 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode header {
+    background-color: #80e27e;
+    color: #000000;
+}
+
+h1 {
+    margin: 0;
+}
+
+.highest-score {
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    background-color: #1f1f1f;
+    border: 2px solid #1DB954;
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+}
+
+body.light-mode .highest-score {
+    background-color: #ffffff;
+    border: 2px solid #80e27e;
+    color: #000000;
+}
+
+.highest-score h2, .highest-score p {
+    margin: 0;
+    color: #1DB954;
+}
+
+body.light-mode .highest-score h2, body.light-mode .highest-score p {
+    color: #80e27e;
+}
+
+main {
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 0 2rem;
+}
+
+.players-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.player {
+    background-color: #1f1f1f;
+    border: 2px solid #1DB954;
+    border-radius: 12px;
+    padding: 1rem;
+    width: 150px;
+    text-align: center;
+    margin: 0 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+body.light-mode .player {
+    background-color: #ffffff;
+    border: 2px solid #80e27e;
+    color: #000000;
+}
+
+.player:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+body.light-mode .player:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.player h2 {
+    margin: 0;
+    color: #1DB954;
+}
+
+body.light-mode .player h2 {
+    color: #80e27e;
+}
+
+.score {
+    font-size: 1.2rem;
+    color: #1DB954;
+    margin-top: 0.5rem;
+}
+
+body.light-mode .score {
+    color: #80e27e;
+}
+
+.questions {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.question {
+    background-color: #1f1f1f;
+    border: 2px solid #1DB954;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .question {
+    background-color: #ffffff;
+    border: 2px solid #80e27e;
+}
+
+.question h3 {
+    margin-top: 0;
+    color: #1DB954;
+}
+
+body.light-mode .question h3 {
+    color: #80e27e;
+}
+
+.questions ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.questions li {
+    flex: 1;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    border: 2px solid #444;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+body.light-mode .questions li {
+    border: 2px solid #ddd;
+}
+
+.questions li:hover {
+    background-color: #333;
+}
+
+body.light-mode .questions li:hover {
+    background-color: #f0f0f0;
+}
+
+/* Farbkodierung für richtige und falsche Antworten */
+.correct {
+    color: #28a745;
+}
+
+.incorrect {
+    color: #dc3545;
+}
