@@ -1,4 +1,7 @@
-const socket = io('https://iu-quiz-backend.onrender.com/quizAPI');
+const token = sessionStorage.getItem('token');
+const socket = io.connect('https://testingbackendrepo.onrender.com/quizAPI', {
+    query: {token}
+});
 
 const msgInput = document.querySelector('#message');
 const nameInput = document.querySelector('#name');
@@ -38,10 +41,12 @@ function changeRoom(e){
 
 function enterRoom(e) {
     e.preventDefault();
+    const token = sessionStorage.getItem('token');
     if (nameInput.value && chatRoom.value) {
         socket.emit('enterRoom', {
             name: nameInput.value,
-            room: chatRoom.value
+            room: chatRoom.value,
+            token: token
         });
     }
 }
@@ -184,7 +189,10 @@ socket.on('quizOver', (data) => {
         });
     }
 });
-
+//Test Comment
+socket.on('failedToken', ()=>{
+    window.location.href = '../index.html';
+})
 
 
 
