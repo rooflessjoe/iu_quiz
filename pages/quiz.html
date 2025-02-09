@@ -62,6 +62,72 @@
             font-size: 0.9rem;
             display: none; /* Anfangs ausgeblendet */
         }
+        .chat-display {
+            height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .post {
+            max-width: 60%;
+            padding: 10px;
+            border-radius: 10px;
+            word-wrap: break-word;
+            display: flex;
+            flex-direction: column;
+            background-color: #f1f1f1;
+        }
+
+        .post--left {
+            align-self: flex-start;
+            background-color: #d1e7dd;
+        }
+
+        .post--right {
+            align-self: flex-end;
+            background-color: #cff4fc;
+        }
+
+        .post__header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .post__header--user {
+            color: #0d6efd;
+        }
+
+        .post__header--reply {
+            color: #198754;
+        }
+
+        .post__header--name {
+            font-weight: bold;
+        }
+
+        .post__text {
+            font-size: 1em;
+        }
+
+        .post--admin {
+            align-self: center;
+            background-color: #ffc107;
+            font-weight: bold;
+            text-align: center;
+        }
+
+
+
+
+
+
     </style>
 </head>
 <body class="bg-light">
@@ -69,14 +135,32 @@
     <!-- Lobby-Ansicht -->
     <section id="lobby-view">
         <h2>Lobby</h2>
-        <form class="form-create-room d-flex gap-2">
-            <input type="text" id="roomName" class="form-control" placeholder="Raumname" required>
-            <select id="categorySelect" class="form-control" required>
-                <option value="" disabled selected>Kategorie auswählen</option>
-            </select>
-            <input type="number" id="questionCount" class="form-control" placeholder="Anzahl Fragen" required>
-            <button type="submit" class="btn btn-success">Raum erstellen</button>
+        <form class="form-create-room row g-2 align-items-center">
+            <div class="col-12 col-md">
+                <input type="text" id="roomName" class="form-control" placeholder="Raumname" required>
+            </div>
+            <div class="col-12 col-md">
+                <select id="categorySelect" class="form-control" required>
+                    <option value="" disabled selected>Kategorie auswählen</option>
+                </select>
+            </div>
+            <div class="col-12 col-md">
+                <input type="number" id="questionCount" class="form-control" placeholder="Anzahl Fragen" required>
+            </div>
+
+            <!-- Timer -->
+            <div class="form-check form-check-inline col-auto">
+                <input type="checkbox" id="timerEnabled" class="form-check-input" value="true">
+                <label class="form-check-label" for="timerEnabled">Timer</label>
+            </div>
+
+            <div id="timerEnterOption" class="col-12 col-md hidden">
+                <input type="number" id="timerInput" class="form-control" placeholder="Timer in s">
+            </div>
+
+            <button type="submit" class="btn btn-success col-auto">Raum erstellen</button>
         </form>
+
         <div id="error-message" class="error-message mt-3"></div>
 
         <div class="mt-3">
@@ -102,26 +186,33 @@
         <button id="start-quiz" class="btn btn-primary">Quiz Starten</button>
         <button id="leave-room" class="btn btn-danger">Raum verlassen</button>
 
-        <!-- Chat-Bereich -->
-        <div class="chat-section mt-3">
-            <div class="chat-box border rounded p-3 bg-white">
-                <ul class="chat-display list-unstyled mb-0"></ul>
+        <div class="chatQuizDisplay row">
+            <!-- Quiz-Anzeige -->
+            <div class="question-container col-md-8 bg-white shadow-lg rounded p-4 text-center mx-auto d-none">
+                <div id="timer-display"></div>
+                <div class="box-around-question-answer d-flex flex-column align-items-center">
+                    <div id="question-display" class="mt-3 fw-bold fs-4"></div>
+                    <div id="answer-display" class="d-grid gap-3 mt-3" style="grid-template-columns: repeat(2, 1fr); width: 100%; max-width: 400px;"></div>
+                </div>
             </div>
-            <p class="user-list mt-2"></p>
-            <p class="activity text-muted"></p>
-            <form class="form-msg d-flex gap-2 mt-2">
-                <input type="text" id="message" class="form-control" placeholder="Deine Nachricht" required>
-                <button type="submit" class="btn btn-primary">Senden</button>
-            </form>
-        </div>
-        <div class="user-section mt-2">
-            <p class="user-list"></p>
+            <div id="score-display" class="mt-3 d-none"></div>
+
+            <!-- Chat-Bereich -->
+            <div class="chat-section mt-3">
+                <div class="chat-box border rounded p-3 bg-white">
+                    <ul class="chat-display list-unstyled mb-0"></ul>
+                </div>
+                <form class="form-msg d-flex gap-2 mt-2">
+                    <input type="text" id="message" class="form-control" placeholder="Deine Nachricht" required>
+                    <button type="submit" class="btn btn-primary">Senden</button>
+                </form>
+                <p class="user-list mt-2"></p>
+                <p class="activity text-muted"></p>
+            </div>
         </div>
 
-        <!-- Quiz-Anzeige -->
-        <div id="question-display" class="mt-3"></div>
-        <div id="answer-display" class="d-flex flex-wrap gap-2 mt-2"></div>
-        <div id="score-display" class="mt-3"></div>
+
+
     </section>
 </main>
 </body>
