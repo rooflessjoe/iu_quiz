@@ -1,72 +1,79 @@
+//Todo
+//Evaluate Answer Needs to be worked on
+//Add current question and more info to room screen
+//Add a no active Room avalible when a room exists but isnt open
 const token = sessionStorage.getItem('token');
 const socket = io.connect('https://iu-quiz-backend.onrender.com/quizAPI', {
     query: {token}
 });
 
-
-//DOM-Elemente für Lobby und Raum
+//DOM-Elements for Lobby and Room
 const lobbyView = document.getElementById('lobby-view');
 const roomView = document.getElementById('room-view');
 const roomTitle = document.getElementById('room-title');
-/*const roomListElement = document.querySelector('.room-list');*/
 
-//Elemente fürs Raumerstellen formular in Lobby
+//Elements to create Rooms in Lobby
 const roomNameInput = document.getElementById('roomName')
 const categoryInput = document.getElementById('categorySelect');
 const questionCountInput = document.getElementById('questionCount');
 const createRoomForm = document.querySelector('.form-create-room');
 const timerEnabledInput = document.getElementById('timerEnabled');
 const timerInput = document.getElementById('timerInput');
+const timerEnterOption = document.getElementById('timerEnterOption');
 
-//Element des 'Quiz Starten' Button in Raum view
+//Element to start Quiz in Room
 const startQuizBtn = document.getElementById('start-quiz');
 
-//Element fürs Verlassen eines Raumes
+//Element to leave Room
 const leaveRoomBtn = document.getElementById('leave-room');
 
-// Anzeigeelemente für Fragen, Antworten und Punktestand
+// Displayelements to shows Questions, Answers and Scoreboard
 const questionDisplay = document.getElementById('question-display');
 const answerDisplay = document.getElementById('answer-display');
-const scoreDisplay = document.getElementById('score-display');
+const scoreDisplay = document.querySelector('.score-display');
+const scoreboard = document.querySelector('.scoreboard');
+const questionSection = document.querySelector('.question-container');
+const chatQuizDisplay = document.querySelector('.chatQuizDisplay');
 
-// DOM-Elemente für den Chat im Raum
+// DOM-Elements for Chat, Error and Lists
 const msgForm = document.querySelector('.form-msg');
 const msgInput = document.getElementById('message');
 const chatDisplay = document.querySelector('.chat-display');
-
-// const chatRoom = document.querySelector('#room');
 const activity = document.querySelector('.activity');
 const usersList = document.querySelector('.user-list');
 const roomList = document.querySelector('.room-list');
 const chatSection = document.querySelector('.chat-section');
-// const chatDisplay = document.querySelector('.chat-display');
-// const categoryInput = document.querySelector('#category');
-// const questionCountInput = document.querySelector('#questionCount');
 const errorMessage = document.getElementById('error-message');
 
-const questionSection = document.querySelector('.question-container');
-const chatQuizDisplay = document.querySelector('.chatQuizDisplay');
 
-const timerEnterOption = document.getElementById('timerEnterOption');
-
+//Timer deactivated when entering Lobby to create a room
 timerInput.disabled = true;
 
-
-
+//Timer variables
 let timer;
 let timerActive = false;
 
+/*Timer variable to show if someone is typing.
+  Used in socket.on('activity')
+*/
+let activityTimer;
+
+//Timer Functions
 function startTimer(duration, question_id) {
+    //stops timer if one is running
     stopTimer();
 
+    //activates timer, sets duration and updates display
     let timeLeft = duration;
     timerActive = true;
     updateTimerDisplay(timeLeft);
 
+    //starts timer and updates display
     timer = setInterval(() => {
         timeLeft--;
         updateTimerDisplay(timeLeft);
 
+        //if timer reaches 0 sends "null" answer to backend
         if (timeLeft <= 0) {
             clearInterval(timer);
             timerActive = false;
@@ -87,24 +94,38 @@ function stopTimer(){
 }
 
 function updateTimerDisplay(time) {
+    //creates timer Elements and fills it with current time
     const timerElement = document.getElementById('timer-display');
     if (timerElement) {
         timerElement.textContent = `Verbleibenen Zeit: ${time}`
     }
 }
-//Create Room
+
+
+
+
+//Event Listeners
+
+//Create a new Room
 createRoomForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
+    //gets values from form
     const roomName = roomNameInput.value.trim();
     const category = categoryInput.value
     const questionCount = questionCountInput.value.trim();
     const timerEnabled = timerEnabledInput.checked;
     const timerTime = timerInput.value.trim();
 
+    //chekcs if any invalid inputs are present and throws error
     let errorText = '';
     if (questionCount < 1) {
         errorText = 'Anzahl der Fragen muss mindestens 1 sein'
+    }
+    if (timerEnabled){
+        if (timerTime < 1){
+            errorText = 'Zeit darf nicht 0 oder negativ sein'
+        }
     }
 
     if (!roomName || !category || !questionCount) return;
@@ -120,7 +141,7 @@ createRoomForm.addEventListener('submit', (e) => {
     }else{
         errorMessage.style.display = 'none'
     }
-    // Sende alle Daten an das Backend: Raum, Token, Kategorie und Frageanzahl
+    // sends Data to backend including the token to get the Users username
     socket.emit('createRoom', {
         room: roomName,
         token: token,
@@ -130,21 +151,26 @@ createRoomForm.addEventListener('submit', (e) => {
         timer: timerTime,
     });
 
-    // Formularfelder leeren
+    // clears the form
     roomNameInput.value = '';
     categoryInput.value = '';
     questionCountInput.value = '';
     timerEnabledInput.value = '';
 
-    // Wechsel zur Raum-Ansicht: Lobby ausblenden, Raum anzeigen
+    // changes to Room view and hides Lobby
     lobbyView.classList.add('d-none');
     roomView.classList.remove('d-none');
     roomTitle.textContent = `Raum: ${roomName}`;
     leaveRoomBtn.classList.remove('d-none');
     chatDisplay.innerHTML = '';
+    scoreboard.classList.add('d-none');
+    chatSection.classList.remove('col-md-4');
+
 });
 
+//Enables/Disables the timer field in create form
 timerEnabledInput.addEventListener('change', function () {
+    //enables or disables the timer input field depending if timer is activated or not
     if (this.checked) {
         timerEnterOption.classList.remove('hidden');
         timerInput.disabled = false;
@@ -155,87 +181,68 @@ timerEnabledInput.addEventListener('change', function () {
     }
 })
 
+//Activates Function Message when pressing Submit on Chat form (msgForm)
+msgForm.addEventListener('submit', sendMessage);
 
-function sendMessage(e) {
-    e.preventDefault();
-    if (getUsernameFromToken() && msgInput.value) {
-        socket.emit('message', {
-            name: getUsernameFromToken(),
-            text: msgInput.value
-        });
-        msgInput.value = "";
+//sends activity of user to backend when user is typing
+msgInput.addEventListener('keypress', () => {
+    const username = getUsernameFromToken();
+    //if username present sends activity handle with the username to backend
+    if (username) {
+        socket.emit('activity', username);
     }
-    msgInput.focus();
-}
+});
 
-
-//Start Quiz
+//starts quiz
 startQuizBtn.addEventListener('click', () => {
+    //emits start quiz and hides the startquiz/leaveRoom button
     socket.emit('startQuiz');
     startQuizBtn.classList.add('d-none');
     leaveRoomBtn.classList.add('d-none');
 
 });
 
-//Leave Room
+//leave room
 leaveRoomBtn.addEventListener('click', () => {
+    //emits leaveRoom and hides the leave room button
     socket.emit('leaveRoom');
     leaveRoomBtn.classList.add('d-none');
 })
 
-socket.on('leftRoom',()=>{
-    lobbyView.classList.remove('d-none');
-    roomView.classList.add('d-none');
-    chatSection.classList.remove('float-end')
-    startQuizBtn.classList.remove('d-none');
-    scoreDisplay.innerHTML = '';
-    scoreDisplay.classList.remove('col-md-8');
-    scoreDisplay.classList.add('d-none');
-    questionSection.classList.add('d-none');
 
-    chatSection.classList.remove('col-md-4');
-    questionSection.classList.remove('col-md-8');
+//Listen Socket handles
 
+// if Token fails on Backend
+socket.on('failedToken', ()=>{
+    //directs the user back to index.html and removes the token from sessionStore to log them out
+    window.location.href = '../index.html';
+    sessionStorage.removeItem('token');
 })
 
-function enterRoom(roomName) {
-    const token = sessionStorage.getItem('token');
-    console.log("Entering room:", roomName);
-    socket.emit('enterRoom', {
-        room: roomName,
-        token: token
-    });
-    lobbyView.classList.add('d-none');
-    leaveRoomBtn.classList.remove('d-none');
-    startQuizBtn.classList.remove('d-none');
-    roomView.classList.remove('d-none');
-    roomTitle.textContent = `Raum: ${roomName}`;
-    chatDisplay.innerHTML = '';
-}
-
+//handles list of Categories
 socket.on('listOfCategories', (data) => {
     showCategories(data)
 })
-
-
-
-document.querySelector('.form-msg').addEventListener('submit', sendMessage);
-//document.querySelector('.form-join').addEventListener('submit', enterRoom);
-
-msgInput.addEventListener('keypress', () => {
-    const username = getUsernameFromToken();
-    if (username) {
-        socket.emit('activity', username);
-    }
+//handles list of rooms
+socket.on('roomList', ({ rooms }) => {
+    showRooms(rooms);
+    console.log(rooms);
+});
+//handles list of users
+socket.on('userList', ({ users }) => {
+    showUsers(users);
 });
 
 
 // Listen for messages
 socket.on("message", (data) => {
+    //deconstructs incoming data and creates a list
     activity.textContent = "";
     const { name, text, time } = data;
     const li = document.createElement('li');
     li.className = 'post';
+
+    //checks if incoming message is sent by user, admin or another user and styles them accordingly
     if (name === getUsernameFromToken()) li.className = 'post post--left';
     if (name !== getUsernameFromToken() && name !== 'Admin') li.className = 'post post--right';
     if (name !== 'Admin') {
@@ -250,140 +257,50 @@ socket.on("message", (data) => {
     } else {
         li.innerHTML = `<div class="post__text">${text}</div>`;
     }
+    //adds new messages to Chat
     document.querySelector('.chat-display').appendChild(li);
 
     chatDisplay.scrollTop = chatDisplay.scrollHeight;
 });
 
-let activityTimer;
+// listens for activity
 socket.on("activity", (name) => {
+    //sets activity message shown
     activity.textContent = `${name} is typing...`;
 
-    // Clear after 3 seconds
+    // Clears activity after 3 seconds
     clearTimeout(activityTimer);
     activityTimer = setTimeout(() => {
         activity.textContent = "";
     }, 3000);
 });
 
-// User- und Raum-Listen aktualisieren
-socket.on('userList', ({ users }) => {
-    showUsers(users);
-});
-
-socket.on('roomList', ({ rooms }) => {
-    showRooms(rooms);
-    console.log(rooms);
-});
-
-function showUsers(users) {
-    usersList.textContent = '';
-    if (users && users.length > 0) {
-        usersList.innerHTML = `<em>Spieler im Raum:</em>`;
-        const ul = document.createElement('ul');
-        users.forEach(user => {
-            const li = document.createElement('li');
-            li.textContent = user.name;
-            ul.appendChild(li);
-        });
-        usersList.appendChild(ul);
-    }else {
-        usersList.innerHTML = '<em>Keine Spieler im Raum</em>';
-    }
-}
-
-function showRooms(rooms) {
-    // Holen des tbody-Elements, wo die Räume eingefügt werden sollen
-    const roomList = document.querySelector('.room-list');
-    roomList.innerHTML = '';  // Leere die Raumliste, bevor neue Räume eingefügt werden
-
-    if (rooms && rooms.length > 0) {
-        rooms.filter(room => room.gameStatus === 'open').forEach(room => {
-            // Erstelle eine neue Tabellenzeile (tr)
-            const tr = document.createElement('tr');
-
-            // Erstelle Zellen für den Raumname, Kategorie und Anzahl Fragen
-            const tdName = document.createElement('td');
-            tdName.textContent = room.room;  // Raumname einfügen
-            const tdCategory = document.createElement('td');
-            tdCategory.textContent = room.category;  // Kategorie einfügen
-            const tdQuestionCount = document.createElement('td');
-            tdQuestionCount.textContent = room.questionCount;  // Anzahl der Fragen einfügen
-
-            // Erstelle die Aktion (Beitreten-Button)
-            const tdAction = document.createElement('td');
-            const btn = document.createElement('button');
-            btn.textContent = 'Beitreten';
-            btn.addEventListener('click', () => {
-                console.log("Beitreten-Button geklickt:", room.room);
-                enterRoom(room.room);  // Funktion zum Beitreten des Raums
-            });
-
-            tdAction.appendChild(btn);  // Button in die Aktion-Zelle einfügen
-
-            // Alle Zellen (td) zur Zeile (tr) hinzufügen
-            tr.appendChild(tdName);
-            tr.appendChild(tdCategory);
-            tr.appendChild(tdQuestionCount);
-            tr.appendChild(tdAction);
-
-            // Die Zeile zur Raumliste (tbody) hinzufügen
-            roomList.appendChild(tr);
-        });
-    } else {
-        // Falls keine Räume vorhanden sind
-        const tr = document.createElement('tr');
-        const td = document.createElement('td');
-        td.colSpan = 4;  // Damit die Nachricht über die gesamte Breite geht
-        td.textContent = 'Keine aktiven Räume';
-        tr.appendChild(td);
-        roomList.appendChild(tr);
-    }
-}
-
-function showCategories(categories) {
-    const select = document.getElementById('categorySelect');
-    if (!select) {
-        console.error("Das Element mit der ID 'categorySelect' wurde nicht gefunden.");
-        return;
-    }
-
-    // Platzhalter erhalten und restliche Optionen entfernen
-    select.innerHTML = '<option value="" disabled selected>Kategorie auswählen</option>';
-
-    categories.forEach(category => {
-        const option = document.createElement('option');
-        option.value = category;
-        option.textContent = category;
-        select.appendChild(option);
-    });
-}
-
-
+//listens for questions
 socket.on('question', (data)=> {
+    //hides startquiz and leaveRoom button
     startQuizBtn.classList.add('d-none');
     leaveRoomBtn.classList.add('d-none');
 
-
+    //shows quiz area and scales down chat
     questionSection.classList.remove('d-none');
-
-
     chatSection.classList.add('col-md-4');
     questionSection.classList.add('col-md-8');
 
-
+    //deconstructs incoming data and creates element for Question to be displayed
     const {question_id, question, timerEnabled, timerDuration} = data
-    console.log(data)
     const questionDisplay = document.getElementById('question-display')
 
     if(questionDisplay){
+        //clears content from display and adds the Question
         questionDisplay.textContent = '';
         questionDisplay.textContent = `Frage: ${question}`
         if (timerEnabled) {
+            //if a timer is used parses number
             const parsedDuration = Number(timerDuration)
             console.log('Timer gestartet mit Dauer:', parsedDuration);
 
             if (parsedDuration > 0) {
+                //starts the timer with duration from backend
                 stopTimer();
                 startTimer(parsedDuration, question_id);
             } else {
@@ -391,6 +308,7 @@ socket.on('question', (data)=> {
             }
         }
     }
+    //emits ask for answers with the question id
     if (question_id !== undefined) {
         socket.emit('askForAnswers', { question_id });
     } else {
@@ -398,11 +316,12 @@ socket.on('question', (data)=> {
     }
 })
 
+//listens for answers
 socket.on('answers', (data) => {
-    console.log('Client: Antworten:', data)
+    //creates AnswerDisplay element
     const answerDisplay = document.getElementById('answer-display')
     if (answerDisplay) {
-        // Alle Antworten anzeigen
+        // shows all answers with a forEach loop
         answerDisplay.innerHTML = ''
         data.forEach(answer => {
             const answerElement = document.createElement('button')
@@ -412,6 +331,7 @@ socket.on('answers', (data) => {
             answerElement.setAttribute('data-answer-id', answer.answer_id)
             answerElement.setAttribute('data-question-id', answer.question_id)
 
+            //adds Event Listener which stops timer on answer and gets the Answer to send it to Backend
             answerElement.addEventListener('click', (event) => {
                 if (timerActive){
                     stopTimer();
@@ -427,50 +347,233 @@ socket.on('answers', (data) => {
     }
 })
 
+//listens for evaluated Answers
 socket.on('evaluatedAnswer', (data)=>{
+
     console.log('Ev Antwort:', data)
     const{ correct, message, score } =data
     //Prototype
     socket.emit('nextQuestion')
 })
 
+//listens for Quiz over
+socket.on('quizOver', (data) => {
 
-socket.on('quizOver',
-    (data) => {
-        console.log('recieved data:', data)
-        const scoreDisplay = document.getElementById('score-display');
-        if (scoreDisplay) {
-            data.sort((a, b) => b.score - a.score);
-            console.log('sorted data:', data)
-            data.forEach(u => {
-                const scoreElement = document.createElement('div');
-                scoreElement.textContent = `Name: ${u.name} Score: ${u.score}`;
-                scoreDisplay.appendChild(scoreElement);
-            });
-        }
-        leaveRoomBtn.classList.remove('d-none');
-        questionDisplay.textContent = '';
-        answerDisplay.textContent = '';
-        questionSection.classList.add('d-none');
-        scoreDisplay.classList.add('col-md-8');
-        scoreDisplay.classList.remove('d-none');
-    });
-//Test Comment
-socket.on('failedToken', ()=>{
-    window.location.href = '../index.html';
-    sessionStorage.removeItem('token');
+    // reactivates tbody element
+    const scoreDisplay = document.querySelector('.score-display');
+    if (!scoreDisplay) return;
+
+    // Removes old Entries
+    scoreDisplay.innerHTML = '';
+
+    // Sorts Data by score descending and adds the information to the Table
+    if (data && data.length > 0) {
+        data.sort((a, b) => b.score - a.score);
+        console.log('sorted data:', data);
+        let rank = 0;
+        data.forEach(u => {
+            rank++;
+            const tr = document.createElement('tr');
+
+            const tdRank = document.createElement('td');
+            tdRank.textContent = rank;
+            const tdName = document.createElement('td');
+            tdName.textContent = u.name;
+            const tdScore = document.createElement('td');
+            tdScore.textContent = u.score;
+
+            tr.appendChild(tdRank);
+            tr.appendChild(tdName);
+            tr.appendChild(tdScore);
+
+            scoreDisplay.appendChild(tr);
+        });
+    } else {
+        console.warn('Keine Daten für das Scoreboard erhalten');
+    }
+
+    // makes scoreboard visible
+    scoreboard.classList.add('col-md-8');
+    scoreboard.classList.remove('d-none');
+    leaveRoomBtn.classList.remove('d-none');
+
+    // clears Question and Answer section and hides them
+    questionDisplay.textContent = '';
+    answerDisplay.textContent = '';
+    questionSection.classList.add('d-none');
+});
+
+//listens for left room
+socket.on('leftRoom',()=>{
+    //shows Lobby and startQuizBtn again
+    lobbyView.classList.remove('d-none');
+    startQuizBtn.classList.remove('d-none');
+
+
+    //hides room, Scoreboard and question
+    roomView.classList.add('d-none');
+    scoreboard.classList.add('d-none');
+    questionSection.classList.add('d-none');
+
+    //removes split of Chat and Question/Scoreboard
+    chatSection.classList.remove('col-md-4');
+    questionSection.classList.remove('col-md-8');
+    scoreDisplay.classList.remove('col-md-8');
+
+    //makes Chat centered again
+    chatSection.classList.remove('float-end')
+
+    //clear Scoreboard display
+    scoreDisplay.innerHTML = '';
 })
 
+//Functions
 
+//gets Username from Token
 function getUsernameFromToken() {
+    //gets token from session Storage
     const token = sessionStorage.getItem('token');
     if (!token) return null;
 
+    //decodes Payload and returns the username
     try {
-        const payload = JSON.parse(atob(token.split('.')[1])); // Dekodiere den Payload
-        return payload.username; // Passe dies an, falls der Benutzername unter einem anderen Schlüssel gespeichert ist
+        const payload = JSON.parse(atob(token.split('.')[1]))
+        return payload.username
     } catch (error) {
-        console.error('Fehler beim Dekodieren des Tokens:', error);
-        return null;
+        console.error('Fehler beim Dekodieren des Tokens:', error)
+        return null
     }
+}
+
+
+//converts Array of users into a list with HTML Elements
+function showUsers(users) {
+    //clears Userslist
+    usersList.textContent = '';
+
+    //creates an unordered List of Users from recieved Data
+    if (users && users.length > 0) {
+        usersList.innerHTML = `<em>Spieler im Raum:</em>`;
+        const ul = document.createElement('ul');
+        users.forEach(user => {
+            const li = document.createElement('li');
+            li.textContent = user.name;
+            ul.appendChild(li);
+        });
+        usersList.appendChild(ul);
+    }else {
+        usersList.innerHTML = '<em>Keine Spieler im Raum</em>';
+    }
+}
+
+//converts Array of rooms into a table in HTML
+function showRooms(rooms) {
+    // reactivates the roomList Element
+    const roomList = document.querySelector('.room-list');
+    //clear the list
+    roomList.innerHTML = '';
+
+    //filters the rooms by games "open" games
+    if (rooms && rooms.length > 0) {
+        rooms.filter(room => room.gameStatus === 'open').forEach(room => {
+            const tr = document.createElement('tr');
+
+            const tdName = document.createElement('td');
+            tdName.textContent = room.room;
+            const tdCategory = document.createElement('td');
+            tdCategory.textContent = room.category;
+            const tdQuestionCount = document.createElement('td');
+            tdQuestionCount.textContent = room.questionCount;
+
+            // Creates Action Button to join room
+            const tdAction = document.createElement('td');
+            const btn = document.createElement('button');
+            btn.textContent = 'Beitreten';
+            //adds EventListener to execute function to join room
+            btn.addEventListener('click', () => {
+                console.log("Beitreten-Button geklickt:", room.room);
+                enterRoom(room.room);
+            });
+
+            tdAction.appendChild(btn);
+            tr.appendChild(tdName);
+            tr.appendChild(tdCategory);
+            tr.appendChild(tdQuestionCount);
+            tr.appendChild(tdAction);
+
+            roomList.appendChild(tr);
+        });
+    } else {
+        // if no rooms available returns and empty list
+        const tr = document.createElement('tr');
+        const td = document.createElement('td');
+        td.colSpan = 4;  // Damit die Nachricht über die gesamte Breite geht
+        td.textContent = 'Keine aktiven Räume';
+        tr.appendChild(td);
+        roomList.appendChild(tr);
+    }
+}
+
+//converts Array of categories into a select list in HTML
+function showCategories(categories) {
+    //creates the Select Element
+    const select = document.getElementById('categorySelect');
+    if (!select) {
+        console.error("Das Element mit der ID 'categorySelect' wurde nicht gefunden.");
+        return;
+    }
+
+    // adds Placeholder
+    select.innerHTML = '<option value="" disabled selected>Kategorie auswählen</option>';
+
+    // adds recieved Data to select list
+    categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = category;
+        select.appendChild(option);
+    });
+}
+
+
+//Sends a Message to the Backend
+function sendMessage(e) {
+    e.preventDefault();
+    //gets username from token and message
+    if (getUsernameFromToken() && msgInput.value) {
+        //emits messages to server and clears input
+        socket.emit('message', {
+            name: getUsernameFromToken(),
+            text: msgInput.value
+        });
+        msgInput.value = "";
+    }
+    msgInput.focus();
+}
+
+//function to enter a room
+function enterRoom(roomName) {
+    //gets token
+    const token = sessionStorage.getItem('token');
+    //emits enterRoom to backend
+    socket.emit('enterRoom', {
+        room: roomName,
+        token: token
+    });
+    //hides Lobby, shows LeaveRoom/StartQuizBtn/Room, sets roomtitle and clear chat
+    lobbyView.classList.add('d-none');
+    leaveRoomBtn.classList.remove('d-none');
+    startQuizBtn.classList.remove('d-none');
+    roomView.classList.remove('d-none');
+    roomTitle.textContent = `Raum: ${roomName}`;
+    chatDisplay.innerHTML = '';
+
+    // resets scoreboard
+    scoreboard.classList.add('d-none');
+    const scoreDisplay = document.querySelector('.score-display');
+    if (scoreDisplay) {
+        scoreDisplay.innerHTML = '';
+    }
+    // makes chat fullscreen
+    chatSection.classList.remove('col-md-4');
 }

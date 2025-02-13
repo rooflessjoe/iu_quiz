@@ -195,7 +195,21 @@
                     <div id="answer-display" class="d-grid gap-3 mt-3" style="grid-template-columns: repeat(2, 1fr); width: 100%; max-width: 400px;"></div>
                 </div>
             </div>
-            <div id="score-display" class="mt-3 d-none"></div>
+            <!--<div id="score-display" class="mt-3 d-none"></div>-->
+            <div class="scoreboard d-none mt-3">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">Rank</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Score</th>
+                    </tr>
+                    </thead>
+                    <tbody class="score-display">
+                    <!-- Hier werden die Räume dynamisch per JavaScript eingefügt -->
+                    </tbody>
+                </table>
+            </div>
 
             <!-- Chat-Bereich -->
             <div class="chat-section mt-3">
