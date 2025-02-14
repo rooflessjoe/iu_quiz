@@ -203,6 +203,12 @@ leaveRoomBtn.addEventListener('click', () => {
     leaveRoomBtn.classList.add('d-none');
 })
 
+//request amount of questions from backend
+categoryInput.addEventListener('change', () => {
+    const selectedCategory = categoryInput.value;
+    socket.emit('getQuestionCount', {category: selectedCategory})
+})
+
 
 //Listen Socket handles
 
@@ -226,6 +232,27 @@ socket.on('roomList', ({ rooms }) => {
 socket.on('userList', ({ users }) => {
     showUsers(users);
 });
+//handles amount of questions per category
+socket.on('questionCountForCategory', (data) => {
+    console.log(data)
+    const count = Number(data.count)
+    console.log(count)
+    questionCountInput.innerHTML = '';
+
+    const placeholderOption = document.createElement('option');
+    placeholderOption.value = "";
+    placeholderOption.textContent = "Anzahl der Fragen Auswählen"
+    placeholderOption.disabled = true;
+    placeholderOption.selected = true;
+    questionCountInput.appendChild(placeholderOption);
+
+    for (let i = 0; i < count+1; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = i;
+        questionCountInput.appendChild(option);
+    }
+})
 
 
 // Listen for messages
@@ -633,3 +660,4 @@ function shuffleArray(array) {
         [array[i], array[j]] = [array[j], array[i]];
     }
 }
+
