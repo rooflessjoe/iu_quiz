@@ -183,6 +183,7 @@
     <!-- Raum-Ansicht (initial ausgeblendet) -->
     <section id="room-view" class="d-none">
         <h2 id="room-title"></h2>
+        <h4 id="current-question-count-display" class="d-none"></h4>
         <button id="start-quiz" class="btn btn-primary">Quiz Starten</button>
         <button id="leave-room" class="btn btn-danger">Raum verlassen</button>
 
@@ -206,10 +207,12 @@
                     </tr>
                     </thead>
                     <tbody class="score-display">
-                    <!-- Hier werden die Räume dynamisch per JavaScript eingefügt -->
+
                     </tbody>
                 </table>
             </div>
+
+
 
             <!-- Chat-Bereich -->
             <div class="chat-section mt-3">
@@ -223,6 +226,11 @@
                 <p class="user-list mt-2"></p>
                 <p class="activity text-muted"></p>
             </div>
+        </div>
+
+
+        <div class="player-answers-summary-display">
+
         </div>
 
 

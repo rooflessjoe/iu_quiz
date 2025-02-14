@@ -1,7 +1,3 @@
-//Todo
-//Evaluate Answer Needs to be worked on
-//Add current question and more info to room screen
-//Add a no active Room avalible when a room exists but isnt open
 const token = sessionStorage.getItem('token');
 const socket = io.connect('https://iu-quiz-backend.onrender.com/quizAPI', {
     query: {token}
@@ -34,6 +30,7 @@ const scoreDisplay = document.querySelector('.score-display');
 const scoreboard = document.querySelector('.scoreboard');
 const questionSection = document.querySelector('.question-container');
 const chatQuizDisplay = document.querySelector('.chatQuizDisplay');
+const currentQuestionDisplay = document.getElementById('current-question-count-display');
 
 // DOM-Elements for Chat, Error and Lists
 const msgForm = document.querySelector('.form-msg');
@@ -100,9 +97,6 @@ function updateTimerDisplay(time) {
         timerElement.textContent = `Verbleibenen Zeit: ${time}`
     }
 }
-
-
-
 
 //Event Listeners
 
@@ -287,13 +281,13 @@ socket.on('question', (data)=> {
     questionSection.classList.add('col-md-8');
 
     //deconstructs incoming data and creates element for Question to be displayed
-    const {question_id, question, timerEnabled, timerDuration} = data
+    const {currentQuestion, questionCount, question_id, question, timerEnabled, timerDuration} = data
     const questionDisplay = document.getElementById('question-display')
 
     if(questionDisplay){
         //clears content from display and adds the Question
         questionDisplay.textContent = '';
-        questionDisplay.textContent = `Frage: ${question}`
+        questionDisplay.textContent = `${question}`
         if (timerEnabled) {
             //if a timer is used parses number
             const parsedDuration = Number(timerDuration)
@@ -308,6 +302,14 @@ socket.on('question', (data)=> {
             }
         }
     }
+    //displays current Question
+    const currentQuestionDisplay = document.getElementById('current-question-count-display')
+    if (currentQuestionDisplay) {
+        currentQuestionDisplay.textContent = '';
+        currentQuestionDisplay.textContent = `Frage: ${currentQuestion}/${questionCount}`;
+        currentQuestionDisplay.classList.remove('d-none');
+    }
+
     //emits ask for answers with the question id
     if (question_id !== undefined) {
         socket.emit('askForAnswers', { question_id });
@@ -323,6 +325,7 @@ socket.on('answers', (data) => {
     if (answerDisplay) {
         // shows all answers with a forEach loop
         answerDisplay.innerHTML = ''
+        shuffleArray(data)
         data.forEach(answer => {
             const answerElement = document.createElement('button')
             answerElement.textContent = answer.answer;
@@ -357,7 +360,7 @@ socket.on('evaluatedAnswer', (data)=>{
 })
 
 //listens for Quiz over
-socket.on('quizOver', (data) => {
+socket.on('quizOver', (userScores, gameAnswersArray) => {
 
     // reactivates tbody element
     const scoreDisplay = document.querySelector('.score-display');
@@ -367,11 +370,11 @@ socket.on('quizOver', (data) => {
     scoreDisplay.innerHTML = '';
 
     // Sorts Data by score descending and adds the information to the Table
-    if (data && data.length > 0) {
-        data.sort((a, b) => b.score - a.score);
-        console.log('sorted data:', data);
+    if (userScores && userScores.length > 0) {
+        userScores.sort((a, b) => b.score - a.score);
+        console.log('sorted data:', userScores);
         let rank = 0;
-        data.forEach(u => {
+        userScores.forEach(u => {
             rank++;
             const tr = document.createElement('tr');
 
@@ -391,6 +394,47 @@ socket.on('quizOver', (data) => {
     } else {
         console.warn('Keine Daten für das Scoreboard erhalten');
     }
+    //checks if gameAnswersArray has content and logs it
+    if (gameAnswersArray) {
+        console.log(gameAnswersArray);
+        const answersSummary = document.querySelector('.player-answers-summary-display');
+        if (!answersSummary) return;
+
+        // remove old content
+        answersSummary.innerHTML = '';
+
+        // Gets all Playernames (key of array)
+        const players = Object.keys(gameAnswersArray);
+        if (players.length === 0) return;
+
+        const numQuestions = gameAnswersArray[players[0]].length;
+
+        for (let i = 0; i < numQuestions; i++) {
+            const questionDiv = document.createElement('div');
+            questionDiv.classList.add('question-summary');
+
+            // Headline for Question
+            const questionHeader = document.createElement('h4');
+            questionHeader.textContent = `Frage ${i + 1}:`;
+            questionDiv.appendChild(questionHeader);
+
+            // Collects the Answers from all players for a question
+            const answersList = players.map(player => {
+                const answer = gameAnswersArray[player][i];
+                // converst the boolean into check and x
+                const answerText = answer ? "✓" : "✗";
+                return `${player}: ${answerText}`;
+            });
+
+            // Adds the Answers as paragraphs
+            const answersParagraph = document.createElement('p');
+            answersParagraph.textContent = answersList.join(', ');
+            questionDiv.appendChild(answersParagraph);
+
+            // adds the questionContainer to summery
+            answersSummary.appendChild(questionDiv);
+        }}
+
 
     // makes scoreboard visible
     scoreboard.classList.add('col-md-8');
@@ -401,6 +445,7 @@ socket.on('quizOver', (data) => {
     questionDisplay.textContent = '';
     answerDisplay.textContent = '';
     questionSection.classList.add('d-none');
+    currentQuestionDisplay.classList.add('d-none');
 });
 
 //listens for left room
@@ -414,6 +459,7 @@ socket.on('leftRoom',()=>{
     roomView.classList.add('d-none');
     scoreboard.classList.add('d-none');
     questionSection.classList.add('d-none');
+    currentQuestionDisplay.classList.add('d-none');
 
     //removes split of Chat and Question/Scoreboard
     chatSection.classList.remove('col-md-4');
@@ -473,9 +519,11 @@ function showRooms(rooms) {
     //clear the list
     roomList.innerHTML = '';
 
+    const openRooms = rooms.filter(room => room.gameStatus === 'open')
+
     //filters the rooms by games "open" games
-    if (rooms && rooms.length > 0) {
-        rooms.filter(room => room.gameStatus === 'open').forEach(room => {
+    if (openRooms && openRooms.length > 0) {
+        openRooms.forEach(room => {
             const tr = document.createElement('tr');
 
             const tdName = document.createElement('td');
@@ -576,4 +624,12 @@ function enterRoom(roomName) {
     }
     // makes chat fullscreen
     chatSection.classList.remove('col-md-4');
+}
+
+// function to shuffle an Array to have a different order of Questions
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
 }
