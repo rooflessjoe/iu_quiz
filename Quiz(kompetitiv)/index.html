@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moderne Quizseite kompetitiv</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dark-mode-toggle">
+        <label for="dark-mode-switch">Dark Mode</label>
+        <label class="switch">
+            <input type="checkbox" id="dark-mode-switch">
+            <span class="slider"></span>
+        </label>
+    </div>
+     
+
+    <div class="quiz-container">
+        <!-- Dropdown-Menü -->
+    <div class="menu" onclick="toggleMenu()">
+        III
+        <div class="submenu" id="submenu">
+            <a href="#">Option 1</a>
+            <a href="#">Option 2</a>
+            <a href="#">Option 3</a>
+        </div>
+    </div>
+    
+        <div class="question-section">
+            <div class="question-field">
+                <h1 class="question">Was ist die Hauptstadt von Frankreich?</h1>
+            </div>
+        </div>
+        <div class="container">
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+                <div class="countdown-wrapper">
+                    <label for="Countdown" class="countdown">verbleibende Zeit</label>
+                    <div class="countdown" id="countdown">30</div>
+                </div>
+            </div>
+        </div>
+        <div class="options-section">
+            <div class="option-field">
+                <button class="option">Berlin</button>
+            </div>
+            <div class="option-field">
+                <button class="option">London</button>
+            </div>
+            <div class="option-field">
+                <button class="option">Paris</button>
+            </div>
+            <div class="option-field">
+                <button class="option">Rom</button>
+            </div>
+        </div>
+        <div class="next-question-section">
+            <button class="next-question-btn">Nächste Frage</button>
+        </div>
+    </div>
+    <script>
+        // JavaScript für den Darkmode-Schalter
+        const darkModeSwitch = document.getElementById('dark-mode-switch');
+        darkModeSwitch.addEventListener('change', () => {
+            document.body.classList.toggle('dark-mode', darkModeSwitch.checked);
+        });
+
+        // Placeholder für die Navigation zur nächsten Frage
+        document.querySelector('.next-question-btn').addEventListener('click', () => {
+            alert('Navigiere zur nächsten Frage!');
+        });
+        window.onload = function() {
+            var progressBar = document.getElementById('progress');
+            var countdown = document.getElementById('countdown');
+            var timeLeft = 30;
+            var totalDuration = 30; // Sekunden
+
+            var interval = setInterval(function() {
+                timeLeft--;
+                countdown.innerHTML = timeLeft;
+                progressBar.style.width = (timeLeft / totalDuration) * 100 + '%';
+
+                if (timeLeft <= 0) {
+                    clearInterval(interval);
+                }
+            }, 1000);
+        }; 
+        function toggleMenu() {
+  var submenu = document.getElementById('submenu');
+  if (submenu.style.display === 'block') {
+    submenu.style.display = 'none';
+  } else {
+    submenu.style.display = 'block';
+  }
+}
+    </script>
+</body>
+</html>
