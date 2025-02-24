@@ -7,6 +7,7 @@ const socket = io.connect('https://iu-quiz-backend.onrender.com/quizAPI', {
 const lobbyView = document.getElementById('lobby-view');
 const roomView = document.getElementById('room-view');
 const roomTitle = document.getElementById('room-title');
+const roomHostText = document.getElementById('room-host');
 
 //Elements to create Rooms in Lobby
 const roomNameInput = document.getElementById('roomName')
@@ -31,6 +32,7 @@ const scoreboard = document.querySelector('.scoreboard');
 const questionSection = document.querySelector('.question-container');
 const chatQuizDisplay = document.querySelector('.chatQuizDisplay');
 const currentQuestionDisplay = document.getElementById('current-question-count-display');
+const nextQuestionButton = document.getElementById('nextQuestion-Button');
 
 // DOM-Elements for Chat, Error and Lists
 const msgForm = document.querySelector('.form-msg');
@@ -150,16 +152,6 @@ createRoomForm.addEventListener('submit', (e) => {
     categoryInput.value = '';
     questionCountInput.value = '';
     timerEnabledInput.value = '';
-
-    // changes to Room view and hides Lobby
-    lobbyView.classList.add('d-none');
-    roomView.classList.remove('d-none');
-    roomTitle.textContent = `Raum: ${roomName}`;
-    leaveRoomBtn.classList.remove('d-none');
-    chatDisplay.innerHTML = '';
-    scoreboard.classList.add('d-none');
-    chatSection.classList.remove('col-md-4');
-
 });
 
 //Enables/Disables the timer field in create form
@@ -246,7 +238,7 @@ socket.on('questionCountForCategory', (data) => {
     placeholderOption.selected = true;
     questionCountInput.appendChild(placeholderOption);
 
-    for (let i = 0; i < count+1; i++) {
+    for (let i = 1; i < count+1; i++) {
         const option = document.createElement('option');
         option.value = i;
         option.textContent = i;
@@ -296,6 +288,10 @@ socket.on("activity", (name) => {
     }, 3000);
 });
 
+function askForNextQuestion() {
+    socket.emit('skipQuestion')
+}
+
 //listens for questions
 socket.on('question', (data)=> {
     //hides startquiz and leaveRoom button
@@ -308,13 +304,14 @@ socket.on('question', (data)=> {
     questionSection.classList.add('col-md-8');
 
     //deconstructs incoming data and creates element for Question to be displayed
-    const {currentQuestion, questionCount, question_id, question, timerEnabled, timerDuration} = data
+    const {currentQuestion, questionCount, question_id, question, timerEnabled, timerDuration, gameHost} = data
     const questionDisplay = document.getElementById('question-display')
 
     if(questionDisplay){
         //clears content from display and adds the Question
         questionDisplay.textContent = '';
         questionDisplay.textContent = `${question}`
+
         if (timerEnabled) {
             //if a timer is used parses number
             const parsedDuration = Number(timerDuration)
@@ -326,6 +323,13 @@ socket.on('question', (data)=> {
                 startTimer(parsedDuration, question_id);
             } else {
                 console.warn('Timer-Dauer ungültig:', timerDuration);
+            }
+        }else{
+            if (getUsernameFromToken() === gameHost){
+                nextQuestionButton.classList.remove('d-none');
+
+                nextQuestionButton.addEventListener('click', askForNextQuestion);
+
             }
         }
     }
@@ -473,6 +477,8 @@ socket.on('quizOver', (userScores, gameAnswersArray) => {
     answerDisplay.textContent = '';
     questionSection.classList.add('d-none');
     currentQuestionDisplay.classList.add('d-none');
+    nextQuestionButton.classList.add('d-none');
+
 });
 
 //listens for left room
@@ -500,6 +506,51 @@ socket.on('leftRoom',()=>{
     scoreDisplay.innerHTML = '';
 })
 
+socket.on('userJoinedRoom', (data)=>{
+    const {roomName, roomHost} = data;
+    console.log(roomName);
+    console.log(roomHost);
+
+    //makes Start button visible for Host
+    if (roomHost === getUsernameFromToken(token)) {
+        startQuizBtn.classList.remove('d-none');
+    }else {
+        startQuizBtn.classList.add('d-none');
+    }
+
+    //hides Lobby, shows LeaveRoom/StartQuizBtn/Room, sets roomtitle and clear chat
+    lobbyView.classList.add('d-none');
+    leaveRoomBtn.classList.remove('d-none');
+    roomView.classList.remove('d-none');
+    roomTitle.textContent = `Raum: ${roomName}`;
+    roomHostText.classList.remove('d-none');
+    roomHostText.textContent = `Host: ${roomHost}` ;
+    chatDisplay.innerHTML = '';
+
+    // resets scoreboard
+    scoreboard.classList.add('d-none');
+    const scoreDisplay = document.querySelector('.score-display');
+    if (scoreDisplay) {
+        scoreDisplay.innerHTML = '';
+    }
+    // makes chat fullscreen
+    chatSection.classList.remove('col-md-4');
+
+})
+
+socket.on('newHost', (data)=> {
+    const {gameHost, gameStatus} = data;
+    console.log('New Game Host', gameHost, 'and state', gameStatus);
+    if (gameHost === getUsernameFromToken(token)) {
+        if (gameStatus !== 'active') {
+            startQuizBtn.classList.remove('d-none');
+        }
+    } else{
+        startQuizBtn.classList.add('d-none');
+    }
+    roomHostText.textContent = `Host: ${gameHost}`;
+})
+
 //Functions
 
 //gets Username from Token
@@ -511,6 +562,7 @@ function getUsernameFromToken() {
     //decodes Payload and returns the username
     try {
         const payload = JSON.parse(atob(token.split('.')[1]))
+        console.log('UsernameFromTokenFunction',payload.username)
         return payload.username
     } catch (error) {
         console.error('Fehler beim Dekodieren des Tokens:', error)
@@ -635,22 +687,6 @@ function enterRoom(roomName) {
         room: roomName,
         token: token
     });
-    //hides Lobby, shows LeaveRoom/StartQuizBtn/Room, sets roomtitle and clear chat
-    lobbyView.classList.add('d-none');
-    leaveRoomBtn.classList.remove('d-none');
-    startQuizBtn.classList.remove('d-none');
-    roomView.classList.remove('d-none');
-    roomTitle.textContent = `Raum: ${roomName}`;
-    chatDisplay.innerHTML = '';
-
-    // resets scoreboard
-    scoreboard.classList.add('d-none');
-    const scoreDisplay = document.querySelector('.score-display');
-    if (scoreDisplay) {
-        scoreDisplay.innerHTML = '';
-    }
-    // makes chat fullscreen
-    chatSection.classList.remove('col-md-4');
 }
 
 // function to shuffle an Array to have a different order of Questions
@@ -660,4 +696,3 @@ function shuffleArray(array) {
         [array[i], array[j]] = [array[j], array[i]];
     }
 }
-

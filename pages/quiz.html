@@ -185,6 +185,7 @@
     <!-- Raum-Ansicht (initial ausgeblendet) -->
     <section id="room-view" class="d-none">
         <h2 id="room-title"></h2>
+        <h3 id="room-host"></h3>
         <h4 id="current-question-count-display" class="d-none"></h4>
         <button id="start-quiz" class="btn btn-primary">Quiz Starten</button>
         <button id="leave-room" class="btn btn-danger">Raum verlassen</button>
@@ -196,6 +197,7 @@
                 <div class="box-around-question-answer d-flex flex-column align-items-center">
                     <div id="question-display" class="mt-3 fw-bold fs-4"></div>
                     <div id="answer-display" class="d-grid gap-3 mt-3" style="grid-template-columns: repeat(2, 1fr); width: 100%; max-width: 400px;"></div>
+                    <div id="nextQuestion-Button" class="btn btn-secondary gap-3 mt-3 d-none">Nächste Frage</div>
                 </div>
             </div>
             <!--<div id="score-display" class="mt-3 d-none"></div>-->
