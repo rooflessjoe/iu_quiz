@@ -539,6 +539,9 @@ socket.on('newHost', (data)=> {
         if (gameStatus !== 'active') {
             startQuizBtn.classList.remove('d-none');
         }
+        if (gameStatus === 'active') {
+            nextQuestionButton.classList.remove('d-none');
+        }
     } else{
         startQuizBtn.classList.add('d-none');
     }
