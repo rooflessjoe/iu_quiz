@@ -156,7 +156,7 @@ createRoomForm.addEventListener('submit', (e) => {
 
 //Enables/Disables the timer field in create form
 timerEnabledInput.addEventListener('change', function () {
-    //enables or disables the timer input field depending if timer is activated or not
+    //enables or disables the timer input field depending on if timer is activated or not
     if (this.checked) {
         timerEnterOption.classList.remove('hidden');
         timerInput.disabled = false;
@@ -226,9 +226,9 @@ socket.on('userList', ({ users }) => {
 });
 //handles amount of questions per category
 socket.on('questionCountForCategory', (data) => {
-    console.log(data)
+    //parses Data into a number
     const count = Number(data.count)
-    console.log(count)
+
     questionCountInput.innerHTML = '';
 
     const placeholderOption = document.createElement('option');
@@ -238,6 +238,7 @@ socket.on('questionCountForCategory', (data) => {
     placeholderOption.selected = true;
     questionCountInput.appendChild(placeholderOption);
 
+    //for loop to add each Number to the select option
     for (let i = 1; i < count+1; i++) {
         const option = document.createElement('option');
         option.value = i;
@@ -287,10 +288,6 @@ socket.on("activity", (name) => {
         activity.textContent = "";
     }, 3000);
 });
-
-function askForNextQuestion() {
-    socket.emit('skipQuestion')
-}
 
 //listens for questions
 socket.on('question', (data)=> {
@@ -383,8 +380,6 @@ socket.on('answers', (data) => {
 
 //listens for evaluated Answers
 socket.on('evaluatedAnswer', (data)=>{
-
-    console.log('Ev Antwort:', data)
     const{ correct, message, score } =data
     //Prototype
     socket.emit('nextQuestion')
@@ -392,7 +387,6 @@ socket.on('evaluatedAnswer', (data)=>{
 
 //listens for Quiz over
 socket.on('quizOver', (userScores, gameAnswersArray) => {
-
     // reactivates tbody element
     const scoreDisplay = document.querySelector('.score-display');
     if (!scoreDisplay) return;
@@ -507,9 +501,8 @@ socket.on('leftRoom',()=>{
 })
 
 socket.on('userJoinedRoom', (data)=>{
+    //deconstructs Data
     const {roomName, roomHost} = data;
-    console.log(roomName);
-    console.log(roomHost);
 
     //makes Start button visible for Host
     if (roomHost === getUsernameFromToken(token)) {
@@ -517,7 +510,6 @@ socket.on('userJoinedRoom', (data)=>{
     }else {
         startQuizBtn.classList.add('d-none');
     }
-
     //hides Lobby, shows LeaveRoom/StartQuizBtn/Room, sets roomtitle and clear chat
     lobbyView.classList.add('d-none');
     leaveRoomBtn.classList.remove('d-none');
@@ -539,8 +531,10 @@ socket.on('userJoinedRoom', (data)=>{
 })
 
 socket.on('newHost', (data)=> {
+    // deconstructs data
     const {gameHost, gameStatus} = data;
-    console.log('New Game Host', gameHost, 'and state', gameStatus);
+
+    //checks if user is game host, then check if game is active to not add Start button to an ongoing game
     if (gameHost === getUsernameFromToken(token)) {
         if (gameStatus !== 'active') {
             startQuizBtn.classList.remove('d-none');
@@ -548,6 +542,7 @@ socket.on('newHost', (data)=> {
     } else{
         startQuizBtn.classList.add('d-none');
     }
+    // shows new Gamehost in Room view
     roomHostText.textContent = `Host: ${gameHost}`;
 })
 
@@ -695,4 +690,9 @@ function shuffleArray(array) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
+}
+
+// function to request next Question from the host
+function askForNextQuestion() {
+    socket.emit('skipQuestion')
 }
