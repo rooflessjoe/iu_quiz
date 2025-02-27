@@ -1,31 +1,27 @@
 import { quizOverview } from '../components/quizOverview.js';
-//import { singlePlayerQuiz } from '../components/singlePlayerQuiz.js';
+import { singlePlayerQuiz } from '../components/singlePlayerQuiz.js';
 
 // Haupt-App
 const Quiz = Vue.createApp ({
     data() {
         return {
-            menuItems: [
-                { name: 'Home'},
-            ],
             currentComponent: quizOverview,
+            currentQuiz: null,
             isLoggedIn: false
         };
     },
     components: {
         quizOverview,
-        //singlePlayerQuiz
+        singlePlayerQuiz
     },
     methods: {
-        /*loadToken(){
-            const token = sessionStorage.getItem('token');
-        },*/
         checkLoginStatus() {
             this.isLoggedIn = !!sessionStorage.getItem('token');
         },
 
         setCurrentComponent(component) {
             this.currentComponent = component;
+            this.currentQuiz = this.quizList.find(quizList.quiz_name);
             sessionStorage.setItem('currentComponent', component); // Speichere die aktuelle Komponente in sessionStorage
         },
 
