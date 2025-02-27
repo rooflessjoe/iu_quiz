@@ -45,7 +45,7 @@ methods: {
 
         const token = sessionStorage.getItem('token');
         
-        fetch('https://iu-quiz-backend.onrender.com/api/quiz', {
+        fetch('https://iu-quiz-backend.onrender.com/api/quiz_list', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`, // Token im Authorization-Header senden
