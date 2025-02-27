@@ -69,5 +69,6 @@ methods: {
 },
 mounted() {
     this.fetchDataQuizList();
+    console.log(this.quizList);
 }
 };
