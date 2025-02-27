@@ -4,11 +4,11 @@ export const quizOverview = {
         <h1 class="mb-4">Quiz Übersicht</h1>
         <div v-if="!loading">
             <div class="row">
-                <div class="col-md-4" v-for="(item, index) in quizList" :key="item.name">
+                <div class="col-md-4" v-for="quiz in quizList" :key="quiz.id">
                     <div class="card mb-4">
                         <div class="card-body">
                             <h5 class="card-title">Quiz
-                                <span>{{ index + 1}}: {{ item.name }}</span>
+                                <span>{{ quiz.id + 1}}: {{ quiz.quiz_name }}</span>
                             </h5>
                             <p class="card-text">Testen Sie Ihr Allgemeinwissen mit diesem spannenden Quiz.</p>
                             <a href="#" class="btn btn-primary">Quiz starten</a>
@@ -18,8 +18,10 @@ export const quizOverview = {
             </div>
         </div>
         <div v-else>
-            <div class="spinner-grow text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
+            <div class="d-flex justify-content-center">
+                <div class="spinner-grow text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
             </div>
         </div>
         <div v-if="error" class="mt-4 alert alert-danger" role="alert">

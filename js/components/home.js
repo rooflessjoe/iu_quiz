@@ -3,7 +3,9 @@ export const Home = {
     <div class="container-fluid">
         <h1>Home</h1>
         <p>Willkommen auf der Startseite!</p>
-        <a class="btn btn-primary" role="button" href="pages/quiz.html">Quiz</a>
+        <div v-if="!isLoggedIn>
+            <a class="btn btn-primary" role="button" href="pages/quiz.html">Quiz</a>
+        </div>
     </div>
     `
 };
