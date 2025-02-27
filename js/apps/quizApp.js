@@ -21,8 +21,12 @@ const Quiz = Vue.createApp ({
 
         setCurrentComponent(component) {
             this.currentComponent = component;
-            this.currentQuiz = this.quizList.find(quizList.quiz_name);
             sessionStorage.setItem('currentComponent', component); // Speichere die aktuelle Komponente in sessionStorage
+        },
+
+        setCurrentQuiz(name) {
+            this.currentQuiz = name;
+            console.log(currentQuiz);
         },
 
         loadCurrentComponent() {

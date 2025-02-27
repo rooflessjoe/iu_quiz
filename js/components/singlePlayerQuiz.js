@@ -36,6 +36,7 @@ methods: {
         this.loading = true;
 
         const token = sessionStorage.getItem('token');
+
         if (token != null){
         fetch('https://iu-quiz-backend.onrender.com/api/quiz?quizID=${this.quizname}&quizName=${this.quizid}', {
             method: 'GET',
@@ -97,9 +98,13 @@ fetchDataAnswer() {
 } else {
     this.message = "Nicht Authentifiziert";
 }
+},
+changeComponent(){
+    this.$emit('change-component', 'quizOverview');
 }
 },
 mounted() {
+    this.quizName = quizName;
     this.fetchDataQuestions();
 }
 };

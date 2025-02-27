@@ -11,7 +11,9 @@ export const quizOverview = {
                                 <span>{{ index + 1}}: {{ item.quiz_name }}</span>
                             </h5>
                             <p class="card-text">Teste Dein Wissen mit diesem spannenden Quiz.</p>
-                            <button class="btn btn-primary" @click.prevent="changeComponent">Quiz starten</button>
+                            <button class="btn btn-primary" @click.prevent="handleClick">Quiz starten
+                                <span id=quizName class="hidden">{{ item.quiz_name }}
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -72,8 +74,10 @@ methods: {
     this.message = "Nicht Authentifiziert";
 }
 },
-changeComponent(){
+handleClick(){
     this.$emit('change-component', 'singlePlayerQuiz');
+    const name = document.getElementById('quizName').textContent;
+    this.$emit('quizName', name);
 }
 },
 mounted() {
