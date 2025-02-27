@@ -11,7 +11,7 @@ export const quizOverview = {
                                 <span>{{ index + 1}}: {{ item.quiz_name }}</span>
                             </h5>
                             <p class="card-text">Teste Dein Wissen mit diesem spannenden Quiz.</p>
-                            <button class="btn btn-primary" @click.prevent="sessionStorage.setItem('currentComponent', 'singlePlayerQuiz')">Quiz starten</button>
+                            <button class="btn btn-primary" @click.prevent="changeComponent">Quiz starten</button>
                         </div>
                     </div>
                 </div>
@@ -71,6 +71,9 @@ methods: {
 } else {
     this.message = "Nicht Authentifiziert";
 }
+},
+changeComponent(){
+    sessionStorage.setItem('currentComponent', 'singlePlayerQuiz');
 }
 },
 mounted() {
