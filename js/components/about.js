@@ -54,6 +54,7 @@ export const About = {
                         .then(response => response.json())
                         .then(data => {
                             this.userData = data;  // Benutzerdaten in Vue.js speichern
+                            console.log(this.userData);
                             this.message = 'Daten erfolgreich geladen!';
                         })
                         .catch(error => {
