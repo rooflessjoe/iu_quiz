@@ -1,20 +1,24 @@
-import { quizOverview } from '../components/quizOverview.js';
-//import { singlePlayerQuiz } from '../components/singlePlayerQuiz.js';
+import { Contact } from '../components/contact.js';
+import { About } from '../components/about.js';
+import { Home } from '../components/home.js';
 
 // Haupt-App
-const Quiz = Vue.createApp ({
+const Main = Vue.createApp ({
     data() {
         return {
             menuItems: [
-                { name: 'Home'},
+                { name: 'Home', component: 'Home' },
+                { name: 'Über', component: 'About' },
+                { name: 'Kontakt', component: 'Contact' }
             ],
-            currentComponent: quizOverview,
+            currentComponent: Home,  // Standardmäßig Home anzeigen
             isLoggedIn: false
         };
     },
     components: {
-        quizOverview,
-        //singlePlayerQuiz
+        Home,
+        About,
+        Contact
     },
     methods: {
         /*loadToken(){
@@ -44,4 +48,4 @@ const Quiz = Vue.createApp ({
       }
 });
 
-Quiz.mount('#quizApp');
+Main.mount('#mainApp');

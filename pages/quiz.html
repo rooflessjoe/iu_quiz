@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Quiz</title>
 
     <!-- Custom Design-->
     <link rel="stylesheet" href="../css/styles.css">
@@ -18,14 +18,14 @@
     <script defer src="https://cdn.jsdelivr.net/npm/vue@3.5.12/dist/vue.global.prod.js"></script>
 
     <!-- Javascript -->
-    <script defer type="module" src="../js/apps/authApp.js"></script>
+    <script defer type="module" src="../js/apps/quizApp.js"></script>
 
     <!--script src="../js/urlAlias.js"></script-->
 </head>
 <body>
     <noscript>
         <style>
-            #authApp {
+            #quizApp {
                 display: none;
             }
         </style>
@@ -34,7 +34,7 @@
         </div>
     </noscript>
 
-    <div id="authApp" class="container">
+    <div id="quizApp">
         <div class="content py-3">
             <component :is="currentComponent"></component>
         </div>
