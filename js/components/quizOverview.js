@@ -44,7 +44,7 @@ methods: {
         this.loading = true;
 
         const token = sessionStorage.getItem('token');
-        
+        if (token != null){
         fetch('https://iu-quiz-backend.onrender.com/api/quiz_list', {
             method: 'GET',
             headers: {
@@ -66,6 +66,9 @@ methods: {
             .finally(() => {
                 this.loading = false;
             });
+} else {
+    this.message = "Nicht Authentifiziert";
+}
 }
 },
 mounted() {
