@@ -55,6 +55,7 @@ methods: {
             .then(response => response.json())
             .then(data => {
                 this.quizList = data;  // Benutzerdaten in Vue.js speichern
+                console.log(this.quizList);
                 this.message = 'Daten erfolgreich geladen!';
             })
             .catch(error => {
@@ -69,6 +70,5 @@ methods: {
 },
 mounted() {
     this.fetchDataQuizList();
-    console.log(this.quizList);
 }
 };
