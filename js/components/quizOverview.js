@@ -4,7 +4,7 @@ export const quizOverview = {
         <h1 class="mb-4">Quiz Übersicht</h1>
         <div v-if="!loading">
             <div class="row">
-                <div class="col-md-4" v-for="quiz in quizList" :key="quiz.id">
+                <div class="col-md-4" v-for="(id, quiz) in quizList" :key="quiz.id">
                     <div class="card mb-4">
                         <div class="card-body">
                             <h5 class="card-title">Quiz
