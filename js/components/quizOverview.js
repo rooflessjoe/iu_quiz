@@ -73,7 +73,7 @@ methods: {
 }
 },
 changeComponent(){
-    sessionStorage.setItem('currentComponent', 'singlePlayerQuiz');
+    this.$emit('change-component', 'singlePlayerQuiz');
 }
 },
 mounted() {
