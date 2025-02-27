@@ -10,8 +10,8 @@ export const quizOverview = {
                             <h5 class="card-title">Quiz
                                 <span>{{ index + 1}}: {{ item.quiz_name }}</span>
                             </h5>
-                            <p class="card-text">Testen Sie Ihr Allgemeinwissen mit diesem spannenden Quiz.</p>
-                            <a href="#" class="btn btn-primary">Quiz starten</a>
+                            <p class="card-text">Teste Dein Wissen mit diesem spannenden Quiz.</p>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#QuizStartenModal">Quiz starten</button>
                         </div>
                     </div>
                 </div>
@@ -26,6 +26,24 @@ export const quizOverview = {
         </div>
         <div v-if="error" class="mt-4 alert alert-danger" role="alert">
             Fehler beim Laden der Daten.
+        </div>
+    </div>
+    <div class="modal fade" id="QuizStartenModal" tabindex="-1" aria-labelledby="Quiz starten" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">Quiz starten</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Zurück"></button>
+            </div>
+            <div class="modal-body">
+                Bitte wähle den Spielmodus
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" @click=setComponent(singlePlayer)>Einzelspieler</button>
+                <a role="button" class="btn btn-primary" href="#">Mehrspieler</a>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Zurück</button>
+            </div>
+            </div>
         </div>
     </div>
     `,
