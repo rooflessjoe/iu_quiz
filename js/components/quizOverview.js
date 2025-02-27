@@ -11,7 +11,7 @@ export const quizOverview = {
                                 <span>{{ index + 1}}: {{ item.quiz_name }}</span>
                             </h5>
                             <p class="card-text">Teste Dein Wissen mit diesem spannenden Quiz.</p>
-                            <button class="btn btn-primary" @click=setCurrentComponent(singlePlayerQuiz)>Quiz starten</button>
+                            <button class="btn btn-primary" @click=setCurrentComponent('singlePlayerQuiz')>Quiz starten</button>
                         </div>
                     </div>
                 </div>
