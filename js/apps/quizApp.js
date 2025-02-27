@@ -6,7 +6,6 @@ const Quiz = Vue.createApp ({
     data() {
         return {
             currentComponent: quizOverview,
-            currentQuiz: null,
             isLoggedIn: false
         };
     },
