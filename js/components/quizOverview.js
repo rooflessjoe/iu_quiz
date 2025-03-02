@@ -77,13 +77,9 @@ handleClick(index, item){
     //this.$emit('change-component', 'singlePlayerQuiz');
     console.log(index, item);
 
-    const url = 'https://iu-quiz-backend.onrender.com/api/quiz?quizID=${index+1}&quizName=${encodeURIComponent(item)}';
-
-    console.log(url);
-
     const token = sessionStorage.getItem('token');
 
-    fetch('https://iu-quiz-backend.onrender.com/api/quiz?quizID=${index+1}&quizName=${encodeURIComponent(item)}', {
+    fetch(`https://iu-quiz-backend.onrender.com/api/quiz?quizID=${index+1}&quizName=${item}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`, // Token im Authorization-Header senden
