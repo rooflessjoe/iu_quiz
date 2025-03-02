@@ -34,7 +34,8 @@ export const quizOverview = {
             quizList: null,
             loading: false,
             message: '',
-            error: null
+            error: null,
+            quizData: null
         };
 },
 
@@ -74,9 +75,6 @@ methods: {
 },
 
 handleClick(index, item){
-    //this.$emit('change-component', 'singlePlayerQuiz');
-    console.log(index, item);
-
     const token = sessionStorage.getItem('token');
 
     fetch(`https://iu-quiz-backend.onrender.com/api/quiz?quizID=${index+1}&quizName=${item}`, {
@@ -88,7 +86,7 @@ handleClick(index, item){
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data);  // Benutzerdaten in Vue.js speichern
+            this.quizData = data;  // Benutzerdaten in Vue.js speichern
             this.message = 'Daten erfolgreich geladen!';
         })
         .catch(error => {
@@ -99,6 +97,7 @@ handleClick(index, item){
         .finally(() => {
             this.loading = false;
         });
+        this.$emit('change-component', {component: 'singlePlayerQuiz', props: {quizData: this.quizData} });
 }
 },
 
