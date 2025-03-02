@@ -7,7 +7,7 @@ export const singlePlayerQuiz = {
             <div v-for="(question, index) in quizData.questions" :key="index" class="mb-4">
                 <h5>Frage {{ index + 1 }}: {{ question.question }}</h5>
                 <ul class="list-group">
-                    <li v-for="(answer, ansIndex) in quizData.answers[question.id]" :key="ansIndex" class="list-group-item">
+                    <li v-for="(answer, ansIndex) in quizData.answers[question.question_id]" :key="ansIndex" class="list-group-item">
                         {{ answer.answer }}
                     </li>
                 </ul>
