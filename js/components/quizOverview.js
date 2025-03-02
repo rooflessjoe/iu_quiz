@@ -11,8 +11,8 @@ export const quizOverview = {
                                 <span>{{ index + 1}}: {{ item.quiz_name }}</span>
                             </h5>
                             <p class="card-text">Teste Dein Wissen mit diesem spannenden Quiz.</p>
-                            <button class="btn btn-primary" @click.prevent="handleClick">Quiz starten
-                                <span id=quizName class="hidden">{{ item.quiz_name }}
+                            <button class="btn btn-primary" @click.prevent="handleClick(item)">Quiz starten
+                                <span id={{ index + 1 }} class="hidden">{{ item.quiz_name }}</span>
                             </button>
                         </div>
                     </div>
@@ -59,7 +59,6 @@ methods: {
             .then(response => response.json())
             .then(data => {
                 this.quizList = data;  // Benutzerdaten in Vue.js speichern
-                console.log(this.quizList);
                 this.message = 'Daten erfolgreich geladen!';
             })
             .catch(error => {
@@ -74,12 +73,32 @@ methods: {
     this.message = "Nicht Authentifiziert";
 }
 },
-handleClick(){
-    this.$emit('change-component', 'singlePlayerQuiz');
-    const name = document.getElementById('quizName').textContent;
-    this.$emit('quizName', name);
+handleClick(item){
+    //this.$emit('change-component', 'singlePlayerQuiz');
+
+    fetch('https://iu-quiz-backend.onrender.com/api/quiz?quizName=quizID=1&quizName=${item.quiz_name}', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`, // Token im Authorization-Header senden
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);  // Benutzerdaten in Vue.js speichern
+            this.message = 'Daten erfolgreich geladen!';
+        })
+        .catch(error => {
+            console.error('Fehler beim Laden der Daten:', error);
+            this.error = true;
+            this.message = 'Fehler beim Laden der Daten.';
+        })
+        .finally(() => {
+            this.loading = false;
+        });
 }
 },
+
 mounted() {
     this.fetchDataQuizList();
 }
