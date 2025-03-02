@@ -86,9 +86,7 @@ handleClick(index, item){
     })
         .then(response => response.json())
         .then(data => {
-            this.quizData = data;  // Benutzerdaten in Vue.js speichern
-            console.log(data);
-            console.log(this.quizData);
+            this.$emit('change-component', {component: 'singlePlayerQuiz', props: {quizData: data} });  // Benutzerdaten in Vue.js speichern
             this.message = 'Daten erfolgreich geladen!';
         })
         .catch(error => {
@@ -99,8 +97,6 @@ handleClick(index, item){
         .finally(() => {
             this.loading = false;
         });
-        console.log(this.quizData);
-        this.$emit('change-component', {component: 'singlePlayerQuiz', props: {quizData: this.quizData} });
 }
 },
 
