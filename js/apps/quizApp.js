@@ -6,7 +6,7 @@ const Quiz = Vue.createApp ({
     data() {
         return {
             currentComponent: quizOverview,
-            currentQuiz: null,
+            currentProps: {},
             isLoggedIn: false
         };
     },
@@ -19,8 +19,9 @@ const Quiz = Vue.createApp ({
             this.isLoggedIn = !!sessionStorage.getItem('token');
         },
 
-        setCurrentComponent(component) {
+        setCurrentComponent({ component, props }) {
             this.currentComponent = component;
+            this.currentProps = props;
             sessionStorage.setItem('currentComponent', component); // Speichere die aktuelle Komponente in sessionStorage
         },
 
