@@ -97,6 +97,7 @@ handleClick(index, item){
         .finally(() => {
             this.loading = false;
         });
+        console.log(this.quizData);
         this.$emit('change-component', {component: 'singlePlayerQuiz', props: {quizData: this.quizData} });
 }
 },
