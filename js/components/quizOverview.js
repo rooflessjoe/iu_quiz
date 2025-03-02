@@ -11,9 +11,7 @@ export const quizOverview = {
                                 <span>{{ index + 1}}: {{ item.quiz_name }}</span>
                             </h5>
                             <p class="card-text">Teste Dein Wissen mit diesem spannenden Quiz.</p>
-                            <button class="btn btn-primary" @click.prevent="handleClick(item)">Quiz starten
-                                <span id={{ index + 1 }} class="hidden">{{ item.quiz_name }}</span>
-                            </button>
+                            
                         </div>
                     </div>
                 </div>
@@ -48,6 +46,7 @@ methods: {
         this.loading = true;
 
         const token = sessionStorage.getItem('token');
+
         if (token != null){
         fetch('https://iu-quiz-backend.onrender.com/api/quiz_list', {
             method: 'GET',
@@ -73,6 +72,7 @@ methods: {
     this.message = "Nicht Authentifiziert";
 }
 },
+
 handleClick(item){
     //this.$emit('change-component', 'singlePlayerQuiz');
     console.log(item);
