@@ -5,10 +5,10 @@ export const singlePlayerQuiz = {
         <h1 class="mb-4">Quiz</h1>
         <div v-if="quizData.questions && quizData.questions.length">
             <div v-for="(question, index) in quizData.questions" :key="index" class="mb-4">
-                <h5>Frage {{ index + 1 }}: {{ question }}</h5>
+                <h5>Frage {{ index + 1 }}: {{ question.question }}</h5>
                 <ul class="list-group">
                     <li v-for="(answer, ansIndex) in quizData.answers[index]" :key="ansIndex" class="list-group-item">
-                        {{ answer }}
+                        {{ answer.answer }}
                     </li>
                 </ul>
             </div>
