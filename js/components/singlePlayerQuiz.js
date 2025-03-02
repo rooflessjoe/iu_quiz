@@ -16,7 +16,7 @@ export const singlePlayerQuiz = {
         <div v-else>
             <p>Keine Fragen verfügbar.</p>
         </div>
-        <button class="btn btn-primary mt-4" @click="startQuiz">Quiz starten</button>
+        <button class="btn btn-primary mt-4">Quiz starten</button>
     </div>
     `,
 

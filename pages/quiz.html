@@ -36,7 +36,7 @@
 
     <div id="quizApp">
         <div class="content py-3">
-            <component :is="currentComponent" @change-component="setCurrentComponent"></component>
+            <component :is="currentComponent" v-bind="currentProps" @change-component="setCurrentComponent"></component>
         </div>
     </div>
 </body>
