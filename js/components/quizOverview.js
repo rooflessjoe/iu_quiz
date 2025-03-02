@@ -77,7 +77,7 @@ handleClick(item){
     //this.$emit('change-component', 'singlePlayerQuiz');
     console.log(item);
 
-    /*fetch('https://iu-quiz-backend.onrender.com/api/quiz?quizName=quizID=1&quizName=${item.quiz_name}', {
+    /*fetch('https://iu-quiz-backend.onrender.com/api/quiz?quizID=1&quizName=${item.quiz_name}', {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`, // Token im Authorization-Header senden
