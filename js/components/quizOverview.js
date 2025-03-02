@@ -87,6 +87,8 @@ handleClick(index, item){
         .then(response => response.json())
         .then(data => {
             this.quizData = data;  // Benutzerdaten in Vue.js speichern
+            console.log(data);
+            console.log(quizData);
             this.message = 'Daten erfolgreich geladen!';
         })
         .catch(error => {
