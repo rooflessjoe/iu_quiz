@@ -11,7 +11,7 @@ export const quizOverview = {
                                 <span>{{ index + 1}}: {{ item.quiz_name }}</span>
                             </h5>
                             <p class="card-text">Teste Dein Wissen mit diesem spannenden Quiz.</p>
-                            <button class="btn btn-primary" @click.prevent="handleClick(item.quiz_name)">Quiz starten</button>
+                            <button class="btn btn-primary" @click.prevent="handleClick(index, item.quiz_name)">Quiz starten</button>
                         </div>
                     </div>
                 </div>
@@ -73,11 +73,11 @@ methods: {
 }
 },
 
-handleClick(item){
+handleClick(index, item){
     //this.$emit('change-component', 'singlePlayerQuiz');
-    console.log(item);
+    console.log(index, item);
 
-    /*fetch('https://iu-quiz-backend.onrender.com/api/quiz?quizID=1&quizName=${item.quiz_name}', {
+    /*fetch('https://iu-quiz-backend.onrender.com/api/quiz?quizID=1&quizName=${item}', {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`, // Token im Authorization-Header senden
