@@ -64,6 +64,7 @@ export const About = {
                         })
                         .finally(() => {
                             this.loading = false;
+                            this.error = false;
                         });
             }
 }
