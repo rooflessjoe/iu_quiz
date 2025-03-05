@@ -9,7 +9,7 @@ export const singlePlayerQuiz = {
                 <h5>Frage {{ index + 1 }}: {{ question.question }}</h5>
                 <ul class="list-group">
                         <li v-for="(answer, ansIndex) in getAnswersForQuestion(question.question_id)" :key="ansIndex"
-                        :class="['list-group-item', {'bg-success': valid && ansIndex === answer.answer_id, 'bg-danger': valid===false && ansIndex === answer.answer_id}]">
+                        :class="['list-group-item', {'bg-success': valid && answer.question_id === answer.question_id, 'bg-danger': valid===false}]">
                             <button class="btn btn-primary" @click.prevent="fetchDataAnswer(answer.question_id, answer.answer_id)">{{ answer.answer }}</button>
                         </li>
                 </ul>
