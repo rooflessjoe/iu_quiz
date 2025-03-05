@@ -28,6 +28,7 @@ const Auth = Vue.createApp ({
     },
     created() {
         // Lade die aktuell gespeicherte Komponente beim Erstellen der App
+        this.setCurrentComponent(Login);
         this.loadCurrentComponent();
       }
 });
