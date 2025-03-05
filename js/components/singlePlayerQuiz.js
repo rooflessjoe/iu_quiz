@@ -10,8 +10,8 @@ export const singlePlayerQuiz = {
                 <ul class="list-group">
                         <li v-for="(answer, ansIndex) in getAnswersForQuestion(question.question_id)" :key="ansIndex" class="list-group-item">
                             <div :class="{
-                            'bg-success': valid, 
-                            'bg-danger': valid===false
+                            'bg-success': valid.valid, 
+                            'bg-danger': valid.valid===false
                             }"
                             </div>
                             <button class="btn btn-primary" @click.prevent="fetchDataAnswer(answer.question_id, answer.answer_id)">{{ answer.answer }}</button>
