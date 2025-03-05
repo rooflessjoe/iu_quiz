@@ -3,12 +3,12 @@ export const singlePlayerQuiz = {
     template:`
     <div class="container">
         <button class="btn btn-primary" @click.prevent="changeComponent">Zurück</button>
-        <h1 class="mb-4">{{ quizName }}</h1>
+        <h1 class="mb-4">Quiz: {{ quizName }}</h1>
         <div v-if="quizData.questions && quizData.questions.length">
             <div v-for="(question, index) in quizData.questions" :key="index" class="mb-4">
                 <h5>Frage {{ index + 1 }}: {{ question.question }}</h5>
                 <ul class="list-group">
-                    <li v-for="(answer, ansIndex) in getAnswersForQuestion(question.question_id)" :key="ansIndex" class="list-group-item">
+                    <li v-for="(answer, ansIndex) in getAnswersForQuestion(question.question_id)" :key="ansIndex" :class="['list-group-item', {'bg-success': valid, 'bg-danger': !valid}]">
                         <button class="btn btn-primary" @click.prevent="fetchDataAnswer(answer.question_id, answer.answer_id)">{{ answer.answer }}</button>
                     </li>
                 </ul>
@@ -41,7 +41,7 @@ fetchDataAnswer(questionID, answerID) {
 
         if (token != null){
         fetch('https://iu-quiz-backend.onrender.com/api/answer', {
-            method: 'POST',
+            method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`, // Token im Authorization-Header senden
                 'Content-Type': 'application/json'

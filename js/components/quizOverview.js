@@ -35,7 +35,6 @@ export const quizOverview = {
             loading: false,
             message: '',
             error: null,
-            quizData: null
         };
 },
 
