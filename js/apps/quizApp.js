@@ -34,8 +34,7 @@ const Quiz = Vue.createApp ({
     },
     created() {
         // Lade die aktuell gespeicherte Komponente beim Erstellen der App
-        this.loadCurrentComponent();
-        //this.loadToken();
+        this.setCurrentComponent(this.currentComponent);
         this.checkLoginStatus();
       }
 });
