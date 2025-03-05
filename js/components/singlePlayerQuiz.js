@@ -1,14 +1,15 @@
 export const singlePlayerQuiz = {
-    props: ['quizData'],
+    props: ['quizData', 'quizName'],
     template:`
     <div class="container">
-        <h1 class="mb-4">Quiz</h1>
+        <button class="btn btn-primary" @click.prevent="changeComponent">Zurück</button>
+        <h1 class="mb-4">quizName</h1>
         <div v-if="quizData.questions && quizData.questions.length">
             <div v-for="(question, index) in quizData.questions" :key="index" class="mb-4">
                 <h5>Frage {{ index + 1 }}: {{ question.question }}</h5>
                 <ul class="list-group">
                     <li v-for="(answer, ansIndex) in getAnswersForQuestion(question.question_id)" :key="ansIndex" class="list-group-item">
-                        {{ answer.answer }}
+                        <button class="btn btn-primary" @click.prevent="fetchDataAnswer(answer.question_id, answer.answer_id)">{{ answer.answer }}</button>
                     </li>
                 </ul>
             </div>
@@ -19,15 +20,21 @@ export const singlePlayerQuiz = {
         <button class="btn btn-primary mt-4">Quiz starten</button>
     </div>
     `,
+    data() {
+        return {
+            valid: null,
+            loading: false,
+            message: '',
+            error: null,
+        };
+},
 
 methods: {
     // Methode zum Abrufen der Daten von der API
-fetchDataAnswer() {
+fetchDataAnswer(questionID, answerID) {
         this.message = '';
         this.error = null;
         this.loading = true;
-        this.answerID = null;
-        this.questionID = null;
         this.valid = null;
 
         const token = sessionStorage.getItem('token');
@@ -39,7 +46,7 @@ fetchDataAnswer() {
                 'Authorization': `Bearer ${token}`, // Token im Authorization-Header senden
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ question: this.questionID, answer: this.answerID })
+            body: JSON.stringify({ question: questionID, answer: answerID })
         })
             .then(response => response.json())
             .then(data => {

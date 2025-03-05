@@ -12,7 +12,7 @@ export const Login = {
                     </div>
                     <div v-if="!loading">
                         <button id="Login" class="btn btn-primary mt-4" @click="fetchDataLogin">Login</button>
-                        <button id="Registrieren" class="btn btn-primary mt-4 float-end" @click="setComponent(Registration)">Registrieren</button>
+                        <button id="Registrieren" class="btn btn-primary mt-4 float-end" @click="changeComponent">Registrieren</button>
                     </div>
                     <div v-else>
                         <button id="Login" class="btn btn-primary mt-4" disabled>
@@ -71,6 +71,9 @@ export const Login = {
                         .finally(() => {
                           this.loading = false;
                       });
+            },
+            changeComponent(){
+                this.$emit('change-component', 'Registration');
             }
 }
 };

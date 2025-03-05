@@ -2,6 +2,7 @@
 export const Registration = {
     template: `
     <div class="container-fluid">
+    <button class="btn btn-primary" @click.prevent="changeComponent">Zurück</button>
         <h2>Benutzerdaten</h2>
         <div v-if="!loading">
             <button type="button" class="btn btn-primary" @click="fetchData">Daten abrufen</button>
