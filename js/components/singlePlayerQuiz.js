@@ -3,7 +3,7 @@ export const singlePlayerQuiz = {
     template:`
     <div class="container">
         <button class="btn btn-primary" @click.prevent="changeComponent">Zurück</button>
-        <h1 class="mb-4">quizName</h1>
+        <h1 class="mb-4">{{ quizName }}</h1>
         <div v-if="quizData.questions && quizData.questions.length">
             <div v-for="(question, index) in quizData.questions" :key="index" class="mb-4">
                 <h5>Frage {{ index + 1 }}: {{ question.question }}</h5>
@@ -71,7 +71,7 @@ getAnswersForQuestion(questionId) {
 },
 
 changeComponent(){
-    this.$emit('change-component', 'quizOverview');
+    this.$emit('change-component', {component: 'quizOverview', props: {} });
 }
 },
 };
