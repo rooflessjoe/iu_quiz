@@ -42,7 +42,7 @@ const Main = Vue.createApp ({
     },
     created() {
         // Lade die aktuell gespeicherte Komponente beim Erstellen der App
-        sessionStorage.setItem('currentComponent', this.currentComponent);
+        //sessionStorage.setItem('currentComponent', this.currentComponent);
         this.loadCurrentComponent();
         this.checkLoginStatus();
       }
