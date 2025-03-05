@@ -8,9 +8,11 @@ export const singlePlayerQuiz = {
             <div v-for="(question, index) in quizData.questions" :key="index" class="mb-4">
                 <h5>Frage {{ index + 1 }}: {{ question.question }}</h5>
                 <ul class="list-group">
-                    <li v-for="(answer, ansIndex) in getAnswersForQuestion(question.question_id)" :key="ansIndex" :class="['list-group-item', {'bg-success': valid, 'bg-danger': !valid}]">
+                <div :class="{'bg-success': valid, 'bg-danger': valid===false}">
+                    <li v-for="(answer, ansIndex) in getAnswersForQuestion(question.question_id)" :key="ansIndex" class="list-group-item">
                         <button class="btn btn-primary" @click.prevent="fetchDataAnswer(answer.question_id, answer.answer_id)">{{ answer.answer }}</button>
                     </li>
+                    </div>
                 </ul>
             </div>
         </div>
