@@ -26,10 +26,10 @@ const Auth = Vue.createApp ({
             }
         }
     },
-    created() {
+    /*created() {
         // Lade die aktuell gespeicherte Komponente beim Erstellen der App
         this.loadCurrentComponent();
-      }
+      }*/
 });
 
 Auth.mount('#authApp');

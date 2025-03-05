@@ -50,7 +50,7 @@
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item" v-if="!isLoggedIn">
-                            <a class="btn btn-success" role="button" href="pages/login.html" @click="$emit('change-component', 'Login')">Login</a>
+                            <a class="btn btn-success" role="button" href="pages/login.html">Login</a>
                         </li>
                         <li class="nav-item" v-else>
                             <span class="navbar-text">Eingeloggt</span>
@@ -60,7 +60,7 @@
             </div>
         </nav>
         <div class="content py-3">
-            <component :is="currentComponent" @change-component="setCurrentComponent"></component>
+            <component :is="currentComponent"></component>
         </div>
     </div>
 
