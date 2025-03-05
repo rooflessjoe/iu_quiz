@@ -1,6 +1,6 @@
 export const Login = {
     template: `
-    <div class="row justify-content-center">
+    <div class="container row justify-content-center">
             <div class="col-md-6">
                 <h2 class="text-center mt-5">Login</h2>
                 <form id="loginForm">
