@@ -12,7 +12,7 @@ export const Login = {
                     </div>
                     <div v-if="!loading">
                         <button id="Login" class="btn btn-primary mt-4" @click="fetchDataLogin">Login</button>
-                        <button id="Registrieren" class="btn btn-primary mt-4 float-end" @click="changeComponent">Registrieren</button>
+                        <button id="Registrieren" class="btn btn-primary mt-4 float-end" @click.prevent="changeComponent">Registrieren</button>
                     </div>
                     <div v-else>
                         <button id="Login" class="btn btn-primary mt-4" disabled>
