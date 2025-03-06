@@ -33,6 +33,7 @@ const Main = Vue.createApp ({
 
         Logout() {
             sessionStorage.removeItem('token');
+            this.checkLoginStatus();
         },
 
         setCurrentComponent(component) {
