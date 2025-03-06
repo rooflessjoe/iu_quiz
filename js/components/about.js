@@ -4,7 +4,7 @@ export const About = {
     <div class="container-fluid">
         <h2>Benutzerdaten</h2>
         <div v-if="!loading">
-            <button type="button" class="btn btn-primary" @click="fetchData">Daten abrufen</button>
+            <button type="button" class="btn btn-primary" @click.prevent="fetchData">Daten abrufen</button>
         </div>
         <div v-else>
             <button class="btn btn-primary" type="button" disabled>
@@ -54,6 +54,7 @@ export const About = {
                         .then(response => response.json())
                         .then(data => {
                             this.userData = data;  // Benutzerdaten in Vue.js speichern
+                            console.log(this.userData);
                             this.message = 'Daten erfolgreich geladen!';
                         })
                         .catch(error => {
