@@ -9,7 +9,7 @@ export const singlePlayerQuiz = {
                 <h5>Frage {{ index + 1 }}: {{ question.question }}</h5>
                 <ul class="list-group">
                         <li v-for="(answer, ansIndex) in getAnswersForQuestion(question.question_id)" :key="ansIndex"
-                        :class="['list-group-item', {'bg-success': valid && selectedAnswers[question.question_id] === answer.answer_id, 'bg-danger': !valid && selectedAnswers[question.question_id] === answer.answer_id}]">
+                        :class="['list-group-item', getAnswerClass(question.question_id, answer.answer_id)]">
                             <button class="btn btn-primary" @click.prevent="fetchDataAnswer(answer.question_id, answer.answer_id)">{{ answer.answer }}</button>
                         </li>
                 </ul>
@@ -72,6 +72,13 @@ fetchDataAnswer(questionID, answerID) {
 getAnswersForQuestion(questionId) {
     return this.quizData.answers.filter(answer => answer.question_id === questionId);
 },
+
+getAnswerClass(questionId, answerId) {
+    if (this.selectedAnswers[questionId] === answerId) {
+      return this.valid ? 'bg-success' : 'bg-danger';
+    }
+    return '';
+  },
 
 changeComponent(){
     this.$emit('change-component', {component: 'quizOverview', props: {} });
