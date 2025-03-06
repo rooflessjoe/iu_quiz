@@ -54,7 +54,7 @@ fetchDataAnswer(questionID, answerID) {
             .then(data => {
                 this.valid = data;  // Benutzerdaten in Vue.js speichern
                 this.message = 'Daten erfolgreich geladen!';
-                this.$set(this.selectedAnswers, questionID, answerID);
+                this.selectedAnswers = {...this.selectedAnswers, [questionID]: answerID};
             })
             .catch(error => {
                 console.error('Fehler beim Laden der Daten:', error);
