@@ -26,6 +26,13 @@ const Main = Vue.createApp ({
         },*/
         checkLoginStatus() {
             this.isLoggedIn = !!sessionStorage.getItem('token');
+            if (!this.isLoggedIn){
+                window.location.href = './pages/login.html';
+            }
+        },
+
+        Logout() {
+            sessionStorage.removeItem('token');
         },
 
         setCurrentComponent(component) {
