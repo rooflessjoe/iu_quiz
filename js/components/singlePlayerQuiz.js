@@ -9,8 +9,8 @@ export const singlePlayerQuiz = {
                 <h5>Frage {{ index + 1 }}: {{ question.question }}</h5>
                 <ul class="list-group">
                         <li v-for="(answer, ansIndex) in getAnswersForQuestion(question.question_id)" :key="ansIndex"
-                        :class="['list-group-item', getAnswerClass(question.question_id, answer.answer_id, answer.question_id)]">
-                            <button class="btn btn-primary" @click.prevent="fetchDataAnswer(answer.question_id, answer.answer_id)">{{ answer.answer }}</button>
+                        :class="['list-group-item', 'bg-primary': this.selectedAnswers[question.question_id] === answer.answer_id]">
+                            <button @click.prevent="fetchDataAnswer(answer.question_id, answer.answer_id)">{{ answer.answer }}</button>
                         </li>
                 </ul>
             </div>
@@ -54,7 +54,7 @@ fetchDataAnswer(questionID, answerID) {
             .then(data => {
                 this.valid = data;  // Benutzerdaten in Vue.js speichern
                 this.message = 'Daten erfolgreich geladen!';
-                this.selectedAnswers = {...this.selectedAnswers, [questionID]: answerID};
+                this.selectedAnswers = {...this.selectedAnswers, [questionID]: answerID, set};
             })
             .catch(error => {
                 console.error('Fehler beim Laden der Daten:', error);
@@ -72,13 +72,6 @@ fetchDataAnswer(questionID, answerID) {
 getAnswersForQuestion(questionId) {
     return this.quizData.answers.filter(answer => answer.question_id === questionId);
 },
-
-getAnswerClass(questionId, answerId, answerQuestionId) {
-    if (this.selectedAnswers[questionId] === answerId && questionId === answerQuestionId) {
-      return this.valid ? 'bg-success' : 'bg-danger';
-    }
-    return '';
-  },
 
 changeComponent(){
     this.$emit('change-component', {component: 'quizOverview', props: {} });
