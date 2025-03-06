@@ -1,9 +1,9 @@
-import { Contact } from './components/contact.js';
-import { About } from './components/about.js';
-import { Home } from './components/home.js';
+import { Contact } from '../components/contact.js';
+import { About } from '../components/about.js';
+import { Home } from '../components/home.js';
 
 // Haupt-App
-const App = Vue.createApp ({
+const Main = Vue.createApp ({
     data() {
         return {
             menuItems: [
@@ -42,10 +42,8 @@ const App = Vue.createApp ({
     },
     created() {
         // Lade die aktuell gespeicherte Komponente beim Erstellen der App
-        this.loadCurrentComponent();
-        //this.loadToken();
         this.checkLoginStatus();
       }
 });
 
-App.mount('#app');
+Main.mount('#mainApp');

@@ -1,27 +1,21 @@
-import { quizOverview } from '../components/quizOverview.js';
-import { singlePlayerQuiz } from '../components/singlePlayerQuiz.js';
+import { Login } from '../components/login.js';
+import { Registration } from '../components/registration.js';
 
 // Haupt-App
-const Quiz = Vue.createApp ({
+const Auth = Vue.createApp ({
     data() {
         return {
-            currentComponent: quizOverview,
-            currentProps: {},
-            isLoggedIn: false
+            currentComponent: Login,
         };
     },
     components: {
-        quizOverview,
-        singlePlayerQuiz
+        Login,
+        Registration
     },
     methods: {
-        checkLoginStatus() {
-            this.isLoggedIn = !!sessionStorage.getItem('token');
-        },
 
-        setCurrentComponent({ component, props }) {
+        setCurrentComponent(component) {
             this.currentComponent = component;
-            this.currentProps = props;
             sessionStorage.setItem('currentComponent', component); // Speichere die aktuelle Komponente in sessionStorage
         },
 
@@ -34,8 +28,8 @@ const Quiz = Vue.createApp ({
     },
     created() {
         // Lade die aktuell gespeicherte Komponente beim Erstellen der App
-        this.checkLoginStatus();
+        //sessionStorage.setItem('currentComponent', this.currentComponent);
       }
 });
 
-Quiz.mount('#quizApp');
+Auth.mount('#authApp');
