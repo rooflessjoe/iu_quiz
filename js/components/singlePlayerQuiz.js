@@ -9,8 +9,9 @@ export const singlePlayerQuiz = {
                 <h5>Frage {{ index + 1 }}: {{ question.question }}</h5>
                 <ul class="list-group">
                         <li v-for="(answer, ansIndex) in getAnswersForQuestion(question.question_id)" :key="ansIndex"
-                        :class="['list-group-item', {'bg-primary': this.selectedAnswers[question.question_id] === answer.answer_id}]">
-                            <button @click.prevent="fetchDataAnswer(answer.question_id, answer.answer_id)">{{ answer.answer }}</button>
+                        :class="['list-group-item', {'bg-primary': this.selectedAnswers[question.question_id] === answer.answer_id}]"
+                        @click.prevent="fetchDataAnswer(answer.question_id, answer.answer_id)">
+                            <span>{{ answer.answer }}</span>
                         </li>
                 </ul>
             </div>
@@ -54,7 +55,7 @@ fetchDataAnswer(questionID, answerID) {
             .then(data => {
                 this.valid = data;  // Benutzerdaten in Vue.js speichern
                 this.message = 'Daten erfolgreich geladen!';
-                this.selectedAnswers = {...this.selectedAnswers, [questionID]: answerID, set};
+                this.selectedAnswers = {...this.selectedAnswers, [questionID]: answerID};
             })
             .catch(error => {
                 console.error('Fehler beim Laden der Daten:', error);
