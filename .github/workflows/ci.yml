@@ -4,4 +4,4 @@ on:
   workflow_dispatch
 
 env:
-        REACT_APP_API_URL: ${{ secrets.API_URL }}
+        API_URL: ${{ secrets.API_URL }}
