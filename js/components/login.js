@@ -46,7 +46,7 @@ export const Login = {
                     this.error = null;
                     this.loading = true;
                     
-                    fetch('https://iu-quiz-backend.onrender.com/api/login', {
+                    fetch(process.env.REACT_APP_API_URL, {
                         method: 'POST',
                         headers: {
                           'Content-Type': 'application/json',
