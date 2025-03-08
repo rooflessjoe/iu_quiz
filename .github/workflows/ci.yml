@@ -1,27 +1,7 @@
-name: Set API URL
+name: Set API_URL
 
 on:
-  push:
-    branches:
-      - emil
+  workflow_dispatch
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Build project
-      run: npm run build
-      env:
+env:
         REACT_APP_API_URL: ${{ secrets.API_URL }}
