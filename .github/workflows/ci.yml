@@ -1,7 +1,15 @@
-name: Set API_URL
+name: Open new issue
+on: workflow_dispatch
 
-on:
-  workflow_dispatch
-
-env:
-        API_URL: ${{ secrets.API_URL }}
+jobs:
+  open-issue:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - run: |
+          gh issue --repo ${{ github.repository }} \
+            create --title "Issue title" --body "Issue body"
+        env:
+          API_URL: ${{ secrets.API_URL }}
