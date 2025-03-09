@@ -14,12 +14,6 @@ const Auth = Vue.createApp ({
         Registration
     },
     methods: {
-        checkLoginStatus() {
-            this.isLoggedIn = !!sessionStorage.getItem('token');
-            if (this.isLoggedIn){
-                window.location.href = '../index.html';
-            }
-        },
 
         setCurrentComponent(component) {
             this.currentComponent = component;
@@ -32,10 +26,7 @@ const Auth = Vue.createApp ({
               this.currentComponent = savedComponent; // Setze die aktuelle Komponente auf die gespeicherte
             }
         }
-    },
-    created() {
-        //this.checkLoginStatus();
-      }
+    }
 });
 
 Auth.mount('#authApp');

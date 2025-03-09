@@ -63,11 +63,8 @@ export const Login = {
                             window.location.href = '../index.html';
                         })
                         .catch(error => {
-                            sessionStorage.setItem('token',123);
-                            window.location.href = '../index.html';
                             console.error('Anmeldedaten nicht korrekt', error);
                             this.error = true;
-                            //alert('Anmeldedaten nicht korrekt');
                         })
                         .finally(() => {
                           this.loading = false;

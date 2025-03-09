@@ -31,6 +31,7 @@ export const Registration = {
                     <div v-else-if="message" class="mt-4 alert alert-success" role="alert">
                         Nutzer {{this.username}} Erfolgreich registriert.
                         Eine Bestätigungsmail wurde an {{this.email}} verschickt.
+                        Bitte bestätige Deine E-Mail Adresse über den Link in der Mail.
                     </div>
                 </form>
             </div>
