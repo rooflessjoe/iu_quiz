@@ -1,33 +1,41 @@
-//TODO
 export const Registration = {
     template: `
-    <button class="btn btn-primary" @click.prevent="changeComponent">Zurück</button>
-    <div class="container-fluid">
-        <h2>Benutzerdaten</h2>
-        <div v-if="!loading">
-            <button type="button" class="btn btn-primary" @click.prevent="fetchData">Daten abrufen</button>
-        </div>
-        <div v-else>
-            <button class="btn btn-primary" type="button" disabled>
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                Lade Daten...
-            </button>
-        </div>
-        <div :class="{ 
-            'alert alert-warning': !!error,
-            'alert alert-success': error === null && message === 'Daten erfolgreich geladen!'
-            }"
-            role="alert">
-            <p>{{ message }}</p>
-        </div>
-            <div class="container-fluid" v-for="user in userData" :key="user.id">
-                <p>{{ user.name }} - {{ user.email }}</p>
+    <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2 class="text-center mt-5">Registrierung</h2>
+                <form id="registrationForm" @submit.prevent="fetchDataRegistration">
+                    <div class="form-group mt-4">
+                        <input type="email" class="form-control" id="email" placeholder="E-Mail" v-model="email" required>
+                    </div>
+                    <div class="form-group mt-4">
+                        <input type="text" class="form-control" id="username" placeholder="Benutzername" v-model="username" required>
+                    </div>
+                    <div class="form-group mt-4">
+                        <input type="password" class="form-control" id="password" minlength="8" placeholder="Passwort" v-model="password" required>
+                    </div>
+                    <div v-if="!loading">
+                        <button id="Registrieren" class="btn btn-primary mt-4" type="submit">Registrieren</button>
+                    </div>
+                    <div v-else>
+                        <button id="Registrieren" class="btn btn-primary mt-4" disabled>
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Lade...
+                        </button>
+                        <button id="Registrieren" class="btn btn-primary mt-4 float-end" disabled>
+                            Registrieren
+                        </button>
+                    </div>
+                    <div v-if="error" class="mt-4 alert alert-danger" role="alert">
+                        Anmeldedaten sind nicht korrekt.
+                    </div>
+                </form>
             </div>
-    </div>
+            </div>
     `,
     
             data() {
                     return {
+                        email: '',
                         username: '',
                         password: '',
                         error: null,
@@ -37,16 +45,16 @@ export const Registration = {
             
             methods: {
                 // Methode zum Abrufen der Daten von der API
-                fetchData() {
+                fetchDataRegistration() {
                     this.error = null;
                     this.loading = true;
                     
-                    fetch('https://iu-quiz-backend.onrender.com/api/login', {
+                    fetch('https://iu-quiz-backend.onrender.com/api/...', {
                         method: 'POST',
                         headers: {
                           'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ username: this.username, password: this.password }),
+                        body: JSON.stringify({ email: this.email, username: this.username, password: this.password }),
                       })
 
                         .then(response => {
@@ -55,13 +63,11 @@ export const Registration = {
                         .then(data => {
                             sessionStorage.setItem('token', data.token);
                             this.message = 'Daten erfolgreich geladen!';
-                            //this.$router.push('../index.html');
                             window.location.href = '../index.html';
                         })
                         .catch(error => {
-                            console.error('Anmeldedaten nicht korrekt', error);
+                            //console.error('Anmeldedaten nicht korrekt', error);
                             this.error = true;
-                            //alert('Anmeldedaten nicht korrekt');
                         })
                         .finally(() => {
                           this.loading = false;

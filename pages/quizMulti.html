@@ -12,6 +12,11 @@
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Frontend JS -->
     <script defer type="module" src="../js/apps/quizMulti.js"></script>
+    <script>
+        if (!sessionStorage.getItem('token')){
+                window.location.href = './login.html';
+            }
+    </script>
     <style>
         /* Stil für die gesamte Tabelle */
         table {

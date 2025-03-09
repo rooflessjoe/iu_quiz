@@ -23,6 +23,12 @@
     <!-- Javascript -->
     <script defer type="module" src="../js/apps/authApp.js"></script>
 
+    <script>
+        if (sessionStorage.getItem('token')){
+                window.location.href = '../index.html';
+            }
+    </script>
+
     <!--script src="../js/urlAlias.js"></script-->
 </head>
 <body>

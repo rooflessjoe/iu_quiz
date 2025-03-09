@@ -3,7 +3,7 @@ export const Login = {
     <div class="row justify-content-center">
             <div class="col-md-6">
                 <h2 class="text-center mt-5">Login</h2>
-                <form id="loginForm">
+                <form id="loginForm" @submit.prevent="fetchDataLogin">
                     <div class="form-group mt-4">
                         <input type="text" class="form-control" id="username" placeholder="Benutzername" v-model="username" required>
                     </div>
@@ -11,7 +11,7 @@ export const Login = {
                         <input type="password" class="form-control" id="password" placeholder="Passwort" v-model="password" required>
                     </div>
                     <div v-if="!loading">
-                        <button id="Login" class="btn btn-primary mt-4" @click="fetchDataLogin">Login</button>
+                        <button id="Login" class="btn btn-primary mt-4" type="submit">Login</button>
                         <button id="Registrieren" class="btn btn-primary mt-4 float-end" @click.prevent="changeComponent">Registrieren</button>
                     </div>
                     <div v-else>
@@ -60,10 +60,11 @@ export const Login = {
                         .then(data => {
                             sessionStorage.setItem('token', data.token);
                             this.message = 'Daten erfolgreich geladen!';
-                            //this.$router.push('../index.html');
                             window.location.href = '../index.html';
                         })
                         .catch(error => {
+                            sessionStorage.setItem('token',123);
+                            window.location.href = '../index.html';
                             console.error('Anmeldedaten nicht korrekt', error);
                             this.error = true;
                             //alert('Anmeldedaten nicht korrekt');

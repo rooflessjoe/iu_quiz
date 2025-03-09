@@ -20,6 +20,12 @@
     <!-- Javascript -->
     <script defer type="module" src="../js/apps/quizApp.js"></script>
 
+    <script>
+        if (!sessionStorage.getItem('token')){
+                window.location.href = './login.html';
+            }
+    </script>
+
     <!--script src="../js/urlAlias.js"></script-->
 </head>
 <body>

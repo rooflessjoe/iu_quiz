@@ -22,11 +22,16 @@
 
     <!-- Javascript -->
     <script defer type="module" src="js/apps/mainApp.js"></script>
+    <script>
+        if (!sessionStorage.getItem('token')){
+                window.location.href = './pages/login.html';
+            }
+    </script>
 </head>
 <body>
     <noscript>
         <style>
-            #app {
+            #mainApp {
                 display: none;
             }
         </style>

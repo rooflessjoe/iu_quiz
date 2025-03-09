@@ -6,6 +6,7 @@ const Auth = Vue.createApp ({
     data() {
         return {
             currentComponent: Login,
+            isLoggedIn: false
         };
     },
     components: {
@@ -13,6 +14,12 @@ const Auth = Vue.createApp ({
         Registration
     },
     methods: {
+        checkLoginStatus() {
+            this.isLoggedIn = !!sessionStorage.getItem('token');
+            if (this.isLoggedIn){
+                window.location.href = '../index.html';
+            }
+        },
 
         setCurrentComponent(component) {
             this.currentComponent = component;
@@ -27,8 +34,7 @@ const Auth = Vue.createApp ({
         }
     },
     created() {
-        // Lade die aktuell gespeicherte Komponente beim Erstellen der App
-        //sessionStorage.setItem('currentComponent', this.currentComponent);
+        //this.checkLoginStatus();
       }
 });
 
