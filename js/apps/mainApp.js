@@ -21,6 +21,12 @@ const Main = Vue.createApp ({
         Contact
     },
     methods: {
+        checkLoginStatus() {
+            this.isLoggedIn = !!sessionStorage.getItem('token');
+            if (!this.isLoggedIn){
+                window.location.href = './pages/login.html';
+            }
+        },
 
         Logout() {
             sessionStorage.removeItem('token');
@@ -38,7 +44,11 @@ const Main = Vue.createApp ({
               this.currentComponent = savedComponent; // Setze die aktuelle Komponente auf die gespeicherte
             }
         }
-    }
+    },
+    created() {
+        // Lade die aktuell gespeicherte Komponente beim Erstellen der App
+        this.checkLoginStatus();
+      }
 });
 
 Main.mount('#mainApp');
