@@ -26,7 +26,11 @@ export const Registration = {
                         </button>
                     </div>
                     <div v-if="error" class="mt-4 alert alert-danger" role="alert">
-                        Anmeldedaten sind nicht korrekt.
+                        Registrierung fehlgeschlagen.
+                    </div>
+                    <div v-else-if="message" class="mt-4 alert alert-success" role="alert">
+                        Nutzer {{this.username}} Erfolgreich registriert.
+                        Eine Bestätigungsmail wurde an {{this.email}} verschickt.
                     </div>
                 </form>
             </div>
@@ -38,6 +42,7 @@ export const Registration = {
                         email: '',
                         username: '',
                         password: '',
+                        message: '',
                         error: null,
                         loading: false,
                     };
@@ -49,7 +54,7 @@ export const Registration = {
                     this.error = null;
                     this.loading = true;
                     
-                    fetch('https://iu-quiz-backend.onrender.com/api/...', {
+                    fetch('https://iu-quiz-backend.onrender.com/api/register', {
                         method: 'POST',
                         headers: {
                           'Content-Type': 'application/json',
@@ -60,13 +65,11 @@ export const Registration = {
                         .then(response => {
                           return response.json();
                         })
-                        .then(data => {
-                            sessionStorage.setItem('token', data.token);
-                            this.message = 'Daten erfolgreich geladen!';
+                        .then(() => {
+                            this.message = 'Erfolgreich registriert!';
                             window.location.href = '../index.html';
                         })
-                        .catch(error => {
-                            //console.error('Anmeldedaten nicht korrekt', error);
+                        .catch(() => {
                             this.error = true;
                         })
                         .finally(() => {
