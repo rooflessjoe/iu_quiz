@@ -63,11 +63,10 @@ export const Registration = {
                       })
 
                         .then(response => {
-                          return response.json();
-                        })
-                        .then(() => {
-                            this.message = 'Erfolgreich registriert!';
-                            window.location.href = '../index.html';
+                            if (response.status === 201){
+                                this.message = 'Erfolgreich registriert!';
+                                window.location.href = '../index.html';
+                            }
                         })
                         .catch(() => {
                             this.error = true;
