@@ -65,7 +65,6 @@ export const Registration = {
                         .then(response => {
                             if (response.status === 201){
                                 this.message = 'Erfolgreich registriert!';
-                                window.location.href = '../index.html';
                             }
                         })
                         .catch(() => {
