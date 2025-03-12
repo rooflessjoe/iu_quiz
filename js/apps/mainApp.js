@@ -1,6 +1,7 @@
 import { Contact } from '../components/contact.js';
 import { About } from '../components/about.js';
 import { Home } from '../components/home.js';
+import {createQuestion} from "../components/createQuestion.js";
 
 // Haupt-App
 const Main = Vue.createApp ({
@@ -9,7 +10,8 @@ const Main = Vue.createApp ({
             menuItems: [
                 { name: 'Home', component: 'Home' },
                 { name: 'Über', component: 'About' },
-                { name: 'Kontakt', component: 'Contact' }
+                { name: 'Kontakt', component: 'Contact' },
+                { name: 'Frage Erstellen', component: 'createQuestion'}
             ],
             currentComponent: Home,  // Standardmäßig Home anzeigen
             isLoggedIn: false
@@ -18,7 +20,8 @@ const Main = Vue.createApp ({
     components: {
         Home,
         About,
-        Contact
+        Contact,
+        createQuestion,
     },
     methods: {
         checkLoginStatus() {
@@ -41,14 +44,14 @@ const Main = Vue.createApp ({
         loadCurrentComponent() {
             const savedComponent = sessionStorage.getItem('currentComponent'); // Lade die gespeicherte Komponente
             if (savedComponent) {
-              this.currentComponent = savedComponent; // Setze die aktuelle Komponente auf die gespeicherte
+                this.currentComponent = savedComponent; // Setze die aktuelle Komponente auf die gespeicherte
             }
         }
     },
     created() {
         // Lade die aktuell gespeicherte Komponente beim Erstellen der App
         this.checkLoginStatus();
-      }
+    }
 });
 
 Main.mount('#mainApp');
