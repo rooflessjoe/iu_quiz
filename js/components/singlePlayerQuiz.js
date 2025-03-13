@@ -12,9 +12,12 @@ export const singlePlayerQuiz = {
                         'bg-danger': this.selectedAnswers[question.question_id]?.answerID === answer.answer_id && !this.selectedAnswers[question.question_id]?.valid}]"
                         @click.prevent="fetchDataAnswer(answer.question_id, answer.answer_id)" tabindex="0"
                         :aria-pressed="this.selectedAnswers[question.question_id]?.answerID === answer.answer_id">
-                            <span class="visually-hidden" v-if="ansIndex===0" :aria-label="this.selectedAnswers[question.question_id]?.valid ? 'Du hast die richtige Antwort ausgewählt' : 'Diese Antwort ist nicht korrekt'">Frage {{ index + 1 }}: {{ question.question }}</span>  
+                            <span class="visually-hidden" v-if="ansIndex===0">Frage {{ index + 1 }}: {{ question.question }}</span>
+                            <span class="visually-hidden" v-if="this.selectedAnswers[question.question_id]?.valid">
                             <span class="visually-hidden">Antwort {{ ansIndex + 1 }}: </span>  
                             <span>{{ answer.answer }}</span>
+                            <span class="visually-hidden" v-if="this.selectedAnswers[question.question_id]?.valid">Richtige Antwort</span>
+                            <span class="visually-hidden" v-if="!this.selectedAnswers[question.question_id]?.valid">Falsche Antwort</span>
                         </li>
                 </ul>
             </div>
