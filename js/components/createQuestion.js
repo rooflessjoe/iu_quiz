@@ -3,7 +3,7 @@ export const createQuestion = {
     template: `
     <div class="container mt-5">
       <h2>Frage für {{quizName}} Quiz erstellen</h2>
-      <form @submit.prevent="submitQuestion">
+      <form @submit.prevent="submitQuestion(quizName)">
 
         <div class="mb-3">
           <label for="questionText" class="form-label">Frage</label>
@@ -54,7 +54,6 @@ export const createQuestion = {
     data() {
         return {
             questionText: '',
-            category: '',
             answers: ['', '', '', ''],
             correctAnswer: null,
             categories: [],
@@ -64,10 +63,10 @@ export const createQuestion = {
         };
     },
     methods: {
-        submitQuestion() {
+        submitQuestion(quizName) {
             const question = {
                 question: this.questionText,
-                quiz_name: this.category,
+                quiz_name: quizName,
                 answers: this.answers.map((answer, index) => ({
                     answer,
                     valid: index === this.correctAnswer,
@@ -104,33 +103,8 @@ export const createQuestion = {
 
             // Formular zurücksetzen
             this.questionText = '';
-            this.category = '';
             this.answers = ['', '', '', ''];
             this.correctAnswer = null;
-        },
-
-        fetchCategory() {
-            const token = sessionStorage.getItem('token');
-            if (token != null) {
-                fetch('https://iu-quiz-backend.onrender.com/api/quiz_list', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    }
-                })
-                    .then(response => response.json())
-                    .then((data) => {
-                        console.log(data);
-                        this.categories = data;
-                    })
-                    .catch(error => {
-                        console.error('Fehler beim Laden der Kategorien:', error);
-                    });
-            }
         }
-    },
-    mounted() {
-        //this.fetchCategory();
     }
 };
