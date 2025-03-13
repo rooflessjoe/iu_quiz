@@ -53,11 +53,9 @@
                             <a class="nav-link" href=# @click.prevent="setCurrentComponent(item.component)">{{ item.name }}</a>
                         </li>
                     </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item" v-if="isLoggedIn">
-                            <a class="btn btn-success" role="button" href=# @click.prevent="Logout">Logout</a>
-                        </li>
-                    </ul>
+                    <div v-if="isLoggedIn">
+                        <a class="btn btn-success" role="button" href="#" @click.prevent="Logout" aria-label="Logout Button">Logout</a>
+                    </div>
                 </div>
             </div>
         </nav>
