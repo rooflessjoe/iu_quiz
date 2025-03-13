@@ -18,7 +18,7 @@ export const Registration = {
                     </div>
                     <div v-else>
                         <button id="Registrieren" class="btn btn-primary mt-4" disabled>
-                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            <span class="spinner-border spinner-border-sm" role="status"></span>
                             Lade...
                         </button>
                         <button id="Registrieren" class="btn btn-primary mt-4 float-end" disabled>

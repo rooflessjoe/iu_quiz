@@ -11,9 +11,9 @@ export const singlePlayerQuiz = {
                         :class="['list-group-item', {'bg-success': this.selectedAnswers[question.question_id]?.answerID === answer.answer_id && this.selectedAnswers[question.question_id]?.valid,
                         'bg-danger': this.selectedAnswers[question.question_id]?.answerID === answer.answer_id && !this.selectedAnswers[question.question_id]?.valid}]"
                         @click.prevent="fetchDataAnswer(answer.question_id, answer.answer_id)" tabindex="0"
-                        :aria-checked="{'false': this.selectedAnswers[question.question_id]?.answerID !== answer.answer_id, 'true': this.selectedAnswers[question.question_id]?.answerID === answer.answer_id}">
-                            <span class="sr-only">Frage {{ index + 1 }}: {{ question.question }}</span>  
-                            <span class="sr-only">Antwort {{ ansIndex + 1 }}: </span>  
+                        :aria-checked="this.selectedAnswers[question.question_id]?.answerID === answer.answer_id">
+                            <span class="visually-hidden">Frage {{ index + 1 }}: {{ question.question }}</span>  
+                            <span class="visually-hidden">Antwort {{ ansIndex + 1 }}: </span>  
                             <span>{{ answer.answer }}</span>
                         </li>
                 </ul>

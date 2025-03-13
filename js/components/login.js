@@ -11,12 +11,12 @@ export const Login = {
                         <input type="password" class="form-control" id="password" placeholder="Passwort" v-model="password" required>
                     </div>
                     <div v-if="!loading">
-                        <button id="Login" class="btn btn-primary mt-4" type="submit">Login</button>
+                        <button id="Login" class="btn btn-primary mt-4" role="submit">Login</button>
                         <button id="Registrieren" class="btn btn-primary mt-4 float-end" @click.prevent="changeComponent">Registrieren</button>
                     </div>
                     <div v-else>
                         <button id="Login" class="btn btn-primary mt-4" disabled>
-                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            <span class="spinner-border spinner-border-sm" role="status"></span>
                             Lade...
                         </button>
                         <button id="Registrieren" class="btn btn-primary mt-4 float-end" disabled>
