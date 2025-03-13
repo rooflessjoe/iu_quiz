@@ -96,7 +96,7 @@ export const createQuestion = {
             const token = sessionStorage.getItem('token');
 
             if (token != null) {
-                fetch('http://iu-quiz-backend.onrender.com/api/create', {
+                fetch('https://iu-quiz-backend.onrender.com/api/create', {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -131,7 +131,7 @@ export const createQuestion = {
         fetchCategory() {
             const token = sessionStorage.getItem('token');
             if (token != null) {
-                fetch('http://iu-quiz-backend.onrender.com/api/quiz_list', {
+                fetch('https://iu-quiz-backend.onrender.com/api/quiz_list', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
