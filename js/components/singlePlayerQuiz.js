@@ -10,7 +10,10 @@ export const singlePlayerQuiz = {
                         <li type="button" v-for="(answer, ansIndex) in getAnswersForQuestion(question.question_id)" :key="ansIndex"
                         :class="['list-group-item', {'bg-success': this.selectedAnswers[question.question_id]?.answerID === answer.answer_id && this.selectedAnswers[question.question_id]?.valid,
                         'bg-danger': this.selectedAnswers[question.question_id]?.answerID === answer.answer_id && !this.selectedAnswers[question.question_id]?.valid}]"
-                        @click.prevent="fetchDataAnswer(answer.question_id, answer.answer_id)" tabindex="0"
+                        @click.prevent="fetchDataAnswer(answer.question_id, answer.answer_id)"
+                        @keydown.enter.prevent="fetchDataAnswer(answer.question_id, answer.answer_id)"
+                        @keydown.space.prevent="fetchDataAnswer(answer.question_id, answer.answer_id)"
+                        tabindex="0"
                         :aria-pressed="this.selectedAnswers[question.question_id]?.answerID === answer.answer_id">
                             <span class="visually-hidden" v-if="ansIndex===0">Frage {{ index + 1 }}: {{ question.question }}</span>
                             <span class="visually-hidden">Antwort {{ ansIndex + 1 }}: </span>  
