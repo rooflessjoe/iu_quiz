@@ -9,7 +9,7 @@ export const singlePlayerQuiz = {
                 <h5>Frage {{ index + 1 }}: {{ question.question }}</h5>
                 <ul class="list-group">
                         <li v-for="(answer, ansIndex) in getAnswersForQuestion(question.question_id)" :key="ansIndex"
-                        :class="['list-group-item', {'bg-primary': this.selectedAnswers[question.question_id] === answer.answer_id}]"
+                        :class="['list-group-item', {'bg-success': this.selectedAnswers[question.question_id]?.answerID === answer.answer_id && this.selectedAnswers[question.question_id]?.valid}]"
                         @click.prevent="fetchDataAnswer(answer.question_id, answer.answer_id)">
                             <span>{{ answer.answer }}</span>
                         </li>
@@ -19,7 +19,7 @@ export const singlePlayerQuiz = {
         <div v-else>
             <p>Keine Fragen verfügbar.</p>
         </div>
-        <button class="btn btn-primary mt-4">Quiz beenden</button>
+        <button class="btn btn-primary mt-4" @click.prevent="console.log(this.selectedAnswers)">Quiz beenden</button>
     </div>
     `,
     data() {
@@ -55,7 +55,7 @@ fetchDataAnswer(questionID, answerID) {
             .then(data => {
                 this.valid = data;  // Benutzerdaten in Vue.js speichern
                 this.message = 'Daten erfolgreich geladen!';
-                this.selectedAnswers = {...this.selectedAnswers, [questionID]: answerID};
+                this.selectedAnswers = {...this.selectedAnswers, [questionID]: {answerID: answerID, valid: this.valid}};
             })
             .catch(error => {
                 console.error('Fehler beim Laden der Daten:', error);
