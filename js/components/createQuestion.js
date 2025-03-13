@@ -1,5 +1,5 @@
 export const createQuestion = {
-    props: {quizName},
+    props: ['quizName'],
     template: `
     <div class="container mt-5">
       <h2>Frage für {{quizName}} Quiz erstellen</h2>
