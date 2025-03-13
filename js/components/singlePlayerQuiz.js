@@ -7,12 +7,12 @@ export const singlePlayerQuiz = {
             <div v-for="(question, index) in quizData.questions" :key="index" class="mb-4">
                 <h5>Frage {{ index + 1 }}: {{ question.question }}</h5>
                 <ul class="list-group">
-                        <li role="radio" v-for="(answer, ansIndex) in getAnswersForQuestion(question.question_id)" :key="ansIndex"
+                        <li role="button" v-for="(answer, ansIndex) in getAnswersForQuestion(question.question_id)" :key="ansIndex"
                         :class="['list-group-item', {'bg-success': this.selectedAnswers[question.question_id]?.answerID === answer.answer_id && this.selectedAnswers[question.question_id]?.valid,
                         'bg-danger': this.selectedAnswers[question.question_id]?.answerID === answer.answer_id && !this.selectedAnswers[question.question_id]?.valid}]"
                         @click.prevent="fetchDataAnswer(answer.question_id, answer.answer_id)" tabindex="0"
-                        :aria-checked="this.selectedAnswers[question.question_id]?.answerID === answer.answer_id"
-                        :aria-label="{'Du hast die richtige Antwort ausgewählt': this.selectedAnswers[question.question_id]?.valid}">
+                        :aria-pressed="this.selectedAnswers[question.question_id]?.answerID === answer.answer_id"
+                        :aria-label="this.selectedAnswers[question.question_id]?.valid ? 'Du hast die richtige Antwort ausgewählt' : 'Diese Antwort ist nicht korrekt'">
                             <span class="visually-hidden" v-if="ansIndex===0">Frage {{ index + 1 }}: {{ question.question }}</span>  
                             <span class="visually-hidden">Antwort {{ ansIndex + 1 }}: </span>  
                             <span>{{ answer.answer }}</span>
