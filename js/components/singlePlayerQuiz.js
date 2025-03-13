@@ -13,11 +13,10 @@ export const singlePlayerQuiz = {
                         @click.prevent="fetchDataAnswer(answer.question_id, answer.answer_id)" tabindex="0"
                         :aria-pressed="this.selectedAnswers[question.question_id]?.answerID === answer.answer_id">
                             <span class="visually-hidden" v-if="ansIndex===0">Frage {{ index + 1 }}: {{ question.question }}</span>
-                            <span class="visually-hidden" v-if="this.selectedAnswers[question.question_id]?.valid">
                             <span class="visually-hidden">Antwort {{ ansIndex + 1 }}: </span>  
                             <span>{{ answer.answer }}</span>
                             <span class="visually-hidden" v-if="this.selectedAnswers[question.question_id]?.valid">Richtige Antwort</span>
-                            <span class="visually-hidden" v-if="!this.selectedAnswers[question.question_id]?.valid">Falsche Antwort</span>
+                            <span class="visually-hidden" v-else-if="!this.selectedAnswers[question.question_id]?.valid && this.selectedAnswers[question.question_id]?.valid !== null">Falsche Antwort</span>
                         </li>
                 </ul>
             </div>
