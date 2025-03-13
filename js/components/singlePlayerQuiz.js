@@ -18,8 +18,8 @@ export const singlePlayerQuiz = {
                             <span class="visually-hidden" v-if="ansIndex===0">Frage {{ index + 1 }}: {{ question.question }}</span>
                             <span class="visually-hidden">Antwort {{ ansIndex + 1 }}: </span>  
                             <span>{{ answer.answer }}</span>
-                            <span role="alert" class="visually-hidden" v-if="this.selectedAnswers[question.question_id]?.answerID === answer.answer_id && this.selectedAnswers[question.question_id]?.valid">Antwort: {{ answer.answer }} Richtige Antwort</span>
-                            <span role="alert" class="visually-hidden" v-else-if="this.selectedAnswers[question.question_id]?.answerID === answer.answer_id && !this.selectedAnswers[question.question_id]?.valid">Antwort: {{ answer.answer }} Falsche Antwort</span>
+                            <span role="alert" class="visually-hidden" v-if="this.selectedAnswers[question.question_id]?.answerID === answer.answer_id && this.selectedAnswers[question.question_id]?.valid">ist richtig</span>
+                            <span role="alert" class="visually-hidden" v-else-if="this.selectedAnswers[question.question_id]?.answerID === answer.answer_id && !this.selectedAnswers[question.question_id]?.valid">ist falsch</span>
                         </li>
                 </ul>
             </div>

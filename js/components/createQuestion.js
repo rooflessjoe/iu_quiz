@@ -1,8 +1,8 @@
 export const createQuestion = {
-    props: {},
+    props: {quizName},
     template: `
     <div class="container mt-5">
-      <h2>Frage erstellen</h2>
+      <h2>Frage für {{quizName}} Quiz erstellen</h2>
       <form @submit.prevent="submitQuestion">
 
         <div class="mb-3">
@@ -15,25 +15,6 @@ export const createQuestion = {
             placeholder="Geben Sie die Frage ein"
             required
           />
-        </div>
-
-        <div class="mb-3">
-          <label for="category" class="form-label">Kategorie</label>
-          <select
-            id="category"
-            class="form-select"
-            v-model="category"
-            required
-          >
-            <option disabled value="">Wählen Sie eine Kategorie</option>
-            <option
-              v-for="cat in categories"
-              :key="cat.quiz_name"
-              :value="cat.quiz_name"
-            >
-              {{ cat.quiz_name }}
-            </option>
-          </select>
         </div>
 
         <div class="mb-3" v-for="(answer, index) in answers" :key="index">
@@ -150,6 +131,6 @@ export const createQuestion = {
         }
     },
     mounted() {
-        this.fetchCategory();
+        //this.fetchCategory();
     }
 };

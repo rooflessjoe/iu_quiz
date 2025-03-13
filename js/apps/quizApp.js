@@ -1,5 +1,6 @@
 import { quizOverview } from '../components/quizOverview.js';
 import { singlePlayerQuiz } from '../components/singlePlayerQuiz.js';
+import { createQuestion } from '../components/createQuestion.js;'
 
 // Haupt-App
 const Quiz = Vue.createApp ({
@@ -12,7 +13,8 @@ const Quiz = Vue.createApp ({
     },
     components: {
         quizOverview,
-        singlePlayerQuiz
+        singlePlayerQuiz,
+        createQuestion
     },
     methods: {
 

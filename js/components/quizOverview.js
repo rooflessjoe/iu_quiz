@@ -11,7 +11,8 @@ export const quizOverview = {
                                 <span>{{ index + 1}}: {{ item.quiz_name }}</span>
                             </h5>
                             <p class="card-text">Teste Dein Wissen mit diesem spannenden Quiz.</p>
-                            <button class="btn btn-primary" :aria-label="item.quiz_name + ' Quiz starten'" @click.prevent="handleClick(index, item.quiz_name)">Quiz starten</button>
+                            <button id="DoQ" class="btn btn-primary" :aria-label="item.quiz_name + ' Quiz starten'" @click.prevent="handleClick(index, item.quiz_name, 'DoQ')">Quiz starten</button>
+                            <button id="AddQ" class="btn btn-primary" :aria-label="'Frage zu ' + item.quiz_name + ' Quiz hinzufügen'" @click.prevent="handleClick(index, item.quiz_name, 'AddQ')">Frage hinzufügen</button>
                         </div>
                     </div>
                 </div>
@@ -34,7 +35,7 @@ export const quizOverview = {
             quizList: null,
             loading: false,
             message: '',
-            error: null,
+            error: null
         };
 },
 
@@ -73,7 +74,7 @@ methods: {
 }
 },
 
-handleClick(index, item){
+handleClick(index, item, buttonID){
     const token = sessionStorage.getItem('token');
 
     fetch(`https://iu-quiz-backend.onrender.com/api/quiz?quizID=${index+1}&quizName=${item}`, {
@@ -85,7 +86,11 @@ handleClick(index, item){
     })
         .then(response => response.json())
         .then(data => {
-            this.$emit('change-component', {component: 'singlePlayerQuiz', props: {quizData: data, quizName: item} });  // Benutzerdaten in Vue.js speichern
+            if (buttonID === 'DoQ'){
+                this.$emit('change-component', {component: 'singlePlayerQuiz', props: {quizData: data, quizName: item} });
+            } else if (buttonID === 'AddQ'){
+                this.$emit('change-component', {component: 'createQuestion', props: {quizName: item} });  // Benutzerdaten in Vue.js speichern
+            }
             this.message = 'Daten erfolgreich geladen!';
         })
         .catch(error => {
@@ -96,7 +101,7 @@ handleClick(index, item){
         .finally(() => {
             this.loading = false;
         });
-}
+},
 },
 
 mounted() {
