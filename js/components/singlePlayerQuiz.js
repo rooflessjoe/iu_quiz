@@ -7,7 +7,7 @@ export const singlePlayerQuiz = {
             <div v-for="(question, index) in quizData.questions" :key="index" class="mb-4">
                 <h5>Frage {{ index + 1 }}: {{ question.question }}</h5>
                 <ul class="list-group">
-                        <li role="button" v-for="(answer, ansIndex) in getAnswersForQuestion(question.question_id)" :key="ansIndex"
+                        <li type="button" v-for="(answer, ansIndex) in getAnswersForQuestion(question.question_id)" :key="ansIndex"
                         :class="['list-group-item', {'bg-success': this.selectedAnswers[question.question_id]?.answerID === answer.answer_id && this.selectedAnswers[question.question_id]?.valid,
                         'bg-danger': this.selectedAnswers[question.question_id]?.answerID === answer.answer_id && !this.selectedAnswers[question.question_id]?.valid}]"
                         @click.prevent="fetchDataAnswer(answer.question_id, answer.answer_id)" tabindex="0"
