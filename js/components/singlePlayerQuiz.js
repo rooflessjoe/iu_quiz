@@ -2,14 +2,14 @@ export const singlePlayerQuiz = {
     props: ['quizData', 'quizName'],
     template:`
     <div class="container">
-        <button class="btn btn-primary" @click.prevent="changeComponent">Zurück</button>
         <h1 class="mb-4">Quiz: {{ quizName }}</h1>
         <div v-if="quizData.questions && quizData.questions.length">
             <div v-for="(question, index) in quizData.questions" :key="index" class="mb-4">
                 <h5>Frage {{ index + 1 }}: {{ question.question }}</h5>
                 <ul class="list-group">
-                        <li v-for="(answer, ansIndex) in getAnswersForQuestion(question.question_id)" :key="ansIndex"
-                        :class="['list-group-item', {'bg-success': this.selectedAnswers[question.question_id]?.answerID === answer.answer_id && this.selectedAnswers[question.question_id]?.valid}]"
+                        <li role="button" v-for="(answer, ansIndex) in getAnswersForQuestion(question.question_id)" :key="ansIndex"
+                        :class="['list-group-item', {'bg-success': this.selectedAnswers[question.question_id]?.answerID === answer.answer_id && this.selectedAnswers[question.question_id]?.valid
+                        'bg-danger': this.selectedAnswers[question.question_id]?.answerID === answer.answer_id && !this.selectedAnswers[question.question_id]?.valid}]"
                         @click.prevent="fetchDataAnswer(answer.question_id, answer.answer_id)">
                             <span>{{ answer.answer }}</span>
                         </li>
@@ -19,7 +19,7 @@ export const singlePlayerQuiz = {
         <div v-else>
             <p>Keine Fragen verfügbar.</p>
         </div>
-        <button class="btn btn-primary mt-4" @click.prevent="console.log(this.selectedAnswers)">Quiz beenden</button>
+        <button class="btn btn-primary mt-4" @click.prevent="changeComponent">Quiz beenden</button>
     </div>
     `,
     data() {
