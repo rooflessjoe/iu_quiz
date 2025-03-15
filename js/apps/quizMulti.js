@@ -647,10 +647,11 @@ function showRooms(rooms) {
                 });
                 tdAction.appendChild(btn);
             } else if (privateRooms){
-                const btn = tdAction.querySelector('button');
-                if (btn) {
-                    tdAction.removeChild(btn); // Entfernen Sie den Button
+                const existingBtn = tdAction.querySelector('button');
+                if (existingBtn) {
+                    tdAction.removeChild(existingBtn); // Entfernen Sie den Button
                 }
+                console.log('icon');
                 const icon = document.createElement('i');
                 icon.classList.add('bi', 'bi-lock');
                 tdAction.appendChild(icon);
