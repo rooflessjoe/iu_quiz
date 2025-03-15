@@ -604,10 +604,13 @@ function showRooms(rooms) {
             const tr = document.createElement('tr');
 
             const tdName = document.createElement('td');
+            tdName.classList.add('text-center', 'col-auto');
             tdName.textContent = room.room;
             const tdCategory = document.createElement('td');
+            tdCategory.classList.add('text-center', 'col-auto');
             tdCategory.textContent = room.category;
             const tdQuestionCount = document.createElement('td');
+            tdQuestionCount.classList.add('text-center', 'col-auto');
             tdQuestionCount.textContent = room.questionCount;
 
             // Creates Action Button to join room
