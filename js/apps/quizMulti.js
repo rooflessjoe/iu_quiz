@@ -485,7 +485,7 @@ socket.on('leftRoom',()=>{
     //shows Lobby and startQuizBtn again
     lobbyView.classList.remove('d-none');
     startQuizBtn.classList.remove('d-none');
-    privateRoomChk.classList.add('d-none');
+    privateRoomChk.classList.remove('d-none');
 
 
     //hides room, Scoreboard and question
@@ -513,7 +513,7 @@ socket.on('userJoinedRoom', (data)=>{
     //makes Start button visible for Host
     if (roomHost === getUsernameFromToken(token)) {
         startQuizBtn.classList.remove('d-none');
-        privateRoomChk.classList.add('d-none');
+        privateRoomChk.classList.remove('d-none');
     }else {
         startQuizBtn.classList.add('d-none');
         privateRoomChk.classList.add('d-none');
