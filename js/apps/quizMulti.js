@@ -615,6 +615,7 @@ function showRooms(rooms) {
 
             // Creates Action Button to join room
             const tdAction = document.createElement('td');
+            tdAction.classList.add('justify-content-center');
             const btn = document.createElement('button');
             btn.textContent = 'Beitreten';
             //adds EventListener to execute function to join room
