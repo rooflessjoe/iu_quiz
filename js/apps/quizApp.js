@@ -29,8 +29,17 @@ const Quiz = Vue.createApp ({
             if (savedComponent) {
               this.currentComponent = savedComponent; // Setze die aktuelle Komponente auf die gespeicherte
             }
+        },
+
+        handlePopState(){
+            sessionStorage.removeItem('currentComponent');
+            this.loadCurrentComponent();
         }
+    },
+    created() {
+        window.addEventListener('pageshow', this.handlePopState);
     }
-});
+    }
+);
 
 Quiz.mount('#quizApp');

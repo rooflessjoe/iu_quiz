@@ -15,6 +15,7 @@ export const Registration = {
                     </div>
                     <div v-if="!loading">
                         <button id="Registrieren" class="btn btn-primary mt-4" type="submit">Registrieren</button>
+                        <button id="Zurück" class="btn btn-primary mt-4" @click.prevent=changeComponent>Zürück</button>
                     </div>
                     <div v-else>
                         <button id="Registrieren" class="btn btn-primary mt-4" disabled>
@@ -74,6 +75,9 @@ export const Registration = {
                         .finally(() => {
                           this.loading = false;
                       });
+            },
+            changeComponent(){
+                this.$emit('change-component', 'Login');
             }
 }
 };
