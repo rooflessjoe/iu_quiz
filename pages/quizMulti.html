@@ -194,11 +194,13 @@
         <h2 id="room-title"></h2>
         <h3 id="room-host"></h3>
         <h4 id="current-question-count-display" class="d-none"></h4>
-        <button id="start-quiz" class="btn btn-primary">Quiz Starten</button>
-        <button id="leave-room" class="btn btn-danger">Raum verlassen</button>
-        <div class="form-check">
-            <input type="checkbox" id="private-room" class="form-check-input">
-            <label class="form-check-label" for="private-room">Privater Raum</label>
+        <div class="d-flex align-items-center">
+            <button id="start-quiz" class="btn btn-primary me-2">Quiz Starten</button>
+            <button id="leave-room" class="btn btn-danger me-2">Raum verlassen</button>
+            <div class="form-check form-switch">
+                <input type="checkbox" id="private-room" class="form-check-input">
+                <label class="form-check-label" for="private-room">Privater Raum</label>
+            </div>
         </div>
 
         <div class="chatQuizDisplay row">

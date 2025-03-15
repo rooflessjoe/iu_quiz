@@ -546,6 +546,7 @@ socket.on('newHost', (data)=> {
     if (gameHost === getUsernameFromToken(token)) {
         if (gameStatus !== 'active') {
             startQuizBtn.classList.remove('d-none');
+            privateRoomChk.classList.remove('d-none');
         }
         if (gameStatus === 'active') {
             nextQuestionButton.classList.remove('d-none');
