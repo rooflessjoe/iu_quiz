@@ -616,8 +616,6 @@ function showRooms(rooms) {
     roomList.innerHTML = '';
 
     const openRooms = rooms.filter(room => room.gameStatus === 'open');
-    const privateRooms = rooms.filter(room => room.roomStatus === 'closed');
-    const unPrivateRooms = rooms.filter(room => room.roomStatus === 'open');
 
     //filters the rooms by games "open" games
     if (openRooms && openRooms.length > 0) {
@@ -637,7 +635,11 @@ function showRooms(rooms) {
             // Creates Action Button to join room
             const tdAction = document.createElement('td');
             tdAction.classList.add('d-flex', 'justify-content-center');
-            if (unPrivateRooms){
+            if (room.roomStatus === 'open'){
+                const existingIc = tdAction.querySelector('i');
+                if (existingIc) {
+                    tdAction.removeChild(existingIc); // Entfernen Sie den Button
+                }
                 const btn = document.createElement('button');
                 btn.textContent = 'Beitreten';
                 //adds EventListener to execute function to join room
@@ -646,12 +648,11 @@ function showRooms(rooms) {
                     enterRoom(room.room);
                 });
                 tdAction.appendChild(btn);
-            } else if (privateRooms){
+            } else if (room.roomStatus === 'closed'){
                 const existingBtn = tdAction.querySelector('button');
                 if (existingBtn) {
                     tdAction.removeChild(existingBtn); // Entfernen Sie den Button
                 }
-                console.log('icon');
                 const icon = document.createElement('i');
                 icon.classList.add('bi', 'bi-lock');
                 tdAction.appendChild(icon);
