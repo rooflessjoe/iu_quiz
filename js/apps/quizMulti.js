@@ -231,7 +231,7 @@ socket.on('listOfCategories', (data) => {
 //handles list of rooms
 socket.on('roomList', ({ rooms }) => {
     showRooms(rooms);
-    console.log(rooms);
+    //console.log(rooms);
 });
 //handles list of users
 socket.on('userList', ({ users }) => {
@@ -326,14 +326,14 @@ socket.on('question', (data)=> {
         if (timerEnabled) {
             //if a timer is used parses number
             const parsedDuration = Number(timerDuration)
-            console.log('Timer gestartet mit Dauer:', parsedDuration);
+            //console.log('Timer gestartet mit Dauer:', parsedDuration);
 
             if (parsedDuration > 0) {
                 //starts the timer with duration from backend
                 stopTimer();
                 startTimer(parsedDuration, question_id);
             } else {
-                console.warn('Timer-Dauer ungültig:', timerDuration);
+                //console.warn('Timer-Dauer ungültig:', timerDuration);
             }
         }else{
             if (getUsernameFromToken() === gameHost){
@@ -356,7 +356,7 @@ socket.on('question', (data)=> {
     if (question_id !== undefined) {
         socket.emit('askForAnswers', { question_id });
     } else {
-        console.log('question_id ist undefined');
+        //console.log('question_id ist undefined');
     }
 })
 
@@ -383,7 +383,7 @@ socket.on('answers', (data) => {
                 }
                 const playerAnswer = event.target.getAttribute('data-answer-id');
                 const question_id = event.target.getAttribute('data-question-id');
-                console.log('Antwort-ID:', playerAnswer, 'Frage-ID:', question_id); // Logge die IDs
+                //console.log('Antwort-ID:', playerAnswer, 'Frage-ID:', question_id); // Logge die IDs
                 socket.emit('submitAnswer', { playerAnswer, question_id });
             })
 
@@ -411,7 +411,7 @@ socket.on('quizOver', (userScores, gameAnswersArray) => {
     // Sorts Data by score descending and adds the information to the Table
     if (userScores && userScores.length > 0) {
         userScores.sort((a, b) => b.score - a.score);
-        console.log('sorted data:', userScores);
+        //console.log('sorted data:', userScores);
         let rank = 0;
         userScores.forEach(u => {
             rank++;
@@ -431,11 +431,11 @@ socket.on('quizOver', (userScores, gameAnswersArray) => {
             scoreDisplay.appendChild(tr);
         });
     } else {
-        console.warn('Keine Daten für das Scoreboard erhalten');
+        //console.warn('Keine Daten für das Scoreboard erhalten');
     }
     //checks if gameAnswersArray has content and logs it
     if (gameAnswersArray) {
-        console.log(gameAnswersArray);
+        //console.log(gameAnswersArray);
         const answersSummary = document.querySelector('.player-answers-summary-display');
         if (!answersSummary) return;
 
@@ -579,10 +579,10 @@ function getUsernameFromToken() {
     //decodes Payload and returns the username
     try {
         const payload = JSON.parse(atob(token.split('.')[1]))
-        console.log('UsernameFromTokenFunction',payload.username)
+        //console.log('UsernameFromTokenFunction',payload.username)
         return payload.username
     } catch (error) {
-        console.error('Fehler beim Dekodieren des Tokens:', error)
+        //console.error('Fehler beim Dekodieren des Tokens:', error)
         return null
     }
 }
@@ -616,8 +616,8 @@ function showRooms(rooms) {
     roomList.innerHTML = '';
 
     const openRooms = rooms.filter(room => room.gameStatus === 'open');
-    const privateRooms = false//rooms.filter(room => room.roomStatus === 'closed');
-    const unPrivateRooms = true//rooms.filter(room => room.roomStatus === 'open');
+    const privateRooms = rooms.filter(room => room.roomStatus === 'closed');
+    const unPrivateRooms = rooms.filter(room => room.roomStatus === 'open');
 
     //filters the rooms by games "open" games
     if (openRooms && openRooms.length > 0) {
@@ -642,13 +642,14 @@ function showRooms(rooms) {
                 btn.textContent = 'Beitreten';
                 //adds EventListener to execute function to join room
                 btn.addEventListener('click', () => {
-                    console.log("Beitreten-Button geklickt:", room.room);
+                    //console.log("Beitreten-Button geklickt:", room.room);
                     enterRoom(room.room);
                 });
                 tdAction.appendChild(btn);
             } else if (privateRooms){
                 const icon = document.createElement('i');
                 icon.classList.add('bi', 'bi-lock');
+                tdAction.appendChild(icon);
             }
 
             tr.appendChild(tdName);
@@ -674,7 +675,7 @@ function showCategories(categories) {
     //creates the Select Element
     const select = document.getElementById('categorySelect');
     if (!select) {
-        console.error("Das Element mit der ID 'categorySelect' wurde nicht gefunden.");
+        //console.error("Das Element mit der ID 'categorySelect' wurde nicht gefunden.");
         return;
     }
 
