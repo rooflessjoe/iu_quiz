@@ -24,6 +24,9 @@ const startQuizBtn = document.getElementById('start-quiz');
 //Element to leave Room
 const leaveRoomBtn = document.getElementById('leave-room');
 
+//Element to leave Room
+const privateRoomChk = document.getElementById('private-room');
+
 // Displayelements to shows Questions, Answers and Scoreboard
 const questionDisplay = document.getElementById('question-display');
 const answerDisplay = document.getElementById('answer-display');
@@ -185,6 +188,7 @@ startQuizBtn.addEventListener('click', () => {
     socket.emit('startQuiz');
     startQuizBtn.classList.add('d-none');
     leaveRoomBtn.classList.add('d-none');
+    privateRoomChk.classList.add('d-none');
 
 });
 
@@ -294,6 +298,7 @@ socket.on('question', (data)=> {
     //hides startquiz and leaveRoom button
     startQuizBtn.classList.add('d-none');
     leaveRoomBtn.classList.add('d-none');
+    privateRoomChk.classList.add('d-none');
 
     //shows quiz area and scales down chat
     questionSection.classList.remove('d-none');
@@ -480,6 +485,7 @@ socket.on('leftRoom',()=>{
     //shows Lobby and startQuizBtn again
     lobbyView.classList.remove('d-none');
     startQuizBtn.classList.remove('d-none');
+    privateRoomChk.classList.add('d-none');
 
 
     //hides room, Scoreboard and question
@@ -507,8 +513,10 @@ socket.on('userJoinedRoom', (data)=>{
     //makes Start button visible for Host
     if (roomHost === getUsernameFromToken(token)) {
         startQuizBtn.classList.remove('d-none');
+        privateRoomChk.classList.add('d-none');
     }else {
         startQuizBtn.classList.add('d-none');
+        privateRoomChk.classList.add('d-none');
     }
     //hides Lobby, shows LeaveRoom/StartQuizBtn/Room, sets roomtitle and clear chat
     lobbyView.classList.add('d-none');
@@ -544,6 +552,7 @@ socket.on('newHost', (data)=> {
         }
     } else{
         startQuizBtn.classList.add('d-none');
+        privateRoomChk.classList.add('d-none');
     }
     // shows new Gamehost in Room view
     roomHostText.textContent = `Host: ${gameHost}`;
@@ -615,7 +624,7 @@ function showRooms(rooms) {
 
             // Creates Action Button to join room
             const tdAction = document.createElement('td');
-            tdAction.classList.add('justify-content-center');
+            tdAction.classList.add('d-flex, justify-content-center');
             const btn = document.createElement('button');
             btn.textContent = 'Beitreten';
             //adds EventListener to execute function to join room
