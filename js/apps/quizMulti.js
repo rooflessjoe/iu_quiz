@@ -616,8 +616,8 @@ function showRooms(rooms) {
     roomList.innerHTML = '';
 
     const openRooms = rooms.filter(room => room.gameStatus === 'open');
-    const privateRooms = rooms.filter(room => room.roomStatus === 'closed');
-    const unPrivateRooms = rooms.filter(room => room.roomStatus === 'open');
+    const privateRooms = false//rooms.filter(room => room.roomStatus === 'closed');
+    const unPrivateRooms = true//rooms.filter(room => room.roomStatus === 'open');
 
     //filters the rooms by games "open" games
     if (openRooms && openRooms.length > 0) {
@@ -645,12 +645,12 @@ function showRooms(rooms) {
                     console.log("Beitreten-Button geklickt:", room.room);
                     enterRoom(room.room);
                 });
+                tdAction.appendChild(btn);
             } else if (privateRooms){
                 const icon = document.createElement('i');
                 icon.classList.add('bi', 'bi-lock');
             }
 
-            tdAction.appendChild(btn);
             tr.appendChild(tdName);
             tr.appendChild(tdCategory);
             tr.appendChild(tdQuestionCount);
