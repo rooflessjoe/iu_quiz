@@ -66,6 +66,15 @@
                 <input type="number" id="timerInput" class="form-control" placeholder="Timer in s">
             </div>
 
+            <!-- Private Room -->
+            <div class="form-check form-check-inline col-auto">
+                <input type="checkbox" id="private-room" class="form-check-input" value="true">
+                <label class="form-check-label" for="private-room">Privater Raum</label>
+            </div>
+            <div id="private-room-password" class="col-12 col-md hidden">
+                <input type="text" id="private-room-password-input" class="form-control" placeholder="Passwort">
+            </div>
+
             <button type="submit" class="btn btn-success col-auto">Raum erstellen</button>
         </form>
 
@@ -96,10 +105,10 @@
         <div class="d-flex align-items-center">
             <button id="start-quiz" class="btn btn-primary me-2">Quiz Starten</button>
             <button id="leave-room" class="btn btn-danger me-2">Raum verlassen</button>
-            <div id="private-room" class="form-check form-switch">
-                <input type="checkbox" class="form-check-input">
-                <label class="form-check-label" for="private-room">Privater Raum</label>
-            </div>
+<!--            <div id="private-room" class="form-check form-switch">-->
+<!--                <input type="checkbox" class="form-check-input">-->
+<!--                <label class="form-check-label" for="private-room">Privater Raum</label>-->
+<!--            </div>-->
         </div>
 
         <div class="chatQuizDisplay row">

@@ -26,6 +26,8 @@ const leaveRoomBtn = document.getElementById('leave-room');
 
 //Element to leave Room
 const privateRoomChk = document.getElementById('private-room');
+const privateRoomPassword = document.getElementById('private-room-password');
+const privateRoomPasswordInput = document.getElementById('private-room-password-input');
 
 // Displayelements to shows Questions, Answers and Scoreboard
 const questionDisplay = document.getElementById('question-display');
@@ -50,6 +52,9 @@ const errorMessage = document.getElementById('error-message');
 
 //Timer deactivated when entering Lobby to create a room
 timerInput.disabled = true;
+
+//Password field deactivated when entering Lobby to create a Room
+privateRoomPasswordInput.disabled = true;
 
 //Timer variables
 let timer;
@@ -115,6 +120,8 @@ createRoomForm.addEventListener('submit', (e) => {
     const questionCount = questionCountInput.value.trim();
     const timerEnabled = timerEnabledInput.checked;
     const timerTime = timerInput.value.trim();
+    const privateRoomEnabled = privateRoomChk.checked;
+    const privateRoomPassword = privateRoomPasswordInput.value.trim();
 
     //chekcs if any invalid inputs are present and throws error
     let errorText = '';
@@ -126,10 +133,18 @@ createRoomForm.addEventListener('submit', (e) => {
             errorText = 'Zeit darf nicht 0 oder negativ sein'
         }
     }
+    if (privateRoomEnabled){
+        if (privateRoomPassword.length < 4){
+            errorText = 'Passwort muss mindestens 4 Zeichen lang sein'
+        }
+    }
 
     if (!roomName || !category || !questionCount) return;
 
     if(timerEnabled && !timerTime) {
+        return;
+    }
+    if(privateRoomEnabled && !privateRoomPassword) {
         return;
     }
 
@@ -148,6 +163,8 @@ createRoomForm.addEventListener('submit', (e) => {
         questionCount: questionCount,
         timerEnabled: timerEnabled,
         timer: timerTime,
+        privateRoomEnabled: privateRoomEnabled,
+        privateRoomPassword: privateRoomPassword
     });
 
     // clears the form
@@ -155,6 +172,7 @@ createRoomForm.addEventListener('submit', (e) => {
     categoryInput.value = '';
     questionCountInput.value = '';
     timerEnabledInput.value = '';
+    privateRoomPasswordInput.value = '';
 });
 
 //Enables/Disables the timer field in create form
@@ -167,6 +185,16 @@ timerEnabledInput.addEventListener('change', function () {
         timerEnterOption.classList.add('hidden');
         timerInput.disabled = true;
         timerInput.value = '';
+    }
+})
+privateRoomChk.addEventListener('change', function () {
+    if (this.checked) {
+        privateRoomPasswordInput.disabled = false;
+        privateRoomPassword.classList.remove('hidden');
+    }else{
+        privateRoomPasswordInput.disabled = true;
+        privateRoomPassword.classList.add('hidden');
+        privateRoomPasswordInput.value = '';
     }
 })
 
@@ -648,14 +676,40 @@ function showRooms(rooms) {
                     enterRoom(room.room);
                 });
                 tdAction.appendChild(btn);
-            } else if (room.roomStatus === 'closed'){
+            } else if (room.roomStatus === 'private'){
                 const existingBtn = tdAction.querySelector('button');
                 if (existingBtn) {
                     tdAction.removeChild(existingBtn); // Entfernen Sie den Button
                 }
-                const icon = document.createElement('i');
-                icon.classList.add('bi', 'bi-lock');
-                tdAction.appendChild(icon);
+                // Create input field and button for joining private room
+                const inputField = document.createElement('input');
+                inputField.type = 'password';
+                inputField.placeholder = 'Passwort eingeben';
+                inputField.classList.add('form-control', 'mr-2');
+                inputField.style.width = '50%';
+
+                const joinBtn = document.createElement('button');
+                joinBtn.textContent = 'Beitreten';
+                joinBtn.classList.add('btn', 'btn-primary');
+
+                // Adds EventListener to verify password and enter room
+                joinBtn.addEventListener('click', () => {
+                    const password = inputField.value;
+                    if (password) {
+                        // Hier kannst du die Logik hinzufügen, um das Passwort zu validieren
+                        if (password === room.privateRoomPassword) {
+                            enterRoom(room.room);
+                        }else {
+                            alert('Falsches Passwort');
+                            inputField.value = '';
+                        }
+                    } else {
+                        alert('Bitte Passwort eingeben');
+                    }
+                });
+
+                tdAction.appendChild(inputField);
+                tdAction.appendChild(joinBtn);
             }
 
             tr.appendChild(tdName);
