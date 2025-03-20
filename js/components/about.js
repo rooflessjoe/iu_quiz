@@ -1,7 +1,7 @@
 //Datenabfrage Test
 export const About = {
     template: `
-    <div class="container-fluid about-section">
+    <div class="container-fluid about-section overflow-auto">
     <div class="row justify-content-center">
       <div class="col-md-8">
         <h2 class="about-title">Über Uns</h2>
