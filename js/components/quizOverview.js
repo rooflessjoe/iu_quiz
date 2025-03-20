@@ -5,14 +5,14 @@ export const quizOverview = {
         <div v-if="!loading">
             <div class="row">
                 <div class="col-md-4" v-for="(item, index) in quizList" :key="item.quiz_name">
-                    <div class="card mb-4">
+                    <div class="card mb-4 content-box justify-content-center">
                         <div class="card-body">
                             <h5 class="card-title">Quiz
                                 <span>{{ index + 1}}: {{ item.quiz_name }}</span>
                             </h5>
                             <p class="card-text">Teste Dein Wissen mit diesem spannenden Quiz.</p>
-                            <button id="DoQ" class="btn btn-primary" :aria-label="item.quiz_name + ' Quiz starten'" @click.prevent="handleClick(index, item.quiz_name, 'DoQ')">Quiz starten</button>
-                            <button id="AddQ" class="btn btn-primary" :aria-label="'Frage zu ' + item.quiz_name + ' Quiz hinzufügen'" @click.prevent="handleClick(index, item.quiz_name, 'AddQ')">Frage hinzufügen</button>
+                            <button id="DoQ" class="btn btn-primary btn-custom" :aria-label="item.quiz_name + ' Quiz starten'" @click.prevent="handleClick(index, item.quiz_name, 'DoQ')">Quiz starten</button>
+                            <button id="AddQ" class="btn btn-primary btn-custom" :aria-label="'Frage zu ' + item.quiz_name + ' Quiz hinzufügen'" @click.prevent="handleClick(index, item.quiz_name, 'AddQ')">Frage hinzufügen</button>
                         </div>
                     </div>
                 </div>
