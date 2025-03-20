@@ -5,8 +5,8 @@ export const quizOverview = {
         <div v-if="!loading">
             <div class="row">
                 <div class="col-md-4" v-for="(item, index) in quizList" :key="item.quiz_name">
-                    <div class="card mb-4 content-box">
-                        <div class="card-body justify-content-center">
+                    <div class="card mb-4">
+                        <div class="card-body content-box">
                             <h5 class="card-title" style="hyphens: auto;">Quiz
                                 <span>{{ index + 1}}: {{ item.quiz_name }}</span>
                             </h5>

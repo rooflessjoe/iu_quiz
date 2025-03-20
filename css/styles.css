@@ -62,3 +62,9 @@ button {
   .btn-custom {
     margin: 10px; /* Abstand zwischen den Buttons */
   }
+
+  .card {
+    justify-content: center;
+    align-items: center;
+    text-align: center; /* Zentriert den Text */
+  }
