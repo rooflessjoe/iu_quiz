@@ -653,6 +653,11 @@ function showRooms(rooms) {
             const tdName = document.createElement('td');
             tdName.classList.add('text-center', 'col-auto');
             tdName.textContent = room.room;
+            if (room.roomStatus === 'private'){
+                const icon = document.createElement('i');
+                icon.classList.add('bi', 'bi-lock');
+                tdName.appendChild(icon);
+            }
             const tdCategory = document.createElement('td');
             tdCategory.classList.add('text-center', 'col-auto');
             tdCategory.textContent = room.category;
@@ -664,10 +669,6 @@ function showRooms(rooms) {
             const tdAction = document.createElement('td');
             tdAction.classList.add('d-flex', 'justify-content-center');
             if (room.roomStatus === 'open'){
-                const existingIc = tdAction.querySelector('i');
-                if (existingIc) {
-                    tdAction.removeChild(existingIc); // Entfernen Sie den Button
-                }
                 const btn = document.createElement('button');
                 btn.textContent = 'Beitreten';
                 //adds EventListener to execute function to join room
@@ -677,10 +678,6 @@ function showRooms(rooms) {
                 });
                 tdAction.appendChild(btn);
             } else if (room.roomStatus === 'private'){
-                const existingBtn = tdAction.querySelector('button');
-                if (existingBtn) {
-                    tdAction.removeChild(existingBtn); // Entfernen Sie den Button
-                }
                 // Create input field and button for joining private room
                 const inputField = document.createElement('input');
                 inputField.type = 'password';
