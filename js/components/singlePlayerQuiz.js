@@ -66,7 +66,7 @@ fetchDataAnswer(questionID, answerID) {
                 this.selectedAnswers = {...this.selectedAnswers, [questionID]: {answerID: answerID, valid: this.valid}};
             })
             .catch(error => {
-                console.error('Fehler beim Laden der Daten:', error);
+                //console.error('Fehler beim Laden der Daten:', error);
                 this.error = true;
                 this.message = 'Fehler beim Laden der Daten.';
             })

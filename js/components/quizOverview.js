@@ -1,6 +1,6 @@
 export const quizOverview = {
     template:`
-    <div class="container-fluid">
+    <div class="container-fluid overflow-auto">
         <h1 class="mb-4">Quiz Übersicht</h1>
         <div v-if="!loading">
             <div class="row">
@@ -62,7 +62,7 @@ methods: {
                 this.message = 'Daten erfolgreich geladen!';
             })
             .catch(error => {
-                console.error('Fehler beim Laden der Daten:', error);
+                //console.error('Fehler beim Laden der Daten:', error);
                 this.error = true;
                 this.message = 'Fehler beim Laden der Daten.';
             })
@@ -94,7 +94,7 @@ handleClick(index, item, buttonID){
             this.message = 'Daten erfolgreich geladen!';
         })
         .catch(error => {
-            console.error('Fehler beim Laden der Daten:', error);
+            //console.error('Fehler beim Laden der Daten:', error);
             this.error = true;
             this.message = 'Fehler beim Laden der Daten.';
         })

@@ -684,6 +684,7 @@ function showRooms(rooms) {
                 inputField.placeholder = 'Passwort eingeben';
                 inputField.classList.add('form-control', 'mr-2');
                 inputField.style.width = '50%';
+                inputField.required = true;
 
                 const joinBtn = document.createElement('button');
                 joinBtn.textContent = 'Beitreten';

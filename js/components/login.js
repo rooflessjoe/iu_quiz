@@ -63,7 +63,7 @@ export const Login = {
                             window.location.href = '../index.html';
                         })
                         .catch(error => {
-                            console.error('Anmeldedaten nicht korrekt', error);
+                            //console.error('Anmeldedaten nicht korrekt', error);
                             this.error = true;
                         })
                         .finally(() => {

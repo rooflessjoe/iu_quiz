@@ -24,7 +24,7 @@
     <script defer type="module" src="js/apps/mainApp.js"></script>
     <script>
         if (!sessionStorage.getItem('token')){
-                window.location.href = './pages/login.html';
+            window.location.href = './pages/login.html';
             }
     </script>
 </head>
@@ -59,7 +59,7 @@
                 </div>
             </div>
         </nav>
-        <div class="content py-3">
+        <div class="content">
             <component :is="currentComponent"></component>
         </div>
     </div>

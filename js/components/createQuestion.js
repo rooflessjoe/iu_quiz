@@ -86,11 +86,11 @@ export const createQuestion = {
                 })
                     .then(response => response.json())
                     .then(data => {
-                        console.log(data);
+                        //console.log(data);
                         this.message = data.message;
                     })
                     .catch(error => {
-                        console.error('Fehler beim Laden der Daten:', error);
+                        //console.error('Fehler beim Laden der Daten:', error);
                         this.error = true;
                         this.message = 'Fehler beim Laden der Daten.';
                     })
