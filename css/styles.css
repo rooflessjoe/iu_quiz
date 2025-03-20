@@ -64,7 +64,5 @@ button {
   }
 
   .card {
-    justify-content: center;
-    align-items: center;
     text-align: center; /* Zentriert den Text */
   }
