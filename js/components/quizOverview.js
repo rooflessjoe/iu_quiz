@@ -11,8 +11,8 @@ export const quizOverview = {
                                 <span>{{ index + 1}}: {{ item.quiz_name }}</span>
                             </h5>
                             <p class="card-text">Teste Dein Wissen mit diesem spannenden Quiz.</p>
-                            <button id="DoQ" class="btn btn-primary btn-custom" :aria-label="item.quiz_name + ' Quiz starten'" @click.prevent="handleClick(index, item.quiz_name, 'DoQ')">Quiz starten</button>
-                            <button id="AddQ" class="btn btn-primary btn-custom" :aria-label="'Frage zu ' + item.quiz_name + ' Quiz hinzufügen'" @click.prevent="handleClick(index, item.quiz_name, 'AddQ')">Frage hinzufügen</button>
+                            <button id="DoQ" class="btn btn-primary btn-custom" :aria-label="item.quiz_name + ' Quiz starten'" @click.prevent="handleClick(item.quiz_id, item.quiz_name, 'DoQ')">Quiz starten</button>
+                            <button id="AddQ" class="btn btn-primary btn-custom" :aria-label="'Frage zu ' + item.quiz_name + ' Quiz hinzufügen'" @click.prevent="handleClick(item.quiz_id, item.quiz_name, 'AddQ')">Frage hinzufügen</button>
                         </div>
                     </div>
                 </div>
@@ -74,10 +74,10 @@ methods: {
 }
 },
 
-handleClick(index, item, buttonID){
+handleClick(quiz_id, item, buttonID){
     const token = sessionStorage.getItem('token');
 
-    fetch(`https://iu-quiz-backend.onrender.com/api/quiz?quizID=${index+1}&quizName=${item}`, {
+    fetch(`https://iu-quiz-backend.onrender.com/api/quiz?quizID=${quiz_id}&quizName=${item}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`, // Token im Authorization-Header senden
