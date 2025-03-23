@@ -1,15 +1,13 @@
-import { Contact } from './components/contact.js';
-import { About } from './components/about.js';
-import { Home } from './components/home.js';
+import { About } from '../components/about.js';
+import { Home } from '../components/home.js';
 
 // Haupt-App
-const App = Vue.createApp ({
+const Main = Vue.createApp ({
     data() {
         return {
             menuItems: [
                 { name: 'Home', component: 'Home' },
                 { name: 'Über', component: 'About' },
-                { name: 'Kontakt', component: 'Contact' }
             ],
             currentComponent: Home,  // Standardmäßig Home anzeigen
             isLoggedIn: false
@@ -17,15 +15,19 @@ const App = Vue.createApp ({
     },
     components: {
         Home,
-        About,
-        Contact
+        About
     },
     methods: {
-        /*loadToken(){
-            const token = sessionStorage.getItem('token');
-        },*/
         checkLoginStatus() {
             this.isLoggedIn = !!sessionStorage.getItem('token');
+            if (!this.isLoggedIn){
+                window.location.href = './pages/login.html';
+            }
+        },
+
+        Logout() {
+            sessionStorage.removeItem('token');
+            this.checkLoginStatus();
         },
 
         setCurrentComponent(component) {
@@ -36,16 +38,14 @@ const App = Vue.createApp ({
         loadCurrentComponent() {
             const savedComponent = sessionStorage.getItem('currentComponent'); // Lade die gespeicherte Komponente
             if (savedComponent) {
-              this.currentComponent = savedComponent; // Setze die aktuelle Komponente auf die gespeicherte
+                this.currentComponent = savedComponent; // Setze die aktuelle Komponente auf die gespeicherte
             }
         }
     },
     created() {
         // Lade die aktuell gespeicherte Komponente beim Erstellen der App
-        this.loadCurrentComponent();
-        //this.loadToken();
         this.checkLoginStatus();
-      }
+    }
 });
 
-App.mount('#app');
+Main.mount('#mainApp');
